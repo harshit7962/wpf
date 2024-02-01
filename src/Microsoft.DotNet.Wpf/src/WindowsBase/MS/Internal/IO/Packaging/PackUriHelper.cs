@@ -34,6 +34,10 @@ namespace MS.Internal.IO.Packaging
     {
         #region Public Methods
 
+        public static Uri GetAbsoluteUri(string path)
+        {
+            return new Uri($"pack://application:,,,/PresentationFramework;component/{path}");
+        }
 
         #endregion Public Methods
 

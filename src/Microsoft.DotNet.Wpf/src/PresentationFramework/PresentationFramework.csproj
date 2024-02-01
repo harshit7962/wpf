@@ -420,6 +420,33 @@
     <Compile Include="System\Windows\Annotations\Storage\AnnotationStore.cs" />
     <Compile Include="System\Windows\Annotations\Storage\StoreContentChangedEventArgs.cs" />
     <Compile Include="System\Windows\Annotations\Storage\XmlStreamStore.cs" />
+
+    <Compile Include="System\Windows\Common\TypedEventHandler.cs" />
+    <Compile Include="System\Windows\Appearance\ThemeManager.cs" />
+    <Compile Include="System\Windows\DesignTime\Design.cs" />
+    <Compile Include="System\Windows\DesignTime\IntellisenseResources.cs" />
+    <Compile Include="System\Windows\DesignTime\IntellisenseResourcesBase.cs" />
+    <Compile Include="System\Windows\Helpers\ColorsHelper.cs" />
+    <Compile Include="System\Windows\Helpers\DesignMode.cs" />
+    <Compile Include="System\Windows\Appearance\ResourceDictionaryEx.cs" />
+    <Compile Include="System\Windows\Appearance\ThemeResources.cs" />
+    <Compile Include="System\Windows\Media\ColorPalette\ColorPalette.cs" />
+    <Compile Include="System\Windows\Media\ColorPalette\ColorPaletteEntry.cs" />
+    <Compile Include="System\Windows\Media\ColorPalette\IColorPaletteEntry.cs" />
+    <Compile Include="System\Windows\Media\Utils\ColorBlending.cs" />
+    <Compile Include="System\Windows\Media\Utils\ColorScale.cs" />
+    <Compile Include="System\Windows\Media\Utils\ColorTypes.cs" />
+    <Compile Include="System\Windows\Media\Utils\ColorUtils.cs" />
+    <Compile Include="System\Windows\Media\Utils\MathUtils.cs" />
+    <Compile Include="System\Windows\Helpers\UISettings.cs" />
+    <Compile Include="System\Windows\Helpers\OSVersionHelper.cs" />
+    <Compile Include="System\Windows\Helpers\MergedDictionariesHelper.cs" />
+    <Compile Include="System\Windows\Helpers\ThemeResourceHelper.cs" />
+    <Compile Include="System\Windows\Helpers\MenuDropAlignmentHelper.cs" />
+    <Compile Include="System\Windows\Helpers\PackagedAppHelper.cs" />
+    <Compile Include="System\Windows\Helpers\ResourceDictionaryHelper.cs" />
+    <Compile Include="System\Windows\ColorPaletteResources.cs" />
+    
     <Compile Include="System\Windows\Application.cs" />
     <Compile Include="System\Windows\AttachedPropertyBrowsableForChildrenAttribute.cs" />
     <Compile Include="System\Windows\Automation\Peers\ButtonAutomationPeer.cs" />
@@ -1375,6 +1402,25 @@
     <Compile Include="System\Windows\Window.cs" />
     <Compile Include="System\Windows\WindowCollection.cs" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <CsWinRTEmbedded>true</CsWinRTEmbedded>
+    <CsWinRTWindowsMetadata>10.0.22621.2428</CsWinRTWindowsMetadata>
+    <CsWinRTIncludes>
+      Windows.Foundation;
+      Windows.UI.Color;
+      Windows.UI.IColors;
+      Windows.UI.ViewManagement.HandPreference;
+      Windows.UI.ViewManagement.IUISettings;
+      Windows.UI.ViewManagement.UIColorType;
+      Windows.UI.ViewManagement.UIElementType;
+      Windows.UI.ViewManagement.UISettings;
+    </CsWinRTIncludes>
+    <CsWinRTExcludes>
+      Windows.Foundation.Diagnostics;
+      Windows.Foundation.PropertyType;
+    </CsWinRTExcludes>
+  </PropertyGroup>
 
   <ItemGroup>
     <MicrosoftPrivateWinFormsReference Include="Accessibility" />
