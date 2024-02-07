@@ -215,7 +215,6 @@ namespace System.Windows
             {
                 ObserveWindowWhenLoaded(window, backdrop, updateAccents, forceBackgroundReplace);
             }
-            
         }
 
         private static void ObserveLoadedWindow(
@@ -261,14 +260,44 @@ namespace System.Windows
             };
         }
 
-        
+        /// <summary>
+        /// Unwatches the window and removes the hook to receive messages from the system.
+        /// </summary>
+        public static void UnWatch(Window window)
+        {
+            if (window is null)
+            {
+                return;
+            }
+
+            if (!window.IsLoaded)
+            {
+                throw new InvalidOperationException("You cannot unwatch a window that is not yet loaded.");
+            }
+
+            IntPtr hWnd =
+                (hWnd = new WindowInteropHelper(window).Handle) == IntPtr.Zero
+                    ? throw new InvalidOperationException("Could not get window handle.")
+                    : hWnd;
+
+            ObservedWindow observedWindow = _observedWindows.FirstOrDefault(x => x.Handle == hWnd);
+
+            if (observedWindow is null)
+            {
+                return;
+            }
+
+            observedWindow.RemoveHook(WndProc);
+
+            _ = _observedWindows.Remove(observedWindow);
+        }
 
         private static void ObserveLoadedHandle(ObservedWindow observedWindow)
         {
             if (!observedWindow.HasHook)
             {
                 observedWindow.AddHook(WndProc);
-                // _observedWindows.Add(observedWindow);
+                _observedWindows.Add(observedWindow);
             }
         }
     }
