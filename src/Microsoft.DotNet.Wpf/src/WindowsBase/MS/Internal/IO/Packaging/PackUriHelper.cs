@@ -39,6 +39,11 @@ namespace MS.Internal.IO.Packaging
             return new Uri($"pack://application:,,,/PresentationFramework;component/{path}");
         }
 
+        public static Uri GetThemeUri(string path)
+        {
+            return new Uri($"pack://application:,,,/PresentationFramework.Win11;component/resources/theme/{path}");
+        }
+
         #endregion Public Methods
 
         #region Internal Properties

@@ -446,6 +446,10 @@
     <Compile Include="System\Windows\Helpers\PackagedAppHelper.cs" />
     <Compile Include="System\Windows\Helpers\ResourceDictionaryHelper.cs" />
     <Compile Include="System\Windows\ColorPaletteResources.cs" />
+    <Compile Include="System\Windows\WindowBackdropType.cs" />
+    <Compile Include="System\Windows\Appearance\ObservedWindow.cs" />
+    <Compile Include="System\Windows\Interop\Dwapi.cs" />
+    <Compile Include="System\Windows\Interop\Libraries.cs" />
     
     <Compile Include="System\Windows\Application.cs" />
     <Compile Include="System\Windows\AttachedPropertyBrowsableForChildrenAttribute.cs" />
@@ -1507,6 +1511,7 @@
   <ItemGroup>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="$(SystemConfigurationConfigurationManagerPackageVersion)" />
     <PackageReference Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
+    <PackageReference Include="Microsoft.Win32.SystemEvents" Version="4.5.0" />
     <PackageReference Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
   </ItemGroup>
 

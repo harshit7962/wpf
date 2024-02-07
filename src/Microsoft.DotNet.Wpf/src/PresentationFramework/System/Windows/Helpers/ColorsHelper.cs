@@ -3,15 +3,21 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Interop;
 using System.Windows.Threading;
 using System.Windows.Appearance;
 using Microsoft.Win32;
 using System.Windows.Media.ColorPalette;
+using System.Windows.Controls;
+using System.Collections.Generic;
+using System.Linq;
+using Standard;
 
 namespace System.Windows
 {
-    internal class ColorsHelper : DispatcherObject
+    public class ColorsHelper : DispatcherObject
     {
+        private static readonly ICollection<ObservedWindow> _observedWindows = new List<ObservedWindow>();
         private const string AccentKey = "SystemAccentColor";
         private const string AccentDark1Key = "SystemAccentColorDark1";
         private const string AccentDark2Key = "SystemAccentColorDark2";
@@ -24,19 +30,20 @@ namespace System.Windows
 
         private readonly ResourceDictionary _colors = new ResourceDictionary();
 #pragma warning disable 0649
-        private UISettings _uiSettings;
+        private static UISettings _uiSettings;
 #pragma warning restore 0649
 
-        private Color _systemBackground;
-        private Color _systemAccent;
+        private static Color _systemBackground;
+        private static Color _systemAccent;
 
-        // private ColorsHelper()
-        // {
-        //     if (SystemColorsSupported)
-        //     {
-        //         ListenToSystemColorChanges();
-        //     }
-        // }
+        static ColorsHelper()
+        {
+            if (SystemColorsSupported)
+            {
+                _systemBackground = UISettings.SystemBackground;
+                _systemAccent = UISettings.SystemAccent;
+            }
+        }
 
         public static bool SystemColorsSupported { get; } = OSVersionHelper.IsWindows10OrGreater;
 
@@ -44,25 +51,24 @@ namespace System.Windows
 
         public ResourceDictionary Colors => _colors;
 
-        public ApplicationTheme? SystemTheme { get; private set; }
+        public static ApplicationTheme? SystemTheme { get; private set; }
 
         public Color SystemAccentColor => _systemAccent;
 
-        public event EventHandler SystemThemeChanged;
-
-        public event EventHandler SystemAccentColorChanged;
+        public static event EventHandler SystemThemeChanged;
+        public static event EventHandler SystemAccentColorChanged;
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void FetchSystemAccentColors()
         {
             var uiSettings = new UISettings();
-            _colors[AccentKey] = uiSettings.GetColorValue(UIColorType.Accent).ToColor();
-            _colors[AccentDark1Key] = uiSettings.GetColorValue(UIColorType.AccentDark1).ToColor();
-            _colors[AccentDark2Key] = uiSettings.GetColorValue(UIColorType.AccentDark2).ToColor();
-            _colors[AccentDark3Key] = uiSettings.GetColorValue(UIColorType.AccentDark3).ToColor();
-            _colors[AccentLight1Key] = uiSettings.GetColorValue(UIColorType.AccentLight1).ToColor();
-            _colors[AccentLight2Key] = uiSettings.GetColorValue(UIColorType.AccentLight2).ToColor();
-            _colors[AccentLight3Key] = uiSettings.GetColorValue(UIColorType.AccentLight3).ToColor();
+            // _colors[AccentKey] = uiSettings.GetColorValue(UIColorType.Accent).ToColor();
+            // _colors[AccentDark1Key] = uiSettings.GetColorValue(UIColorType.AccentDark1).ToColor();
+            // _colors[AccentDark2Key] = uiSettings.GetColorValue(UIColorType.AccentDark2).ToColor();
+            // _colors[AccentDark3Key] = uiSettings.GetColorValue(UIColorType.AccentDark3).ToColor();
+            // _colors[AccentLight1Key] = uiSettings.GetColorValue(UIColorType.AccentLight1).ToColor();
+            // _colors[AccentLight2Key] = uiSettings.GetColorValue(UIColorType.AccentLight2).ToColor();
+            // _colors[AccentLight3Key] = uiSettings.GetColorValue(UIColorType.AccentLight3).ToColor();
         }
 
         public void SetAccent(Color accent)
@@ -113,41 +119,41 @@ namespace System.Windows
             }
         }
 
-        // [MethodImpl(MethodImplOptions.NoInlining)]
-        // private void ListenToSystemColorChanges()
-        // {
-        //     _uiSettings = new UISettings();
-        //     _uiSettings.ColorValuesChanged += OnColorValuesChanged;
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private void ListenToSystemColorChanges()
+        {
+            _uiSettings = new UISettings();
+            _uiSettings.ColorValuesChanged += OnColorValuesChanged;
 
-        //     if (PackagedAppHelper.IsPackagedApp)
-        //     {
-        //         SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
-        //     }
+            if (PackagedAppHelper.IsPackagedApp)
+            {
+                SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
+            }
 
-        //     _systemBackground = _uiSettings.GetColorValue(UIColorType.Background).ToColor();
-        //     _systemAccent = _uiSettings.GetColorValue(UIColorType.Accent).ToColor();
-        //     UpdateSystemAppTheme();
-        // }
-
-        // [MethodImpl(MethodImplOptions.NoInlining)]
-        // private void OnColorValuesChanged(UISettings sender, object args)
-        // {
-        //     Dispatcher.BeginInvoke(UpdateColorValues);
-        // }
-
-        // [MethodImpl(MethodImplOptions.NoInlining)]
-        // private void OnUserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
-        // {
-        //     if (e.Category == UserPreferenceCategory.General)
-        //     {
-        //         UpdateColorValues();
-        //     }
-        // }
+            _systemBackground = UISettings.GetColorValue(UIColorType.Background).ToColor();
+            _systemAccent = UISettings.GetColorValue(UIColorType.Accent).ToColor();
+            UpdateSystemAppTheme();
+        }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private void UpdateColorValues()
+        private static void OnColorValuesChanged(UISettings sender, object args)
         {
-            var background = _uiSettings.GetColorValue(UIColorType.Background).ToColor();
+            Dispatcher.CurrentDispatcher.BeginInvoke(UpdateColorValues);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private static void OnUserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            if (e.Category == UserPreferenceCategory.General)
+            {
+                UpdateColorValues();
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private static void UpdateColorValues()
+        {
+            var background = UISettings.SystemBackground;
             if (_systemBackground != background)
             {
                 _systemBackground = background;
@@ -155,7 +161,7 @@ namespace System.Windows
                 SystemThemeChanged?.Invoke(null, EventArgs.Empty);
             }
 
-            var accent = _uiSettings.GetColorValue(UIColorType.Accent).ToColor();
+            var accent = UISettings.SystemAccent;
             if (_systemAccent != accent)
             {
                 _systemAccent = accent;
@@ -163,7 +169,7 @@ namespace System.Windows
             }
         }
 
-        private void UpdateSystemAppTheme()
+        private static void UpdateSystemAppTheme()
         {
             SystemTheme = IsDarkBackground(_systemBackground) ? ApplicationTheme.Dark : ApplicationTheme.Light;
         }
@@ -171,6 +177,99 @@ namespace System.Windows
         private static bool IsDarkBackground(Color color)
         {
             return color.R + color.G + color.B < (255 * 3 - color.R - color.G - color.B);
+        }
+
+        // Implementing SystemThemeWatcher
+        private static IntPtr WndProc(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == (int)WM.WININICHANGE)
+            {
+                Dispatcher.CurrentDispatcher.BeginInvoke(UpdateColorValues);
+            }
+
+            if(PackagedAppHelper.IsPackagedApp) 
+            {
+                SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
+            }
+
+            return IntPtr.Zero;
+        }
+
+        public static void Watch(
+            Window window,
+            WindowBackdropType backdrop = WindowBackdropType.Mica,
+            bool updateAccents = true,
+            bool forceBackgroundReplace = false
+        ) 
+        {
+            if (window is null) 
+            {
+                return;
+            }
+
+            if (window.IsLoaded)
+            {
+                ObserveLoadedWindow(window, backdrop, updateAccents, forceBackgroundReplace);
+            }
+            else
+            {
+                ObserveWindowWhenLoaded(window, backdrop, updateAccents, forceBackgroundReplace);
+            }
+            
+        }
+
+        private static void ObserveLoadedWindow(
+            Window window,
+            WindowBackdropType backdrop,
+            bool updateAccents,
+            bool forceBackgroundReplace
+        )
+        {
+            IntPtr hWnd =
+                (hWnd = new WindowInteropHelper(window).Handle) == IntPtr.Zero
+                    ? throw new InvalidOperationException("Could not get window handle.")
+                    : hWnd;
+
+            if (hWnd == IntPtr.Zero)
+            {
+                throw new InvalidOperationException("Window handle cannot be empty");
+            }
+
+            ObserveLoadedHandle(new ObservedWindow(hWnd, backdrop, forceBackgroundReplace, updateAccents));
+        }
+
+        private static void ObserveWindowWhenLoaded(
+            Window window,
+            WindowBackdropType backdrop,
+            bool updateAccents,
+            bool forceBackgroundReplace
+        )
+        {
+            window.Loaded += (_, _) =>
+            {
+                IntPtr hWnd =
+                    (hWnd = new WindowInteropHelper(window).Handle) == IntPtr.Zero
+                        ? throw new InvalidOperationException("Could not get window handle.")
+                        : hWnd;
+
+                if (hWnd == IntPtr.Zero)
+                {
+                    throw new InvalidOperationException("Window handle cannot be empty");
+                }
+
+                ObserveLoadedHandle(new ObservedWindow(hWnd, backdrop, forceBackgroundReplace, updateAccents));
+            };
+        }
+
+        
+
+        private static void ObserveLoadedHandle(ObservedWindow observedWindow)
+        {
+            if (!observedWindow.HasHook)
+            {
+                observedWindow.AddHook(WndProc);
+                // _observedWindows.Add(observedWindow);
+            }
         }
     }
 }

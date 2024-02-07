@@ -698,7 +698,7 @@ namespace System.Windows.Appearance
 
         public static ThemeManager Current { get; } = new ThemeManager();
 
-        internal bool UsingSystemTheme => ColorsHelper.SystemColorsSupported && ApplicationTheme == null;
+        internal bool UsingSystemTheme => ColorsHelper.SystemColorsSupported;
 
         internal bool UsingSystemAccentColor => ColorsHelper.SystemColorsSupported && AccentColor == null;
 
@@ -731,12 +731,12 @@ namespace System.Windows.Appearance
 
         private static ApplicationTheme GetDefaultAppTheme()
         {
-            return ColorsHelper.Current.SystemTheme.GetValueOrDefault(System.Windows.Appearance.ApplicationTheme.Light);
+            return ColorsHelper.SystemTheme.GetValueOrDefault(System.Windows.Appearance.ApplicationTheme.Light);
         }
 
         private static Uri GetDefaultSource(string theme)
         {
-            return PackUriHelper.GetAbsoluteUri($"ThemeResources/{theme}.xaml");
+            return PackUriHelper.GetThemeUri($"{theme}.xaml");
         }
 
         private static ResourceDictionary FindDictionary(ResourceDictionary parent, Uri source)
@@ -786,8 +786,8 @@ namespace System.Windows.Appearance
                 var appResources = Application.Current.Resources;
                 appResources.MergedDictionaries.RemoveAll<IntellisenseResourcesBase>();
 
-                ColorsHelper.Current.SystemThemeChanged += OnSystemThemeChanged;
-                ColorsHelper.Current.SystemAccentColorChanged += OnSystemAccentColorChanged;
+                ColorsHelper.SystemThemeChanged += OnSystemThemeChanged;
+                ColorsHelper.SystemAccentColorChanged += OnSystemAccentColorChanged;
                 appResources.MergedDictionaries.Insert(0, ColorsHelper.Current.Colors);
 
                 UpdateActualAccentColor();
