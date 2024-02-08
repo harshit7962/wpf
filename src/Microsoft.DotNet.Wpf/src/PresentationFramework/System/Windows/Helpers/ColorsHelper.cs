@@ -45,6 +45,14 @@ namespace System.Windows
             }
         }
 
+        private ColorsHelper()
+        {
+            if(SystemColorsSupported)
+            {
+                UpdateSystemAppTheme();
+            }
+        }
+
         public static bool SystemColorsSupported { get; } = OSVersionHelper.IsWindows10OrGreater;
 
         public static ColorsHelper Current { get; } = new ColorsHelper();
