@@ -42,16 +42,17 @@ namespace System.Windows
             {
                 _systemBackground = UISettings.SystemBackground;
                 _systemAccent = UISettings.SystemAccent;
-            }
-        }
-
-        private ColorsHelper()
-        {
-            if(SystemColorsSupported)
-            {
                 UpdateSystemAppTheme();
             }
         }
+
+        // private ColorsHelper()
+        // {
+        //     if(SystemColorsSupported)
+        //     {
+        //         UpdateSystemAppTheme();
+        //     }
+        // }
 
         public static bool SystemColorsSupported { get; } = OSVersionHelper.IsWindows10OrGreater;
 
