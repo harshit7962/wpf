@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Text;
 using MS.Win32;
 using MS.Internal;
-
+using Microsoft.Win32;
 namespace MS.Win32
 {
     // Implementation note:
@@ -269,14 +269,16 @@ namespace MS.Win32
                 // Success
                 themeName = themeNameSB.ToString();
                 themeName = Path.GetFileNameWithoutExtension(themeName);
+                var currentTheme = Registry.GetValue(
+                "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes",
+                "CurrentTheme",
+                "aero.theme"
+                ) as string
+                ?? String.Empty;
 
                 if (String.Compare(themeName, "aero", StringComparison.OrdinalIgnoreCase) == 0 && Utilities.IsOSWindows11OrNewer)
                 {
                     themeName = "Win11";
-                }
-                else if (String.Compare(themeName, "dark", StringComparison.OrdinalIgnoreCase) == 0 && Utilities.IsOSWindows11OrNewer)
-                {
-                    themeName = "Win11.Dark";
                 }
                 else if (String.Compare(themeName, "aero", StringComparison.OrdinalIgnoreCase) == 0 && Utilities.IsOSWindows8OrNewer)
                 {
@@ -305,6 +307,10 @@ namespace MS.Win32
 #endif
 
                 themeColor = themeColorSB.ToString();
+                if(currentTheme.Contains("dark.theme") && Utilities.IsOSWindows11OrNewer && themeColor == "NormalColor")
+                {
+                    themeColor = "Dark";
+                }
             }
             else
             {
