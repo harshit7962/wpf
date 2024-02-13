@@ -1412,6 +1412,11 @@ namespace System.Windows
                     }
 
                     SystemParameters.InvalidateWindowFrameThicknessProperties();
+                    SystemColors.InvalidateCache();
+                    SystemParameters.InvalidateCache();
+                    SystemParameters.InvalidateDerivedThemeRelatedProperties();
+                    OnThemeChanged();
+                    InvalidateResources(false);
                     break;
 
                 case WindowMessage.WM_TABLET_ADDED:

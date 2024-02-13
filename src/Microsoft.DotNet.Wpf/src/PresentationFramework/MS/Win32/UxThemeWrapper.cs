@@ -270,11 +270,19 @@ namespace MS.Win32
                 themeName = themeNameSB.ToString();
                 themeName = Path.GetFileNameWithoutExtension(themeName);
 
-                if(String.Compare(themeName, "aero", StringComparison.OrdinalIgnoreCase) == 0 && Utilities.IsOSWindows8OrNewer)
+                if (String.Compare(themeName, "aero", StringComparison.OrdinalIgnoreCase) == 0 && Utilities.IsOSWindows11OrNewer)
+                {
+                    themeName = "Win11";
+                }
+                else if (String.Compare(themeName, "dark", StringComparison.OrdinalIgnoreCase) == 0 && Utilities.IsOSWindows11OrNewer)
+                {
+                    themeName = "Win11.Dark";
+                }
+                else if (String.Compare(themeName, "aero", StringComparison.OrdinalIgnoreCase) == 0 && Utilities.IsOSWindows8OrNewer)
                 {
                     themeName = "Aero2";
                 }
-
+     
 #if DEBUG
                 // for debugging, config file can override the theme name
                 NameValueCollection appSettings = null;
