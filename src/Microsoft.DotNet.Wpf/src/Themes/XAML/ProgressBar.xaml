@@ -320,8 +320,8 @@ See the LICENSE file in the project root for more information.
                             <Grid Name="TemplateRoot">
                                 <Border
                                     Margin="1,1,1,1"
-                                    Background="{DynamicResource ProgressBarIndeterminateBackground}"
-                                    BorderBrush="{DynamicResource ProgressBarIndeterminateBackground}"
+                                    Background="#00FFFFFF"
+                                    BorderBrush="#00FFFFFF"
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     CornerRadius="4" />
                                 <Rectangle Name="PART_Track" Margin="1,1,1,1" />
@@ -351,8 +351,8 @@ See the LICENSE file in the project root for more information.
     <Style x:Key="{x:Type ProgressBar}"
            TargetType="{x:Type ProgressBar}">
         <Setter Property="Foreground" Value="#559ce4" />
-        <Setter Property="Background" Value="#72000000" />
-        <Setter Property="BorderBrush" Value="#0F000000" />
+        <Setter Property="Background" Value="#8BFFFFFF" />
+        <Setter Property="BorderBrush" Value="#12FFFFFF" />
         <Setter Property="Height" Value="4" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -386,8 +386,8 @@ See the LICENSE file in the project root for more information.
                             <Grid Name="TemplateRoot">
                                 <Border
                                     Margin="1,1,1,1"
-                                    Background="{DynamicResource ProgressBarIndeterminateBackground}"
-                                    BorderBrush="{DynamicResource ProgressBarIndeterminateBackground}"
+                                    Background="#00FFFFFF"
+                                    BorderBrush="#00FFFFFF"
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     CornerRadius="4" />
                                 <Rectangle Name="PART_Track" Margin="1,1,1,1" />
