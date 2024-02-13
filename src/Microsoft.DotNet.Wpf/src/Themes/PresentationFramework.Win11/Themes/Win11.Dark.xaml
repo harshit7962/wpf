@@ -136,5 +136,70 @@ To automatically copy the files, set the environment variable
         </Setter>
     </Style>
 
+    <Style x:Key="{x:Type ProgressBar}"
+           TargetType="{x:Type ProgressBar}">
+        <Setter Property="Foreground" Value="#559ce4" />
+        <Setter Property="Background" Value="#8BFFFFFF" />
+        <Setter Property="BorderBrush" Value="#12FFFFFF" />
+        <Setter Property="Height" Value="4" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ProgressBar}">
+                    <Grid Name="TemplateRoot" SnapsToDevicePixels="True">
+                        <Border
+                            Margin="1,1,1,1"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="1.5" />
+                        <Rectangle Name="PART_Track" Margin="1,1,1,1" />
+                        <Border
+                            Name="PART_Indicator"
+                            Margin="1,1,1,1"
+                            HorizontalAlignment="Left"
+                            Background="{TemplateBinding Foreground}"
+                            CornerRadius="2" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsIndeterminate" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ProgressBar}">
+                            <Grid Name="TemplateRoot">
+                                <Border
+                                    Margin="1,1,1,1"
+                                    Background="#00FFFFFF"
+                                    BorderBrush="#00FFFFFF"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4" />
+                                <Rectangle Name="PART_Track" Margin="1,1,1,1" />
+                                <Decorator
+                                    Name="PART_Indicator"
+                                    Margin="1,1,1,1"
+                                    HorizontalAlignment="Left">
+                                    <Grid Name="Animation" ClipToBounds="True">
+                                        <Border
+                                            Name="PART_GlowRect"
+                                            Width="200"
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Background="{TemplateBinding Foreground}"
+                                            CornerRadius="2" />
+                                    </Grid>
+                                </Decorator>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
 
 </ResourceDictionary>
