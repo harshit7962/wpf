@@ -4,7 +4,7 @@ The .NET Foundation licenses this file to you under the MIT license.
 See the LICENSE file in the project root for more information.
 ==================================================================-->
 
-<!-- [[Aero.NormalColor, Aero2.NormalColor, AeroLite.NormalColor, Classic,Luna.NormalColor,Luna.Homestead,Luna.Metallic,Royale.NormalColor, Win11.NormalColor]] -->
+<!-- [[Aero.NormalColor, Aero2.NormalColor, AeroLite.NormalColor, Classic,Luna.NormalColor,Luna.Homestead,Luna.Metallic,Royale.NormalColor]] -->
    
     <!--=================================================================
         Window
@@ -75,3 +75,9 @@ See the LICENSE file in the project root for more information.
             </Trigger>
         </Style.Triggers>
     </Style>
+
+
+<!-- [[Win11.NormalColor]] -->
+
+
+<!-- [[Win11.Dark]] -->

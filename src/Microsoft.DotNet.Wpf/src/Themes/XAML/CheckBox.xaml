@@ -4,7 +4,7 @@ The .NET Foundation licenses this file to you under the MIT license.
 See the LICENSE file in the project root for more information.
 ==================================================================-->
 
-<!-- [[Aero.NormalColor, Classic, Luna.Homestead, Luna.Metallic, Luna.NormalColor, Royale.NormalColor, Win11.NormalColor]] -->
+<!-- [[Aero.NormalColor, Classic, Luna.Homestead, Luna.Metallic, Luna.NormalColor, Royale.NormalColor, Win11.NormalColor, Win11.Dark]] -->
 
     <Style x:Key="CheckRadioFocusVisual">
         <Setter Property="Control.Template">
@@ -62,7 +62,7 @@ See the LICENSE file in the project root for more information.
         </Setter>
     </Style>
 
-<!-- [[Win11.NormalColor]] -->
+<!-- [[Win11.NormalColor, Win11.Dark]] -->
     <!--=================================================================
         CheckBox
     ==================================================================-->

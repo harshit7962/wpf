@@ -12,6 +12,7 @@
     <ThemeXaml Include="..\PresentationFramework.Luna\Themes\Luna.Metallic.xaml" />
     <ThemeXaml Include="..\PresentationFramework.Royale\Themes\Royale.NormalColor.xaml" />
     <ThemeXaml Include="..\PresentationFramework.Win11\Themes\Win11.NormalColor.xaml" />
+    <ThemeXaml Include="..\PresentationFramework.Win11\Themes\Win11.Dark.xaml" />
   </ItemGroup>
 
   <ItemGroup>
