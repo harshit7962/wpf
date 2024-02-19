@@ -46,48 +46,40 @@ namespace System.Windows
             }
         }
 
-        // private ColorsHelper()
-        // {
-        //     if(SystemColorsSupported)
-        //     {
-        //         UpdateSystemAppTheme();
-        //     }
-        // }
+        internal static bool SystemColorsSupported { get; } = OSVersionHelper.IsWindows10OrGreater;
 
-        public static bool SystemColorsSupported { get; } = OSVersionHelper.IsWindows10OrGreater;
+        internal static ColorsHelper Current { get; } = new ColorsHelper();
 
-        public static ColorsHelper Current { get; } = new ColorsHelper();
+        internal ResourceDictionary Colors => _colors;
 
-        public ResourceDictionary Colors => _colors;
+        internal static ApplicationTheme? SystemTheme { get; private set; }
 
-        public static ApplicationTheme? SystemTheme { get; private set; }
+        internal Color SystemAccentColor => _systemAccent;
 
-        public Color SystemAccentColor => _systemAccent;
-
-        public static event EventHandler SystemThemeChanged;
-        public static event EventHandler SystemAccentColorChanged;
+        internal static event EventHandler SystemThemeChanged;
+        internal static event EventHandler SystemAccentColorChanged;
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public void FetchSystemAccentColors()
+        internal void FetchSystemAccentColors()
         {
-            var uiSettings = new UISettings();
-            // _colors[AccentKey] = uiSettings.GetColorValue(UIColorType.Accent).ToColor();
-            // _colors[AccentDark1Key] = uiSettings.GetColorValue(UIColorType.AccentDark1).ToColor();
-            // _colors[AccentDark2Key] = uiSettings.GetColorValue(UIColorType.AccentDark2).ToColor();
-            // _colors[AccentDark3Key] = uiSettings.GetColorValue(UIColorType.AccentDark3).ToColor();
-            // _colors[AccentLight1Key] = uiSettings.GetColorValue(UIColorType.AccentLight1).ToColor();
-            // _colors[AccentLight2Key] = uiSettings.GetColorValue(UIColorType.AccentLight2).ToColor();
-            // _colors[AccentLight3Key] = uiSettings.GetColorValue(UIColorType.AccentLight3).ToColor();
+            // var uiSettings = new UISettings();
+            _colors[AccentKey] = UISettings.GetColorValue(UIColorType.Accent);
+            _colors[AccentDark1Key] = UISettings.GetColorValue(UIColorType.AccentDark1);
+            _colors[AccentDark2Key] = UISettings.GetColorValue(UIColorType.AccentDark2);
+            _colors[AccentDark3Key] = UISettings.GetColorValue(UIColorType.AccentDark3);
+            _colors[AccentLight1Key] = UISettings.GetColorValue(UIColorType.AccentLight1);
+            _colors[AccentLight2Key] = UISettings.GetColorValue(UIColorType.AccentLight2);
+            _colors[AccentLight3Key] = UISettings.GetColorValue(UIColorType.AccentLight3);
         }
 
-        public void SetAccent(Color accent)
+        internal void SetAccent(Color accent)
         {
             Color color = accent;
             _colors[AccentKey] = color;
             UpdateShades(_colors, color);
         }
 
-        public static void UpdateShades(ResourceDictionary colors, Color accent)
+        internal static void UpdateShades(ResourceDictionary colors, Color accent)
         {
             var palette = new ColorPalette(11, accent);
             colors[AccentDark1Key] = palette.Palette[6].ActiveColor;
@@ -98,7 +90,7 @@ namespace System.Windows
             colors[AccentLight3Key] = palette.Palette[2].ActiveColor;
         }
 
-        public static void RemoveShades(ResourceDictionary colors)
+        internal static void RemoveShades(ResourceDictionary colors)
         {
             colors.Remove(AccentDark3Key);
             colors.Remove(AccentDark2Key);
@@ -108,12 +100,12 @@ namespace System.Windows
             colors.Remove(AccentLight3Key);
         }
 
-        public void UpdateBrushes(ResourceDictionary themeDictionary)
+        internal void UpdateBrushes(ResourceDictionary themeDictionary)
         {
             UpdateBrushes(themeDictionary, _colors);
         }
 
-        public static void UpdateBrushes(ResourceDictionary themeDictionary, ResourceDictionary colors)
+        internal static void UpdateBrushes(ResourceDictionary themeDictionary, ResourceDictionary colors)
         {
             foreach (DictionaryEntry entry in themeDictionary)
             {
@@ -139,8 +131,8 @@ namespace System.Windows
                 SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
             }
 
-            _systemBackground = UISettings.GetColorValue(UIColorType.Background).ToColor();
-            _systemAccent = UISettings.GetColorValue(UIColorType.Accent).ToColor();
+            _systemBackground = UISettings.GetColorValue(UIColorType.Background);
+            _systemAccent = UISettings.GetColorValue(UIColorType.Accent);
             UpdateSystemAppTheme();
         }
 
