@@ -1477,7 +1477,11 @@ namespace System.Windows
             }
         }
 
-        internal static bool isThemeDark()
+        /// <summary>
+        /// Checks the value in registry for current system theme
+        /// </summary>
+        /// <returns>Boolean value representing if theme in registry is of type Dark</returns>
+        internal static bool IsThemeDark()
         {
             var currentTheme = ThemeColorization.GetNewTheme();
             
@@ -1489,7 +1493,11 @@ namespace System.Windows
             return false;
         }
 
-        internal static bool isThemeHighContrast()
+        /// <summary>
+        /// Checks the value in registry for current system theme
+        /// </summary>
+        /// <returns>Boolean value representing if theme in registry is of type High Contrast</returns>
+        internal static bool IsThemeHighContrast()
         {
             string currentTheme = ThemeColorization.GetNewTheme();
 

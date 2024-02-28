@@ -1972,7 +1972,7 @@ namespace System.Windows
         /// </summary>
         protected virtual void OnBackdropTypeChanged(WindowBackdropType oldValue, WindowBackdropType newValue)
         {
-            if (Application.isThemeHighContrast())
+            if (Application.IsThemeHighContrast())
             {
                 newValue = WindowBackdropType.None;
             }
