@@ -14,7 +14,7 @@
     >
 
     <Thickness x:Key="ButtonPadding">11,5,11,6</Thickness>
-    <Thickness x:Key="ButtonBorderThemeThickness">1</Thickness>
+    <Thickness x:Key="ButtonBorderThemeThickness">0,0,0,1</Thickness>
     <Thickness x:Key="ButtonIconMargin">0,0,8,0</Thickness>
 
     <Style x:Key="DefaultUiButtonStyle" TargetType="{x:Type ButtonBase}">
@@ -93,6 +93,7 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsPressed" Value="True" />
                             </MultiTrigger.Conditions>
+                            <Setter TargetName="ContentBorder" Property="BorderThickness" Value="0" />
                             <Setter TargetName="ContentBorder" Property="Background" Value="{DynamicResource ButtonBackgroundPressed}" />
                             <Setter TargetName="ContentBorder" Property="BorderBrush" Value="{DynamicResource ButtonBorderBrushPressed}" />
                             <Setter TargetName="ContentPresenter" Property="TextElement.Foreground" Value="{DynamicResource ButtonForegroundPressed}" />
@@ -180,6 +181,7 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsPressed" Value="True" />
                             </MultiTrigger.Conditions>
+                            <Setter Property="BorderThickness" Value="0" />
                             <Setter TargetName="ContentBorder" Property="Background" Value="{DynamicResource AccentButtonBackgroundPressed}" />
                             <Setter TargetName="ContentBorder" Property="BorderBrush" Value="{DynamicResource AccentControlElevationBorderBrush}" />
                             <Setter TargetName="ContentPresenter" Property="TextElement.Foreground" Value="{DynamicResource AccentButtonForeground}" />
