@@ -239,14 +239,14 @@
 
     <!--  Elevation border brushes  -->
 
-    <LinearGradientBrush x:Key="ControlElevationBorderBrush" MappingMode="Absolute" StartPoint="0,0" EndPoint="0,3">
+   <LinearGradientBrush x:Key="ControlElevationBorderBrush" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="0,1">
         <LinearGradientBrush.RelativeTransform>
             <ScaleTransform CenterY="0.5" ScaleY="-1" />
         </LinearGradientBrush.RelativeTransform>
-        <LinearGradientBrush.GradientStops>
-            <GradientStop Offset="0.33" Color="{StaticResource ControlStrokeColorSecondary}" />
-            <GradientStop Offset="1.0" Color="{StaticResource ControlStrokeColorDefault}" />
-        </LinearGradientBrush.GradientStops>
+        <GradientStop Offset="0" Color="{StaticResource ControlStrokeColorSecondary}"/>
+        <GradientStop Offset="0.1" Color="{StaticResource ControlStrokeColorDefault}"/>
+        <GradientStop Offset="0.9" Color="{StaticResource ControlStrokeColorDefault}"/>
+        <GradientStop Offset="1" Color="{StaticResource ControlStrokeColorDefault}"/>
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="CircleElevationBorderBrush" MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="0,1">
@@ -543,6 +543,7 @@
     <!--  RadioButton  -->
     <SolidColorBrush x:Key="RadioButtonForeground" Color="{StaticResource TextFillColorPrimary}" />
     <SolidColorBrush x:Key="RadioButtonForegroundDisabled" Color="{StaticResource TextFillColorDisabled}" />
+    <SolidColorBrush x:Key="RadioButtonBackgroundDisabled" Color="{StaticResource TextFillColorDisabled}" />
     <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedStroke" Color="{DynamicResource SystemAccentColorPrimary}" />
     <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedStrokePointerOver" Color="{DynamicResource SystemAccentColorPrimary}" Opacity="0.9" />
     <SolidColorBrush x:Key="RadioButtonCheckGlyphFill" Color="{StaticResource TextOnAccentFillColorPrimary}" />
