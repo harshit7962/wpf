@@ -78,7 +78,7 @@ internal static class WindowBackdrop
     /// </summary>
     /// <param name="hWnd">Window handle.</param>
     /// <returns><see langword="true"/> if the operation was successfull, otherwise <see langword="false"/>.</returns>
-    internal static bool ApplyBackdrop(IntPtr hWnd, WindowBackdropType backdropType)
+    private static bool ApplyBackdrop(IntPtr hWnd, WindowBackdropType backdropType)
     {
         if (hWnd == IntPtr.Zero)
         {
