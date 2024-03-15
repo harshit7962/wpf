@@ -115,19 +115,19 @@ internal static class WindowBackdrop
         switch (backdropType)
         {
             case WindowBackdropType.Auto:
-                return ApplyDwmwWindowAttrubute(hWnd, Dwmapi.DWMSBT.DWMSBT_AUTO);
+                return ApplyDwmWindowAttrubute(hWnd, Dwmapi.DWMSBT.DWMSBT_AUTO);
 
             case WindowBackdropType.Mica:
-                return ApplyDwmwWindowAttrubute(hWnd, Dwmapi.DWMSBT.DWMSBT_MAINWINDOW);
+                return ApplyDwmWindowAttrubute(hWnd, Dwmapi.DWMSBT.DWMSBT_MAINWINDOW);
 
             case WindowBackdropType.Acrylic:
-                return ApplyDwmwWindowAttrubute(hWnd, Dwmapi.DWMSBT.DWMSBT_TRANSIENTWINDOW);
+                return ApplyDwmWindowAttrubute(hWnd, Dwmapi.DWMSBT.DWMSBT_TRANSIENTWINDOW);
 
             case WindowBackdropType.Tabbed:
-                return ApplyDwmwWindowAttrubute(hWnd, Dwmapi.DWMSBT.DWMSBT_TABBEDWINDOW);
+                return ApplyDwmWindowAttrubute(hWnd, Dwmapi.DWMSBT.DWMSBT_TABBEDWINDOW);
         }
 
-        return ApplyDwmwWindowAttrubute(hWnd, Dwmapi.DWMSBT.DWMSBT_DISABLE);
+        return ApplyDwmWindowAttrubute(hWnd, Dwmapi.DWMSBT.DWMSBT_DISABLE);
     }
 
     /// <summary>
@@ -214,7 +214,7 @@ internal static class WindowBackdrop
         var windowSource = HwndSource.FromHwnd(windowHandle);
 
         // Remove background from client area
-        if (windowSource?.Handle != IntPtr.Zero && windowSource?.CompositionTarget != null)
+        if (windowSource?.CompositionTarget != null)
         {
             windowSource.CompositionTarget.BackgroundColor = Colors.Transparent;
         }
@@ -287,7 +287,7 @@ internal static class WindowBackdrop
         return true;
     }
 
-    private static bool ApplyDwmwWindowAttrubute(IntPtr hWnd, Dwmapi.DWMSBT dwmSbt)
+    private static bool ApplyDwmWindowAttrubute(IntPtr hWnd, Dwmapi.DWMSBT dwmSbt)
     {
         if (hWnd == IntPtr.Zero)
         {
@@ -324,11 +324,6 @@ internal static class WindowBackdrop
         );
 
         return new HRESULT((uint)dwmApiResult) == HRESULT.S_OK;
-    }
-
-    private static bool ApplyLegacyAcrylicBackdrop(IntPtr hWnd)
-    {
-        throw new NotImplementedException();
     }
 
     private static bool RestoreContentBackground(IntPtr hWnd)
@@ -369,7 +364,7 @@ internal static class WindowBackdrop
 
     private static Brush GetFallbackBackgroundBrush()
     {
-        if(ThemeColorization.IsThemeHighContrast()) 
+        if(SystemParameters.HighContrast) 
         {
             string currentTheme = ThemeColorization.GetSystemTheme();
             if(currentTheme.Contains("hc1"))

@@ -14,6 +14,7 @@
 
 using System.Runtime.InteropServices;
 using MS.Win32;
+using Standard;
 
 namespace System.Windows.Interop;
 
@@ -25,127 +26,23 @@ namespace System.Windows.Interop;
 internal static class Dwmapi
 {
 
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct POINT
-    {
-        /// <summary>
-        /// Specifies the x-coordinate of the point.
-        /// </summary>
-        public int x;
+    // [StructLayout(LayoutKind.Sequential)]
+    // internal struct POINT
+    // {
+    //     /// <summary>
+    //     /// Specifies the x-coordinate of the point.
+    //     /// </summary>
+    //     public int x;
 
-        /// <summary>
-        /// Specifies the y-coordinate of the point.
-        /// </summary>
-        public int y;
-    }
+    //     /// <summary>
+    //     /// Specifies the y-coordinate of the point.
+    //     /// </summary>
+    //     public int y;
+    // }
+
     /// <summary>
     /// Cloaked flags describing why a window is cloaked.
     /// </summary>
-    internal enum DWM_CLOAKED
-    {
-        DWM_CLOAKED_APP = 0x00000001,
-        DWM_CLOAKED_SHELL = 0x00000002,
-        DWM_CLOAKED_INHERITED = 0x00000004
-    }
-
-    /// <summary>
-    /// GT_*
-    /// </summary>
-    internal enum GESTURE_TYPE
-    {
-        GT_PEN_TAP = 0,
-        GT_PEN_DOUBLETAP = 1,
-        GT_PEN_RIGHTTAP = 2,
-        GT_PEN_PRESSANDHOLD = 3,
-        GT_PEN_PRESSANDHOLDABORT = 4,
-        GT_TOUCH_TAP = 5,
-        GT_TOUCH_DOUBLETAP = 6,
-        GT_TOUCH_RIGHTTAP = 7,
-        GT_TOUCH_PRESSANDHOLD = 8,
-        GT_TOUCH_PRESSANDHOLDABORT = 9,
-        GT_TOUCH_PRESSANDTAP = 10,
-    }
-
-    /// <summary>
-    /// DWMTWR_* Tab window requirements.
-    /// </summary>
-    internal enum DWM_TAB_WINDOW_REQUIREMENTS
-    {
-        /// <summary>
-        /// This result means the window meets all requirements requested.
-        /// </summary>
-        DWMTWR_NONE = 0x0000,
-
-        /// <summary>
-        /// In some configurations, admin/user setting or mode of the system means that windows won't be tabbed
-        /// This requirement says that the system/mode must implement tabbing and if it does not
-        /// nothing can be done to change this.
-        /// </summary>
-        DWMTWR_IMPLEMENTED_BY_SYSTEM = 0x0001,
-
-        /// <summary>
-        /// The window has an owner or parent so is ineligible for tabbing.
-        /// </summary>
-        DWMTWR_WINDOW_RELATIONSHIP = 0x0002,
-
-        /// <summary>
-        /// The window has styles that make it ineligible for tabbing.
-        /// <para>To be eligible windows must:</para>
-        /// <para>Have the WS_OVERLAPPEDWINDOW (WS_CAPTION, WS_THICKFRAME, etc.) styles set.</para>
-        /// <para>Not have WS_POPUP, WS_CHILD or WS_DLGFRAME set.</para>
-        /// <para>Not have WS_EX_TOPMOST or WS_EX_TOOLWINDOW set.</para>
-        /// </summary>
-        DWMTWR_WINDOW_STYLES = 0x0004,
-
-        // The window has a region (set using SetWindowRgn) making it ineligible.
-        DWMTWR_WINDOW_REGION = 0x0008,
-
-        /// <summary>
-        /// The window is ineligible due to its Dwm configuration.
-        /// It must not extended its client area into the title bar using DwmExtendFrameIntoClientArea
-        /// It must not have DWMWA_NCRENDERING_POLICY set to DWMNCRP_ENABLED
-        /// </summary>
-        DWMTWR_WINDOW_DWM_ATTRIBUTES = 0x0010,
-
-        /// <summary>
-        /// The window is ineligible due to it's margins, most likely due to custom handling in WM_NCCALCSIZE.
-        /// The window must use the default window margins for the non-client area.
-        /// </summary>
-        DWMTWR_WINDOW_MARGINS = 0x0020,
-
-        /// <summary>
-        /// The window has been explicitly opted out by setting DWMWA_TABBING_ENABLED to FALSE.
-        /// </summary>
-        DWMTWR_TABBING_ENABLED = 0x0040,
-
-        /// <summary>
-        /// The user has configured this application to not participate in tabbing.
-        /// </summary>
-        DWMTWR_USER_POLICY = 0x0080,
-
-        /// <summary>
-        /// The group policy has configured this application to not participate in tabbing.
-        /// </summary>
-        DWMTWR_GROUP_POLICY = 0x0100,
-
-        /// <summary>
-        /// This is set if app compat has blocked tabs for this window. Can be overridden per window by setting
-        /// DWMWA_TABBING_ENABLED to TRUE. That does not override any other tabbing requirements.
-        /// </summary>
-        DWMTWR_APP_COMPAT = 0x0200
-    }
-
-    /// <summary>
-    /// Flags used by the DwmSetWindowAttribute function to specify the rounded corner preference for a window.
-    /// </summary>
-    [Flags]
-    internal enum DWM_WINDOW_CORNER_PREFERENCE
-    {
-        DEFAULT = 0,
-        DONOTROUND = 1,
-        ROUND = 2,
-        ROUNDSMALL = 3
-    }
 
     /// <summary>
     /// Backdrop types.
