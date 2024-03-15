@@ -57,18 +57,7 @@ internal static class WindowBackdrop
             return ApplyBackdrop(windowHandle, backdropType);
         }
 
-        window.Loaded += (sender, _) =>
-        {
-            IntPtr windowHandle =
-                new WindowInteropHelper(sender as System.Windows.Window ?? null)?.Handle ?? IntPtr.Zero;
-
-            if (windowHandle == IntPtr.Zero)
-            {
-                return;
-            }
-
-            ApplyBackdrop(windowHandle, backdropType);
-        };
+        window.Loaded += (sender, e) => ApplyBackdropOnLoad(sender, e, backdropType);
 
         return true;
     }
@@ -159,11 +148,6 @@ internal static class WindowBackdrop
 
         _ = RestoreContentBackground(hWnd);
 
-        if (hWnd == IntPtr.Zero)
-        {
-            return false;
-        }
-
         if (!NativeMethods.IsWindow(hWnd))
         {
             return false;
@@ -240,20 +224,23 @@ internal static class WindowBackdrop
             return EnableGlassFrame(windowHandle, backdropType);
         }
 
-        window.Loaded += (sender, _) =>
-        {
-            IntPtr windowHandle =
-                new WindowInteropHelper(sender as System.Windows.Window ?? null)?.Handle ?? IntPtr.Zero;
-
-            if (windowHandle == IntPtr.Zero)
-            {
-                return;
-            }
-
-            EnableGlassFrame(windowHandle, backdropType);
-        };
+        window.Loaded += (sender, e) => EnableGlassFrameOnLoad(sender, e, backdropType);
 
         return true;
+    }
+
+    private static void EnableGlassFrameOnLoad(object sender, RoutedEventArgs e, WindowBackdropType backdropType)
+    {
+        IntPtr windowHandle =
+            new WindowInteropHelper(sender as System.Windows.Window ?? null)?.Handle ?? IntPtr.Zero;
+
+        if (windowHandle == IntPtr.Zero)
+        {
+            return;
+        }
+
+        EnableGlassFrame(windowHandle, backdropType);
+        (sender as System.Windows.Window).Loaded -= (sender, e) => EnableGlassFrameOnLoad(sender, e, backdropType);
     }
 
     private static bool EnableGlassFrame(IntPtr hWnd, WindowBackdropType backdropType)
@@ -285,6 +272,20 @@ internal static class WindowBackdrop
         } 
 
         return true;
+    }
+
+    private static void ApplyBackdropOnLoad(object sender, RoutedEventArgs e, WindowBackdropType backdropType)
+    {
+        IntPtr windowHandle =
+            new WindowInteropHelper(sender as System.Windows.Window ?? null)?.Handle ?? IntPtr.Zero;
+
+        if (windowHandle == IntPtr.Zero)
+        {
+            return;
+        }
+
+        ApplyBackdrop(windowHandle, backdropType);
+        (sender as System.Windows.Window).Loaded -= (sender, e) => ApplyBackdropOnLoad(sender, e, backdropType);
     }
 
     private static bool ApplyDwmwWindowAttrubute(IntPtr hWnd, Dwmapi.DWMSBT dwmSbt)
@@ -399,6 +400,4 @@ internal static class WindowBackdrop
             return new SolidColorBrush(Color.FromArgb(0xFF, 0xFA, 0xFA, 0xFA));
         }
     }
-
-
 }
