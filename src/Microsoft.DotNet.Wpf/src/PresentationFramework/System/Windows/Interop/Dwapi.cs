@@ -25,25 +25,6 @@ namespace System.Windows.Interop;
 /// </summary>
 internal static class Dwmapi
 {
-
-    // [StructLayout(LayoutKind.Sequential)]
-    // internal struct POINT
-    // {
-    //     /// <summary>
-    //     /// Specifies the x-coordinate of the point.
-    //     /// </summary>
-    //     public int x;
-
-    //     /// <summary>
-    //     /// Specifies the y-coordinate of the point.
-    //     /// </summary>
-    //     public int y;
-    // }
-
-    /// <summary>
-    /// Cloaked flags describing why a window is cloaked.
-    /// </summary>
-
     /// <summary>
     /// Backdrop types.
     /// </summary>
@@ -74,58 +55,6 @@ internal static class Dwmapi
         /// Sets blurred wallpaper effect, like Mica without tint.
         /// </summary>
         DWMSBT_TABBEDWINDOW = 4
-    }
-
-    /// <summary>
-    /// Non-client rendering policy attribute values
-    /// </summary>
-    internal enum DWMNCRENDERINGPOLICY
-    {
-        /// <summary>
-        /// Enable/disable non-client rendering based on window style
-        /// </summary>
-        DWMNCRP_USEWINDOWSTYLE,
-
-        /// <summary>
-        /// Disabled non-client rendering; window style is ignored
-        /// </summary>
-        DWMNCRP_DISABLED,
-
-        /// <summary>
-        /// Enabled non-client rendering; window style is ignored
-        /// </summary>
-        DWMNCRP_ENABLED,
-
-        /// <summary>
-        /// Sentinel value.
-        /// </summary>
-        DWMNCRP_LAST
-    }
-
-    /// <summary>
-    /// Values designating how Flip3D treats a given window.
-    /// </summary>
-    internal enum DWMFLIP3DWINDOWPOLICY
-    {
-        /// <summary>
-        /// Hide or include the window in Flip3D based on window style and visibility.
-        /// </summary>
-        DWMFLIP3D_DEFAULT,
-
-        /// <summary>
-        /// Display the window under Flip3D and disabled.
-        /// </summary>
-        DWMFLIP3D_EXCLUDEBELOW,
-
-        /// <summary>
-        /// Display the window above Flip3D and enabled.
-        /// </summary>
-        DWMFLIP3D_EXCLUDEABOVE,
-
-        /// <summary>
-        /// Sentinel value.
-        /// </summary>
-        DWMFLIP3D_LAST
     }
 
     /// <summary>
@@ -311,23 +240,6 @@ internal static class Dwmapi
         /// ColorizationOpaqueBlend.
         /// </summary>
         public bool fOpaque;
-    }
-
-    /// <summary>
-    /// Defines a data type used by the Desktop Window Manager (DWM) APIs. It represents a generic ratio and is used for different purposes and units even within a single API.
-    /// </summary>
-    [StructLayout(LayoutKind.Sequential)]
-    public struct UNSIGNED_RATIO
-    {
-        /// <summary>
-        /// The ratio numerator.
-        /// </summary>
-        public uint uiNumerator;
-
-        /// <summary>
-        /// The ratio denominator.
-        /// </summary>
-        public uint uiDenominator;
     }
 
     /// <summary>
