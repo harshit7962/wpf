@@ -120,7 +120,7 @@ internal static class ThemeColorization
             UpdateApplicationResources(new Uri("pack://application:,,,/PresentationFramework.FluentWindows;component/Resources/Theme/" + "dark.xaml", UriKind.Absolute));
             WindowBackgroundManager.UpdateBackground(currentWindow, ApplicationTheme.Dark, WindowBackdropType.Mica, false);
         }
-        else if(SystemParameters.HighContrast && Utility.IsOSWindows11OrNewer) 
+        else if(SystemParameters.HighContrast && Utility.IsOSWindows11OrNewer)
         {
             if(themeToApply.Contains("hcwhite"))
             {
@@ -178,9 +178,19 @@ internal static class ThemeColorization
 
     internal static bool IsThemeDark()
     {
-        return Registry.GetValue(
-            _appThemeKey, 
-            "AppsUseLightTheme", 
-            null) as int? == 0 ? true : false;
+        var appsUseLightTheme = Registry.GetValue(
+                                _appThemeKey,
+                                "AppsUseLightTheme",
+                                null) as int?;
+
+        if (appsUseLightTheme == null)
+        {
+            return Registry.GetValue(
+                _appThemeKey,
+                "SystemUsesLightTheme",
+                null) as int? == 0 ? true : false;
+        }
+
+        return appsUseLightTheme == 0 ? true : false;
     }
 }
