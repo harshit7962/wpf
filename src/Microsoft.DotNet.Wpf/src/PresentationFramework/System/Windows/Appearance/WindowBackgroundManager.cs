@@ -5,6 +5,7 @@
 
 using System.Windows.Controls;
 using System.Windows.Interop;
+using System.Windows.Media;
 using Standard;
 
 namespace System.Windows.Appearance;
@@ -75,7 +76,7 @@ internal static class WindowBackgroundManager
             return;
         }
 
-        if(Utility.IsOSWindows11Insider1OrNewer)
+        if(Utility.IsOSWindows11Insider1OrNewer && window.Background == Brushes.Transparent)
         {
             _ = WindowBackdrop.RemoveBackdrop(window);
 
@@ -98,23 +99,6 @@ internal static class WindowBackgroundManager
         else
         {
             RemoveDarkThemeFromWindow(window);
-        }
-
-        foreach (var subWindow in window.OwnedWindows)
-        {
-            if (subWindow is Window windowSubWindow)
-            {
-                _ = WindowBackdrop.ApplyBackdrop(windowSubWindow, backdrop);
-
-                if (applicationTheme is ApplicationTheme.Dark)
-                {
-                    ApplyDarkThemeToWindow(windowSubWindow);
-                }
-                else
-                {
-                    RemoveDarkThemeFromWindow(windowSubWindow);
-                }
-            }
         }
     }
 }
