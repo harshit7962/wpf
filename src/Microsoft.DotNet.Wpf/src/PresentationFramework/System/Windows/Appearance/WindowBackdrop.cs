@@ -123,14 +123,14 @@ internal static class WindowBackdrop
 
         var backdropPvAttribute = (int)Standard.DWMSBT.DWMSBT_NONE;
 
-        _ = NativeMethods.DwmSetWindowAttribute(
+        var dwmApiResult = NativeMethods.DwmSetWindowAttribute(
             hWnd,
             Standard.DWMWA.SYSTEMBACKDROP_TYPE,
             ref backdropPvAttribute,
             Marshal.SizeOf(typeof(int))
         );
 
-        return true;
+        return new HRESULT((uint)dwmApiResult) == HRESULT.S_OK;
     }
 
     /// <summary>
@@ -179,9 +179,9 @@ internal static class WindowBackdrop
             margins = new MARGINS { cxLeftWidth = -1, cxRightWidth = -1, cyTopHeight = -1, cyBottomHeight = -1 };                    
         }
 
-        NativeMethods.DwmExtendFrameIntoClientArea(hWnd, ref margins);
+        var dwmApiResult = NativeMethods.DwmExtendFrameIntoClientArea(hWnd, ref margins);
 
-        return true;
+        return new HRESULT((uint)dwmApiResult) == HRESULT.S_OK;
     }
 
     private static bool ApplyDwmWindowAttrubute(IntPtr hWnd, Standard.DWMSBT dwmSbt)
@@ -223,7 +223,7 @@ internal static class WindowBackdrop
             var backgroundBrush = window.Resources["ApplicationBackgroundBrush"];
 
             // Manual fallback
-            if (backgroundBrush is not SolidColorBrush)
+            if (backgroundBrush is not Brush)
             {
                 backgroundBrush = GetFallbackBackgroundBrush();
             }

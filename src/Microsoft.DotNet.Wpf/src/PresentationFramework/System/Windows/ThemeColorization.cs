@@ -157,13 +157,23 @@ internal static class ThemeColorization
         else if(SystemParameters.HighContrast)
         {
             applicationTheme = ApplicationTheme.HighContrast;
-            themeFileName = systemTheme switch 
+            
+            if(systemTheme.Contains("hcwhite"))
             {
-                "hcwhite" => "hcwhite.xaml",
-                "hcblack" => "hcblack.xaml",
-                "hc1" => "hc1.xaml",
-                _ => "hc2.xaml"
-            };
+                themeFileName = "hcwhite.xaml";
+            }
+            else if(systemTheme.Contains("hcblack"))
+            {
+                themeFileName = "hcblack.xaml";
+            }
+            else if(systemTheme.Contains("hc1"))
+            {
+                themeFileName = "hc1.xaml";
+            }
+            else
+            {
+                themeFileName = "hc2.xaml";
+            }
         }
         else
         {
