@@ -76,7 +76,7 @@ internal static class WindowBackgroundManager
             return;
         }
 
-        if(Utility.IsOSWindows11Insider1OrNewer && window.Background == Brushes.Transparent)
+        if(Utility.IsOSWindows11Insider1OrNewer && window.AllowsTransparency == false)
         {
             _ = WindowBackdrop.RemoveBackdrop(window);
 

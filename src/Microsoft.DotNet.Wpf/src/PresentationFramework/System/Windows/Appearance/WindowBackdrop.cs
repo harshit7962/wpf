@@ -145,6 +145,9 @@ internal static class WindowBackdrop
             return false;
         }
 
+        // Remove background from visual root
+        window.SetCurrentValue(System.Windows.Controls.Control.BackgroundProperty, Brushes.Transparent);
+
         IntPtr windowHandle = new WindowInteropHelper(window).Handle;
 
         if (windowHandle == IntPtr.Zero)
@@ -213,6 +216,19 @@ internal static class WindowBackdrop
         if (windowSource?.Handle != IntPtr.Zero && windowSource?.CompositionTarget != null)
         {
             windowSource.CompositionTarget.BackgroundColor = SystemColors.WindowColor;
+        }
+
+        if (windowSource?.RootVisual is System.Windows.Window window)
+        {
+            var backgroundBrush = window.Resources["ApplicationBackgroundBrush"];
+
+            // Manual fallback
+            if (backgroundBrush is not SolidColorBrush)
+            {
+                backgroundBrush = GetFallbackBackgroundBrush();
+            }
+
+            window.Background = (SolidColorBrush)backgroundBrush;
         }
 
         return true;
