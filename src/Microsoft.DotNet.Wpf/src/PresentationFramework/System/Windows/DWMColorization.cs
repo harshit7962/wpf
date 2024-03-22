@@ -67,11 +67,8 @@ internal static class DwmColorization
             "AccentColor",
             null);
 
-        ByteColor systemAccentByteValue  = new ByteColor(0xff, 0x00, 0x78, 0xd4); // Initializing the accent to default blue value
-
-        systemAccentByteValue = ParseDWordColor(dwmValue);
-
-        Color newAccentColor = Color.FromArgb(systemAccentByteValue.A, systemAccentByteValue.R, systemAccentByteValue.G, systemAccentByteValue.B);
+        System.Drawing.Color newAccentDrawingColor = System.Drawing.Color.FromArgb(dwmValue);
+        Color newAccentColor = Color.FromArgb(newAccentDrawingColor.A, newAccentDrawingColor.B, newAccentDrawingColor.G, newAccentDrawingColor.R);
 
         return newAccentColor;
     }
@@ -237,24 +234,6 @@ internal static class DwmColorization
 
         Application.Current.Resources["AccentFillColorSecondaryBrush"] = ToBrush(secondaryAccent, 0.9);
         Application.Current.Resources["AccentFillColorTertiaryBrush"] = ToBrush(secondaryAccent, 0.8);
-    }
-
-    /// <summary>
-    /// Converts the color of type Int32 to type ByteColor
-    /// </summary>
-    /// <param name="color">The Int32 color to be converted to corresponding ByteColor</param>
-    /// <returns>Corresponding <see cref="System.Windows.ByteColor"/></returns>
-    private static ByteColor ParseDWordColor(Int32 color)
-    {
-        Byte
-            a = (byte)((color >> 24) & 0xFF),
-            b = (byte)((color >> 16) & 0xFF),
-            g = (byte)((color >> 8) & 0xFF),
-            r = (byte)((color >> 0) & 0xFF);
-
-        ByteColor current = new ByteColor(a, r, g, b);
-
-        return current;
     }
 
     /// <summary>

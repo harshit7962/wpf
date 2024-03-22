@@ -1384,6 +1384,7 @@
     <NetCoreReference Include="System.ComponentModel.EventBasedAsync" />
     <NetCoreReference Include="System.ComponentModel.Primitives" />
     <NetCoreReference Include="System.ComponentModel.TypeConverter" />
+    <NetCoreReference Include="System.Drawing.Primitives" />
     <NetCoreReference Include="System.Diagnostics.Contracts" />
     <NetCoreReference Include="System.Diagnostics.FileVersionInfo" />
     <NetCoreReference Include="System.Diagnostics.Process" />
