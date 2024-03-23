@@ -121,16 +121,9 @@ internal static class WindowBackdrop
 
         _ = RestoreContentBackground(hWnd);
 
-        var backdropPvAttribute = (int)Standard.DWMSBT.DWMSBT_NONE;
-
-        var dwmApiResult = NativeMethods.DwmSetWindowAttribute(
-            hWnd,
-            Standard.DWMWA.SYSTEMBACKDROP_TYPE,
-            ref backdropPvAttribute,
-            Marshal.SizeOf(typeof(int))
-        );
-
-        return new HRESULT((uint)dwmApiResult) == HRESULT.S_OK;
+        var backdropPvAttribute = Standard.DWMSBT.DWMSBT_NONE;
+        var dwmResult = NativeMethods.DwmSetWindowAttributeSystemBackdropType(hWnd, backdropPvAttribute);
+        return dwmResult == HRESULT.S_OK;
     }
 
     /// <summary>
@@ -191,16 +184,8 @@ internal static class WindowBackdrop
             return false;
         }
 
-        var backdropPvAttribute = (int)dwmSbt;
-
-        var dwmApiResult = NativeMethods.DwmSetWindowAttribute(
-            hWnd,
-            Standard.DWMWA.SYSTEMBACKDROP_TYPE,
-            ref backdropPvAttribute,
-            Marshal.SizeOf(typeof(int))
-        );
-
-        return new HRESULT((uint)dwmApiResult) == HRESULT.S_OK;
+        var dwmResult = NativeMethods.DwmSetWindowAttributeSystemBackdropType(hWnd, dwmSbt);
+        return dwmResult == HRESULT.S_OK;
     }
 
     private static bool RestoreContentBackground(IntPtr hWnd)
