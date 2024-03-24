@@ -250,7 +250,7 @@ internal static class DwmColorization
             g = (byte)((color >> 8) & 0xFF),
             r = (byte)((color >> 0) & 0xFF);
 
-        return new Color.FromArgb(a, r, g, b);
+        return Color.FromArgb(a, r, g, b);
     }
 
     /// <summary>
