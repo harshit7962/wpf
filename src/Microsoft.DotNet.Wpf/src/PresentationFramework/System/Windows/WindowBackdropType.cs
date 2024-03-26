@@ -11,25 +11,25 @@ internal enum WindowBackdropType
     /// <summary>
     /// No backdrop effect.
     /// </summary>
-    None,
+    Auto,
 
     /// <summary>
     /// Sets <c>DWMWA_SYSTEMBACKDROP_TYPE</c> to <see langword="0"></see>.
     /// </summary>
-    Auto,
+    None,
 
     /// <summary>
     /// Windows 11 Mica effect.
     /// </summary>
-    Mica,
+    MainWindow,
 
     /// <summary>
     /// Windows Acrylic effect.
     /// </summary>
-    Acrylic,
+    TransientWindow,
 
     /// <summary>
     /// Windows 11 wallpaper blur effect.
     /// </summary>
-    Tabbed
+    TabbedWindow
 }

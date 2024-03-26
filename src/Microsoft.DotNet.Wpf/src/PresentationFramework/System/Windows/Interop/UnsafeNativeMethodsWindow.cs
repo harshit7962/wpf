@@ -56,9 +56,9 @@ internal static class UnsafeNativeMethodsWindow
         return backgroundType switch
         {
             WindowBackdropType.Auto => Standard.DWMSBT.DWMSBT_AUTO,
-            WindowBackdropType.Mica => Standard.DWMSBT.DWMSBT_MAINWINDOW,
-            WindowBackdropType.Acrylic => Standard.DWMSBT.DWMSBT_TRANSIENTWINDOW,
-            WindowBackdropType.Tabbed => Standard.DWMSBT.DWMSBT_TABBEDWINDOW,
+            WindowBackdropType.MainWindow => Standard.DWMSBT.DWMSBT_MAINWINDOW,
+            WindowBackdropType.TransientWindow => Standard.DWMSBT.DWMSBT_TRANSIENTWINDOW,
+            WindowBackdropType.TabbedWindow => Standard.DWMSBT.DWMSBT_TABBEDWINDOW,
             _ => Standard.DWMSBT.DWMSBT_NONE
         };
     }

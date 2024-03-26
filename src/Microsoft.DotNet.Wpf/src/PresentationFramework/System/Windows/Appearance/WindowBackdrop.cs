@@ -25,9 +25,9 @@ internal static class WindowBackdrop
         return backdropType switch
         {
             WindowBackdropType.Auto => Utility.IsOSWindows11Insider1OrNewer,
-            WindowBackdropType.Tabbed => Utility.IsOSWindows11Insider1OrNewer,
-            WindowBackdropType.Mica => Utility.IsOSWindows11OrNewer,
-            WindowBackdropType.Acrylic => Utility.IsOSWindows7OrNewer,
+            WindowBackdropType.TabbedWindow => Utility.IsOSWindows11Insider1OrNewer,
+            WindowBackdropType.MainWindow => Utility.IsOSWindows11OrNewer,
+            WindowBackdropType.TransientWindow => Utility.IsOSWindows7OrNewer,
             WindowBackdropType.None => true,
             _ => false
         };
@@ -79,13 +79,13 @@ internal static class WindowBackdrop
             case WindowBackdropType.Auto:
                 return ApplyDwmWindowAttrubute(hWnd, Standard.DWMSBT.DWMSBT_AUTO);
 
-            case WindowBackdropType.Mica:
+            case WindowBackdropType.MainWindow:
                 return ApplyDwmWindowAttrubute(hWnd, Standard.DWMSBT.DWMSBT_MAINWINDOW);
 
-            case WindowBackdropType.Acrylic:
+            case WindowBackdropType.TransientWindow:
                 return ApplyDwmWindowAttrubute(hWnd, Standard.DWMSBT.DWMSBT_TRANSIENTWINDOW);
 
-            case WindowBackdropType.Tabbed:
+            case WindowBackdropType.TabbedWindow:
                 return ApplyDwmWindowAttrubute(hWnd, Standard.DWMSBT.DWMSBT_TABBEDWINDOW);
         }
 
