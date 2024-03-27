@@ -2628,7 +2628,7 @@ namespace Standard
         {
             Assert.IsTrue(Utility.IsOSWindows11Insider1OrNewer);
             var dwmWindowAttribute = (int)dwBackdropType;
-            return _DwmSetWindowAttribute(hwnd, DWMWA.SYSTEMBACKDROP_TYPE, ref dwmWindowAttribute, sizeof(int));
+            return _DwmSetWindowAttribute(hwnd, DWMWA.SYSTEMBACKDROP_TYPE, ref dwmWindowAttribute, Marshal.SizeOf(typeof(int)));
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
@@ -2636,7 +2636,7 @@ namespace Standard
         {
             Assert.IsTrue(Utility.IsOSWindows11Insider1OrNewer);
             var pvAttribute = useImmersiveDarkMode ? 0x1 : 0x0;
-            return _DwmSetWindowAttribute(hwnd, DWMWA.USE_IMMERSIVE_DARK_MODE, ref pvAttribute, sizeof(int));
+            return _DwmSetWindowAttribute(hwnd, DWMWA.USE_IMMERSIVE_DARK_MODE, ref pvAttribute, Marshal.SizeOf(typeof(int)));
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
