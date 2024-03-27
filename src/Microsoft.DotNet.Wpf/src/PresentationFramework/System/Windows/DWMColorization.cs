@@ -67,11 +67,11 @@ internal static class DwmColorization
             "AccentColor",
             null);
 
-        Color systemAccentByteValue  = Color.FromArgb(0xff, 0x00, 0x78, 0xd4); // Initializing the accent to default blue value
+        Color systemAccentColor  = Color.FromArgb(0xff, 0x00, 0x78, 0xd4); // Initializing the accent to default blue value
 
-        systemAccentByteValue = ParseDWordColor(dwmValue);
+        systemAccentColor = ParseDWordColor(dwmValue);
 
-        return systemAccentByteValue;
+        return systemAccentColor;
     }
 
     /// <summary>
