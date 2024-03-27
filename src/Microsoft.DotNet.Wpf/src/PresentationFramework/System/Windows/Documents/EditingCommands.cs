@@ -40,7 +40,7 @@ namespace System.Windows.Documents
         /// </summary>
         public static RoutedUICommand  Delete                  { get { return EnsureCommand(ref _Delete                 , "Delete"                   ); } }
 
-        internal static RoutedUICommand Clear { get { return EnsureCommand(ref _Clear, "Clear"); }}
+        internal static RoutedUICommand Clear                  { get { return EnsureCommand(ref _Clear                  , "Clear"                    ); } }
 
         /// <summary>
         /// Backspace command.

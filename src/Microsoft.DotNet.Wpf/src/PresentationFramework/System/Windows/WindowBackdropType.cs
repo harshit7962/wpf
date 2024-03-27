@@ -8,28 +8,13 @@ namespace System.Windows;
 
 internal enum WindowBackdropType
 {
-    /// <summary>
-    /// No backdrop effect.
-    /// </summary>
     Auto,
 
-    /// <summary>
-    /// Sets <c>DWMWA_SYSTEMBACKDROP_TYPE</c> to <see langword="0"></see>.
-    /// </summary>
     None,
 
-    /// <summary>
-    /// Windows 11 Mica effect.
-    /// </summary>
     MainWindow,
 
-    /// <summary>
-    /// Windows Acrylic effect.
-    /// </summary>
     TransientWindow,
 
-    /// <summary>
-    /// Windows 11 wallpaper blur effect.
-    /// </summary>
     TabbedWindow
 }
