@@ -1161,7 +1161,7 @@ namespace System.Windows.Controls
                 DataTemplate template = null;
 
                 // Lookup template for typeof(Content) in resource dictionaries.
-                if (item != null)
+                if (item != null && (item as string) == null)
                 {
                     template = (DataTemplate)FrameworkElement.FindTemplateResourceInternal(container, item, typeof(DataTemplate));
                 }
