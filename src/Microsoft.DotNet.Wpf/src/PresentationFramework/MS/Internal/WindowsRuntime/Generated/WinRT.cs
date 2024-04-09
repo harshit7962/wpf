@@ -69,6 +69,9 @@ namespace WinRT
         [DllImport("api-ms-win-core-winrt-l1-1-0.dll")]
         public static extern unsafe int RoGetActivationFactory(IntPtr runtimeClassId, ref Guid iid, IntPtr* factory);
 
+        [DllImport("api-ms-win-core-winrt-l1-1-0.dll")]
+        public static extern unsafe int RoActivateInstance(IntPtr runtimeClassId, IntPtr* instance);
+
         [DllImport("api-ms-win-core-winrt-string-l1-1-0.dll", CallingConvention = CallingConvention.StdCall)]
         public static extern unsafe int WindowsCreateString([MarshalAs(UnmanagedType.LPWStr)] string sourceString,
                                                   int length,
