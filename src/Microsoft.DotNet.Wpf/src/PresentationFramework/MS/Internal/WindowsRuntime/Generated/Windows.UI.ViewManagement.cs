@@ -56,26 +56,15 @@ namespace MS.Internal.WindowsRuntime
                 IUISettings3* uiSettings3;
                 Marshal.ThrowExceptionForHR(inspectable->QueryInterface(&guid, (void**)&uiSettings3));
                 _uiSettings3 = uiSettings3;
-
-                // Marshal.ThrowExceptionForHR(WinRT.RoActivateInstance(hstring, out IntPtr punk));
-
-                // WinRT.WindowsDeleteString(hstring);
-
-                // Guid guid = IID_IUISettings3;
-                // Marshal.ThrowExceptionForHR(Marshal.QueryInterface(punk, in guid, out IntPtr ppUnk));
-                // IUISettings3 uiSettings3 = (IUISettings3)Marshal.PtrToStructure(ppUnk, typeof(IUISettings3));
-                
-                // _uiSettings3 = &uiSettings3;
-
             }
 
             public Color AccentColor => _uiSettings3->GetColorValue(UIColorType.Accent);
-            public Color AccentColor1 => _uiSettings3->GetColorValue(UIColorType.AccentDark1);
-            public Color AccentColor2 => _uiSettings3->GetColorValue(UIColorType.AccentDark2);
-            public Color AccentColor3 => _uiSettings3->GetColorValue(UIColorType.AccentDark3);
-            public Color AccentColor4 => _uiSettings3->GetColorValue(UIColorType.AccentLight1);
-            public Color AccentColor5 => _uiSettings3->GetColorValue(UIColorType.AccentLight2);
-            public Color AccentColor6 => _uiSettings3->GetColorValue(UIColorType.AccentLight3);
+            public Color AccentDark1 => _uiSettings3->GetColorValue(UIColorType.AccentDark1);
+            public Color AccentDark2 => _uiSettings3->GetColorValue(UIColorType.AccentDark2);
+            public Color AccentDark3 => _uiSettings3->GetColorValue(UIColorType.AccentDark3);
+            public Color AccentLight1 => _uiSettings3->GetColorValue(UIColorType.AccentLight1);
+            public Color AccentLight2 => _uiSettings3->GetColorValue(UIColorType.AccentLight2);
+            public Color AccentLight3 => _uiSettings3->GetColorValue(UIColorType.AccentLight3);
 
             // Extract of the IUISettings3 from windows.ui.viewmanagement.idl
             private struct IUISettings3
@@ -88,7 +77,7 @@ namespace MS.Internal.WindowsRuntime
                     // The GetColorValue method comes right after IInspectable and is at VTBL slot 6
                     ((delegate* unmanaged<IUISettings3*, UIColorType, UIColor*, int>)(lpVtbl[6]))((IUISettings3*)Unsafe.AsPointer(ref this), desiredColor, &value);
 
-                    return Color.FromUInt32((uint)*(int*)&value);
+                    return Color.FromArgb(value.A, value.R, value.G, value.B);
                 }
             }
 
