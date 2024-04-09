@@ -6,6 +6,7 @@ using Microsoft.Win32;
 using MS.Internal;
 using System.Runtime.InteropServices;
 using MS.Internal.WindowsRuntime.Windows.UI.ViewManagement;
+using UIColorType = MS.Internal.WindowsRuntime.Windows.UI.ViewManagement.UISettingsRCW.UIColorType;
 
 namespace System.Windows;
 internal static class DwmColorization
@@ -26,9 +27,9 @@ internal static class DwmColorization
     /// <returns>Updated <see cref="System.Windows.Media.Color"/> Accent Color.</returns>
     internal static Color GetSystemAccentColor()
     {
-        Win32WindowSettings _uiSettings3 = new Win32WindowSettings();
+        UISettings _uiSettings3 = new UISettings();
 
-        return _uiSettings3.AccentColor;
+        return _uiSettings3.GetColorValue(UIColorType.Accent);
     }
 
     /// <summary>
@@ -36,24 +37,24 @@ internal static class DwmColorization
     /// </summary>
     internal static void UpdateAccentColors()
     {
-        Win32WindowSettings _uiSettings3 = new Win32WindowSettings();
+        UISettings _uiSettings3 = new UISettings();
 
-        Color systemAccent = _uiSettings3.AccentColor;
+        Color systemAccent = _uiSettings3.GetColorValue(UIColorType.Accent);
         Color primaryAccent;
         Color secondaryAccent;
         Color tertiaryAccent;
 
         if (ThemeColorization.IsThemeDark())
         {
-            primaryAccent = _uiSettings3.AccentLight1;
-            secondaryAccent = _uiSettings3.AccentLight2;
-            tertiaryAccent = _uiSettings3.AccentLight3;
+            primaryAccent = _uiSettings3.GetColorValue(UIColorType.AccentLight1);
+            secondaryAccent = _uiSettings3.GetColorValue(UIColorType.AccentLight2);
+            tertiaryAccent = _uiSettings3.GetColorValue(UIColorType.AccentLight3);
         }
         else
         {
-            primaryAccent = _uiSettings3.AccentDark1;
-            secondaryAccent = _uiSettings3.AccentDark2;
-            tertiaryAccent = _uiSettings3.AccentDark3;
+            primaryAccent = _uiSettings3.GetColorValue(UIColorType.AccentDark1);
+            secondaryAccent = _uiSettings3.GetColorValue(UIColorType.AccentDark2);
+            tertiaryAccent = _uiSettings3.GetColorValue(UIColorType.AccentDark3);
         }
 
         UpdateColorResources(systemAccent, primaryAccent, secondaryAccent, tertiaryAccent);
