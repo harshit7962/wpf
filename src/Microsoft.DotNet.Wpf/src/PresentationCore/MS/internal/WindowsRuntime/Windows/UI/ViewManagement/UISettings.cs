@@ -12,7 +12,7 @@ namespace MS.Internal.WindowsRuntime
 {
     namespace Windows.UI.ViewManagement
     {
-        internal class UISettings
+        internal class UISettings : IDisposable
         {
             private static readonly bool _isSupported;
             private static object _winRtInstance;
@@ -106,6 +106,53 @@ namespace MS.Internal.WindowsRuntime
 
                 return _winRtInstance;
             }
+
+            #region IDisposable
+
+            bool _disposed = false;
+
+            ~UISettings()
+            {
+                Dispose(false);
+            }
+
+            public void Dispose()
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            /// <summary>
+            /// Releases the _uisettings RCW
+            /// </summary>
+            /// <param name="disposing">True if called from a Dispose() call, false when called from the finalizer</param>
+            private void Dispose(bool disposing)
+            {
+                if (!_disposed)
+                {
+                    if (_uisettings != null)
+                    {
+                        try
+                        {
+                            // Release the input pane here
+                            Marshal.ReleaseComObject(_uisettings);
+                        }
+                        catch
+                        {
+                            // Don't want to raise any exceptions in a finalizer, eat them here
+                        }
+
+                        _uisettings = null;
+                        _winRtInstance = null;
+                    }
+
+                    _disposed = true;
+                }
+            }
+
+            #endregion
+
+
         }
     }
 }
