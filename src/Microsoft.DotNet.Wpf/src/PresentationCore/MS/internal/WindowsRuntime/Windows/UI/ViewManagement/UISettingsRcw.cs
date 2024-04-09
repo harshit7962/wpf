@@ -15,20 +15,18 @@ namespace MS.Internal.WindowsRuntime
         {
             private static readonly Guid IID_IActivationFactory = Guid.Parse("00000035-0000-0000-C000-000000000046");
 
-            public static object GetUISettingsActivationFactory()
+            public static object GetUISettingsInstance()
             {
                 const string typeName = "Windows.UI.ViewManagement.UISettings";
                 IntPtr hstring = IntPtr.Zero;
-                IntPtr instance = IntPtr.Zero;
                 Marshal.ThrowExceptionForHR(NativeMethods.WindowsCreateString(typeName, typeName.Length, out hstring));
                 try
                 {
-                    Marshal.ThrowExceptionForHR(NativeMethods.RoActivateInstance(hstring, out IntPtr instance));
-                    return Marshal.GetObjectForIUnknown(instance);
+                    Marshal.ThrowExceptionForHR(NativeMethods.RoActivateInstance(hstring, out object instance));
+                    return instance;
                 }
                 finally
                 {
-                    Marshal.Release(instance);
                     Marshal.ThrowExceptionForHR(NativeMethods.WindowsDeleteString(hstring));
                 }
             }
@@ -44,6 +42,15 @@ namespace MS.Internal.WindowsRuntime
             [ComImport]
             internal interface IUISettings3
             {
+                [MethodImpl(MethodImplOptions.InternalCall)]
+                void GetIids(out uint iidCount, [MarshalAs(UnmanagedType.LPStruct)] out Guid iids);
+
+                [MethodImpl(MethodImplOptions.InternalCall)]
+                void GetRuntimeClassName([MarshalAs(UnmanagedType.BStr)] out string className);
+
+                [MethodImpl(MethodImplOptions.InternalCall)]
+                void GetTrustLevel(out TrustLevel TrustLevel);
+
                 [MethodImpl(MethodImplOptions.InternalCall)]
                 UIColor GetColorValue([In] UIColorType desiredColor);
             }

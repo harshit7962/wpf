@@ -15,14 +15,14 @@ namespace MS.Internal.WindowsRuntime
         internal class UISettings
         {
             private static readonly bool _isSupported;
-            private static object _winRtActivationFactory;
+            private static object _winRtInstance;
             private UISettingsRCW.IUISettings3 _uisettings;
 
             static UISettings()
             {
                 try
                 {
-                    if (GetWinRtActivationFactory(forceInitialization: true) == null)
+                    if (GetWinRTInstance(forceInitialization: true) == null)
                     {
                         _isSupported = false;
                     }
@@ -47,11 +47,11 @@ namespace MS.Internal.WindowsRuntime
 
                     try
                     {
-                        uisettings = GetWinRtActivationFactory() as UISettingsRCW.IUISettings3;
+                        uisettings = GetWinRTInstance() as UISettingsRCW.IUISettings3;
                     }
                     catch (COMException)
                     {
-                        uisettings = GetWinRtActivationFactory(forceInitialization: true) as UISettingsRCW.IUISettings3;
+                        uisettings = GetWinRTInstance(forceInitialization: true) as UISettingsRCW.IUISettings3;
                     }
 
                     _uisettings = uisettings;
@@ -77,20 +77,21 @@ namespace MS.Internal.WindowsRuntime
                 }
                 catch (COMException)
                 {
-                    color = Colors.Transparent;
+                    // Fallback Accent color
+                    color = Color.FromRgb(0x33, 0x79, 0xd9);
                 }
 
                 return color;
             }
 
         
-            private static object GetWinRtActivationFactory(bool forceInitialization = false)
+            private static object GetWinRTInstance(bool forceInitialization = false)
             {
-                if (_winRtActivationFactory == null || forceInitialization)
+                if (_winRtInstance == null || forceInitialization)
                 {
                     try
                     {
-                        _winRtActivationFactory = UISettingsRCW.GetUISettingsActivationFactory();
+                        _winRtInstance = UISettingsRCW.GetUISettingsInstance();
                     }
                     catch (Exception e) when (e is TypeLoadException
                                              || e is FileNotFoundException
@@ -99,11 +100,11 @@ namespace MS.Internal.WindowsRuntime
                                              || e.HResult == NativeMethods.E_NOINTERFACE
                                              || e.HResult == NativeMethods.REGDB_E_CLASSNOTREG)
                     {
-                        _winRtActivationFactory = null;
+                        _winRtInstance = null;
                     }
                 }
 
-                return _winRtActivationFactory;
+                return _winRtInstance;
             }
         }
     }

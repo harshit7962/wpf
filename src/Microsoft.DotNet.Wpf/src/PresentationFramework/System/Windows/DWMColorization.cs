@@ -79,25 +79,24 @@ internal static class DwmColorization
     /// </summary>
     internal static void UpdateAccentColors()
     {
-        Win32WindowSettings obj = new Win32WindowSettings();
+        // Win32WindowSettings obj = new Win32WindowSettings();
 
-        var color1 = obj.AccentColor;
-        var color2 = obj.AccentColor1;
-        var color3 = obj.AccentColor2;
-        var color4 = obj.AccentColor3;
-        var color5 = obj.AccentColor4;
-        var color6 = obj.AccentColor5;
-        var color7 = obj.AccentColor6;
+        // var color1 = obj.AccentColor;
+        // var color2 = obj.AccentColor1;
+        // var color3 = obj.AccentColor2;
+        // var color4 = obj.AccentColor3;
+        // var color5 = obj.AccentColor4;
+        // var color6 = obj.AccentColor5;
+        // var color7 = obj.AccentColor6;
 
-        // UISettings uiSettings = new UISettings();
-        // var colorType = UISettingsRCW.UIColorType.Accent;
-        // var acc = uiSettings.GetColorValue(colorType);
-        // var acc1 = uiSettings.GetColorValue(UISettingsRCW.UIColorType.AccentDark1);
-        // var acc2 = uiSettings.GetColorValue(UISettingsRCW.UIColorType.AccentDark2);
-        // var acc3 = uiSettings.GetColorValue(UISettingsRCW.UIColorType.AccentDark3);
-        // var acc4 = uiSettings.GetColorValue(UISettingsRCW.UIColorType.AccentLight1);
-        // var acc5 = uiSettings.GetColorValue(UISettingsRCW.UIColorType.AccentLight2);
-        // var acc6 = uiSettings.GetColorValue(UISettingsRCW.UIColorType.AccentLight3);
+        UISettings uiSettings = new UISettings();
+        var acc = uiSettings.GetColorValue(UISettingsRCW.UIColorType.Accent);
+        var acc1 = uiSettings.GetColorValue(UISettingsRCW.UIColorType.AccentDark1);
+        var acc2 = uiSettings.GetColorValue(UISettingsRCW.UIColorType.AccentDark2);
+        var acc3 = uiSettings.GetColorValue(UISettingsRCW.UIColorType.AccentDark3);
+        var acc4 = uiSettings.GetColorValue(UISettingsRCW.UIColorType.AccentLight1);
+        var acc5 = uiSettings.GetColorValue(UISettingsRCW.UIColorType.AccentLight2);
+        var acc6 = uiSettings.GetColorValue(UISettingsRCW.UIColorType.AccentLight3);
 
         Color systemAccent = GetSystemAccentColor();
 
