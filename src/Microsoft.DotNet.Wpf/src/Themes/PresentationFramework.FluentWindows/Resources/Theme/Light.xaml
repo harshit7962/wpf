@@ -486,9 +486,10 @@
     <SolidColorBrush x:Key="LabelForeground" Color="{StaticResource TextFillColorSecondary}" />
 
     <!--  ListBox  -->
+    <SolidColorBrush x:Key="ListBoxItemBackground" Color="{StaticResource ControlFillColorTransparent}" />
     <SolidColorBrush x:Key="ListBoxItemForeground" Color="{StaticResource TextFillColorPrimary}" />
-    <SolidColorBrush x:Key="ListBoxItemSelectedBackgroundThemeBrush" Color="{DynamicResource SystemAccentColorPrimary}" />
-    <SolidColorBrush x:Key="ListBoxItemSelectedBackgroundPointerOverThemeBrush" Color="{DynamicResource SystemAccentColorPrimary}" Opacity="0.9" />
+    <SolidColorBrush x:Key="ListBoxItemSelectedBackgroundThemeBrush" Color="{DynamicResource SystemAccentColorPrimary}" Opacity="0.6"/>
+    <SolidColorBrush x:Key="ListBoxItemSelectedBackgroundPointerOverThemeBrush" Color="{DynamicResource SystemAccentColorPrimary}" Opacity="0.5" />
     <SolidColorBrush x:Key="ListBoxItemSelectedForegroundThemeBrush" Color="{StaticResource TextOnAccentFillColorPrimary}" />
     <SolidColorBrush x:Key="ListBoxItemUnselectedBackgroundPointerOverThemeBrush" Color="{StaticResource ControlAltFillColorTertiary}" />
 
