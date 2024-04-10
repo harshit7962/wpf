@@ -18,15 +18,18 @@ namespace MS.Internal.WindowsRuntime
             {
                 const string typeName = "Windows.UI.ViewManagement.UISettings";
                 IntPtr hstring = IntPtr.Zero;
-                Marshal.ThrowExceptionForHR(NativeMethods.WindowsCreateString(typeName, typeName.Length, out hstring));
+                int hr = NativeMethods.WindowsCreateString(typeName, typeName.Length, out hstring);
+                Marshal.ThrowExceptionForHR(hr);
                 try
                 {
-                    Marshal.ThrowExceptionForHR(NativeMethods.RoActivateInstance(hstring, out object instance));
+                    hr = NativeMethods.RoActivateInstance(hstring, out object instance);
+                    Marshal.ThrowExceptionForHR(hr);
                     return instance;
                 }
                 finally
                 {
-                    Marshal.ThrowExceptionForHR(NativeMethods.WindowsDeleteString(hstring));
+                    hr = NativeMethods.WindowsDeleteString(hstring);
+                    Marshal.ThrowExceptionForHR(hr);
                 }
             }
 
@@ -34,17 +37,13 @@ namespace MS.Internal.WindowsRuntime
             [ComImport]
             internal interface IUISettings3
             {
-                [MethodImpl(MethodImplOptions.InternalCall)]
-                void GetIids(out uint iidCount, [MarshalAs(UnmanagedType.LPStruct)] out Guid iids);
+                void GetIids(out uint iidCount, out IntPtr iids);
 
-                [MethodImpl(MethodImplOptions.InternalCall)]
-                void GetRuntimeClassName([MarshalAs(UnmanagedType.BStr)] out string className);
+                void GetRuntimeClassName(out string className);
 
-                [MethodImpl(MethodImplOptions.InternalCall)]
                 void GetTrustLevel(out TrustLevel TrustLevel);
 
-                [MethodImpl(MethodImplOptions.InternalCall)]
-                UIColor GetColorValue([In] UIColorType desiredColor);
+                UIColor GetColorValue(UIColorType desiredColor);
             }
 
             internal enum TrustLevel

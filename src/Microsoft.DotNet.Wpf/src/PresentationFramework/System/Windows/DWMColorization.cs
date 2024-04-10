@@ -42,12 +42,14 @@ internal static class DwmColorization
 
         if(ThemeColorization.IsThemeDark()) 
         {
+            // In dark mode, we use lighter shades of the accent color
             primaryAccent = _uiSettings3.GetColorValue(UISettingsRCW.UIColorType.AccentLight1);
             secondaryAccent = _uiSettings3.GetColorValue(UISettingsRCW.UIColorType.AccentLight2);
             tertiaryAccent = _uiSettings3.GetColorValue(UISettingsRCW.UIColorType.AccentLight3);
         }
         else
         {
+            // In light mode, we use darker shades of the accent color
             primaryAccent = _uiSettings3.GetColorValue(UISettingsRCW.UIColorType.AccentDark1);
             secondaryAccent = _uiSettings3.GetColorValue(UISettingsRCW.UIColorType.AccentDark2);
             tertiaryAccent = _uiSettings3.GetColorValue(UISettingsRCW.UIColorType.AccentDark3);
