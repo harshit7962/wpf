@@ -47,6 +47,13 @@ namespace MS.Internal.WindowsRuntime
                 UIColor GetColorValue([In] UIColorType desiredColor);
             }
 
+            internal enum TrustLevel
+            {
+                BaseTrust,
+                PartialTrust,
+                FullTrust
+            }
+
             public enum UIColorType
             {
                 Background = 0,

@@ -37,15 +37,6 @@ namespace MS.Internal.WindowsRuntime
             internal const int E_NOINTERFACE = unchecked((int)0x80004002);
 
             internal const int REGDB_E_CLASSNOTREG = unchecked((int)0x80040154);
-
         }
-
-        internal enum TrustLevel
-        {
-            BaseTrust,
-            PartialTrust,
-            FullTrust
-        }
-
     }
 }

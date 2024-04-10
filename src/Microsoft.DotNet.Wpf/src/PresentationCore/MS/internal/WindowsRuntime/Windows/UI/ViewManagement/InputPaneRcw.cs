@@ -36,6 +36,13 @@ namespace MS.Internal.WindowsRuntime
                 }
             }
 
+            internal enum TrustLevel
+            {
+                BaseTrust,
+                PartialTrust,
+                FullTrust
+            }
+
             [Guid("75CF2C57-9195-4931-8332-F0B409E916AF"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
             [ComImport]
             internal interface IInputPaneInterop
