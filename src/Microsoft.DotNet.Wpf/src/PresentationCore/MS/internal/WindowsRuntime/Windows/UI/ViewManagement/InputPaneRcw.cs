@@ -2,8 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-//
-//
 
 using System;
 using System.Runtime.CompilerServices;
@@ -36,13 +34,6 @@ namespace MS.Internal.WindowsRuntime
                 {
                     Marshal.ThrowExceptionForHR(NativeMethods.WindowsDeleteString(hstring));
                 }
-            }
-
-            internal enum TrustLevel
-            {
-                BaseTrust,
-                PartialTrust,
-                FullTrust
             }
 
             [Guid("75CF2C57-9195-4931-8332-F0B409E916AF"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
