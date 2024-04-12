@@ -11,7 +11,7 @@
     xmlns:controls="clr-namespace:System.Windows;assembly=PresentationFramework">
 
     <Style x:Key="DefaultListBoxStyle" TargetType="{x:Type ListBox}">
-        <Setter Property="Background" Value="{DynamicResource ListBoxItemBackground}" />
+        <Setter Property="Background" Value="{DynamicResource ListBoxBackground}" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="BorderThickness" Value="0" />
