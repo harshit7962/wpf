@@ -1088,11 +1088,11 @@ namespace System.Windows.Controls
                 if (IsDirectionReversed)
                 {
                     // Canvas.SetLeft(rangeElement, (thumbSize.Width * 0.5) + (Maximum - Value) * valueToSize);
-                    Canvas.SetRight(rangeElement, (thumbSize.Width * 0.5) + Minimum * valueToSize);
+                    Canvas.SetRight(rangeElement, (thumbSize.Width * 0.5));
                 }
                 else
                 {
-                    Canvas.SetLeft(rangeElement, (thumbSize.Width * 0.5) + Minimum * valueToSize);
+                    Canvas.SetLeft(rangeElement, (thumbSize.Width * 0.5));
                 }
             }
             else
@@ -1111,11 +1111,11 @@ namespace System.Windows.Controls
                 
                 if (IsDirectionReversed)
                 {
-                    Canvas.SetTop(rangeElement, (thumbSize.Height * 0.5) + Minimum * valueToSize);
+                    Canvas.SetTop(rangeElement, (thumbSize.Height * 0.5));
                 }
                 else
                 {
-                    Canvas.SetBottom(rangeElement, (thumbSize.Height * 0.5) + Minimum * valueToSize);
+                    Canvas.SetBottom(rangeElement, (thumbSize.Height * 0.5));
                 }
             }
 
