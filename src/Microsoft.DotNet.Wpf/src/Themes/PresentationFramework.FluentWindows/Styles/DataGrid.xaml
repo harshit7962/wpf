@@ -234,7 +234,7 @@
     </Style>
 
     <!--  Style and template for the resize control on the DataGridRowHeader.  -->
-    <Style x:Key="RowHeaderGripperStyle" TargetType="{x:Type Thumb}">
+    <Style x:Key="DefaultRowHeaderGripperStyle" TargetType="{x:Type Thumb}">
         <Setter Property="Height" Value="8" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Cursor" Value="SizeNS" />
@@ -275,11 +275,11 @@
                         <Thumb
                             x:Name="PART_TopHeaderGripper"
                             VerticalAlignment="Top"
-                            Style="{StaticResource RowHeaderGripperStyle}" />
+                            Style="{StaticResource DefaultRowHeaderGripperStyle}" />
                         <Thumb
                             x:Name="PART_BottomHeaderGripper"
                             VerticalAlignment="Bottom"
-                            Style="{StaticResource RowHeaderGripperStyle}" />
+                            Style="{StaticResource DefaultRowHeaderGripperStyle}" />
                         <VisualStateManager.VisualStateGroups>
                             <!--
                                 This example does not specify an appearance for every
@@ -321,7 +321,7 @@
     </Style>
 
     <!--  Style and template for the resize control on the DataGridColumnHeader.  -->
-    <Style x:Key="ColumnHeaderGripperStyle" TargetType="{x:Type Thumb}">
+    <Style x:Key="DefaultColumnHeaderGripperStyle" TargetType="{x:Type Thumb}">
         <Setter Property="Width" Value="8" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Cursor" Value="SizeWE" />
@@ -366,11 +366,11 @@
                         <Thumb
                             x:Name="PART_LeftHeaderGripper"
                             HorizontalAlignment="Left"
-                            Style="{StaticResource ColumnHeaderGripperStyle}" />
+                            Style="{StaticResource DefaultColumnHeaderGripperStyle}" />
                         <Thumb
                             x:Name="PART_RightHeaderGripper"
                             HorizontalAlignment="Right"
-                            Style="{StaticResource ColumnHeaderGripperStyle}" />
+                            Style="{StaticResource DefaultColumnHeaderGripperStyle}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -472,7 +472,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="TextBoxStyle" TargetType="TextBox">
+    <Style x:Key="DefaultDataGridTextBoxStyle" TargetType="TextBox">
         <Setter Property="Margin" Value="3" />
         <Setter Property="MinWidth" Value="30" />
         <Setter Property="Height" Value="20" />
@@ -486,7 +486,7 @@
         </Style.Triggers>
     </Style>
     <Style TargetType="{x:Type DataGridTextColumn}">
-        <Setter Property="EditingElementStyle" Value="{StaticResource TextBoxStyle}" />
+        <Setter Property="EditingElementStyle" Value="{StaticResource DefaultDataGridTextBoxStyle}" />
     </Style>
 
     <!--  Style and template for the DataGrid.  -->

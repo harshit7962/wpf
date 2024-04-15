@@ -14,7 +14,7 @@
 
     <system:String x:Key="ToolBarChevronDownGlyph">&#xE70D;</system:String>    
 
-    <Style x:Key="ToolBarButtonBaseStyle" TargetType="{x:Type ButtonBase}">
+    <Style x:Key="DefaultToolBarButtonBaseStyle" TargetType="{x:Type ButtonBase}">
         <Setter Property="Background">
             <Setter.Value>
                 <SolidColorBrush Opacity="0.0" Color="{DynamicResource ControlFillColorDefault}" />
@@ -75,19 +75,19 @@
 
     <Style
         x:Key="{x:Static ToolBar.ButtonStyleKey}"
-        BasedOn="{StaticResource ToolBarButtonBaseStyle}"
+        BasedOn="{StaticResource DefaultToolBarButtonBaseStyle}"
         TargetType="{x:Type Button}" />
     <Style
         x:Key="{x:Static ToolBar.ToggleButtonStyleKey}"
-        BasedOn="{StaticResource ToolBarButtonBaseStyle}"
+        BasedOn="{StaticResource DefaultToolBarButtonBaseStyle}"
         TargetType="{x:Type ToggleButton}" />
     <Style
         x:Key="{x:Static ToolBar.CheckBoxStyleKey}"
-        BasedOn="{StaticResource ToolBarButtonBaseStyle}"
+        BasedOn="{StaticResource DefaultToolBarButtonBaseStyle}"
         TargetType="{x:Type CheckBox}" />
     <Style
         x:Key="{x:Static ToolBar.RadioButtonStyleKey}"
-        BasedOn="{StaticResource ToolBarButtonBaseStyle}"
+        BasedOn="{StaticResource DefaultToolBarButtonBaseStyle}"
         TargetType="{x:Type RadioButton}" />
 
     <Style x:Key="{x:Static ToolBar.TextBoxStyleKey}" TargetType="{x:Type TextBox}">
@@ -112,7 +112,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ToolBarThumbStyle" TargetType="{x:Type Thumb}">
+    <Style x:Key="DefaultToolBarThumbStyle" TargetType="{x:Type Thumb}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Cursor" Value="SizeAll" />
@@ -142,7 +142,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ToolBarOverflowButtonStyle" TargetType="{x:Type ToggleButton}">
+    <Style x:Key="DefaultToolBarOverflowButtonStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Foreground">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource TextFillColorTertiary}" />
@@ -203,7 +203,7 @@
                                 DockPanel.Dock="Right"
                                 IsChecked="{Binding IsOverflowOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                 IsEnabled="{TemplateBinding HasOverflowItems}"
-                                Style="{StaticResource ToolBarOverflowButtonStyle}">
+                                Style="{StaticResource DefaultToolBarOverflowButtonStyle}">
                                 <Popup
                                     x:Name="OverflowPopup"
                                     AllowsTransparency="True"
@@ -239,7 +239,7 @@
                             <Thumb
                                 x:Name="ToolBarThumb"
                                 Width="10"
-                                Style="{StaticResource ToolBarThumbStyle}" />
+                                Style="{StaticResource DefaultToolBarThumbStyle}" />
                             <ToolBarPanel
                                 x:Name="PART_ToolBarPanel"
                                 Margin="0,1,2,2"

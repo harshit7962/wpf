@@ -264,7 +264,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="ExpanderHeaderFocusVisual">
+    <Style x:Key="DefautExpanderHeaderFocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -322,7 +322,7 @@
                                         IsEnabled="{TemplateBinding IsEnabled}"
                                         OverridesDefaultStyle="True"
                                         Template="{StaticResource DefaultExpanderToggleButtonDownStyle}"
-                                        FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}"/>
+                                        FocusVisualStyle="{StaticResource DefautExpanderHeaderFocusVisual}"/>
                         </Border>
 
                         <Grid x:Name="ContentPresenterGrid" DockPanel.Dock="Bottom" ClipToBounds="True">
