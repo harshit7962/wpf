@@ -140,7 +140,7 @@ internal static class WindowBackdropManager
     //         {
     //             _isBackdropEnabled = true;
 
-    //             if (FrameworkAppContextSwitches.DisableFluentWindowsThemeWindowBackdrop || !Utility.IsOSWindows11Insider1OrNewer || !ThemeManager.IsFluentWindowsThemeEnabled)
+    //             if (FrameworkAppContextSwitches.DisableFluentThemeWindowBackdrop || !Utility.IsOSWindows11Insider1OrNewer || !ThemeManager.IsFluentThemeEnabled)
     //             {
     //                 _isBackdropEnabled = false;
     //             }
@@ -151,8 +151,8 @@ internal static class WindowBackdropManager
     // }
 
     internal static bool IsBackdropEnabled => _isBackdropEnabled ??= Utility.IsOSWindows11Insider1OrNewer && 
-                                                                        ThemeManager.IsFluentWindowsThemeEnabled &&
-                                                                        !FrameworkAppContextSwitches.DisableFluentWindowsThemeWindowBackdrop;
+                                                                        ThemeManager.IsFluentThemeEnabled &&
+                                                                        !FrameworkAppContextSwitches.DisableFluentThemeWindowBackdrop;
 
     private static bool? _isBackdropEnabled = null;
 
