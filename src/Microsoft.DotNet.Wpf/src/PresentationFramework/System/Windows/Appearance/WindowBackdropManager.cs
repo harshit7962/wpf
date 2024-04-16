@@ -14,8 +14,8 @@ internal static class WindowBackdropManager
     {
         return backdropType switch
         {
-            WindowBackdropType.Auto => Utility.IsOSWindows11Insider1OrNewer,
-            WindowBackdropType.TabbedWindow => Utility.IsOSWindows11Insider1OrNewer,
+            WindowBackdropType.Auto => Utility.IsWindows1122H2OrGreater,
+            WindowBackdropType.TabbedWindow => Utility.IsWindows1122H2OrGreater,
             WindowBackdropType.MainWindow => Utility.IsOSWindows11OrNewer,
             WindowBackdropType.TransientWindow => Utility.IsOSWindows7OrNewer,
             WindowBackdropType.None => true,
@@ -140,7 +140,7 @@ internal static class WindowBackdropManager
     //         {
     //             _isBackdropEnabled = true;
 
-    //             if (FrameworkAppContextSwitches.DisableFluentWindowsThemeWindowBackdrop || !Utility.IsOSWindows11Insider1OrNewer || !ThemeManager.IsFluentWindowsThemeEnabled)
+    //             if (FrameworkAppContextSwitches.DisableFluentWindowsThemeWindowBackdrop || !Utility.IsWindows1122H2OrGreater || !ThemeManager.IsFluentWindowsThemeEnabled)
     //             {
     //                 _isBackdropEnabled = false;
     //             }
@@ -150,7 +150,7 @@ internal static class WindowBackdropManager
     //     }
     // }
 
-    internal static bool IsBackdropEnabled => _isBackdropEnabled ??= Utility.IsOSWindows11Insider1OrNewer && 
+    internal static bool IsBackdropEnabled => _isBackdropEnabled ??= Utility.IsWindows1122H2OrGreater && 
                                                                         ThemeManager.IsFluentWindowsThemeEnabled &&
                                                                         !FrameworkAppContextSwitches.DisableFluentWindowsThemeWindowBackdrop;
 
