@@ -125,7 +125,7 @@ namespace Standard
         /// <summary>
         /// Whether the operating system version is greater than or equal to 11.0* (build 22621).
         /// </summary>
-        public static bool IsWindows1122H2OrGreater => _osVersion.Build >= 22621;
+        public static bool IsWindows11_22H2OrNewer => _osVersion.Build >= 22621;
 
 
         /// <summary>
