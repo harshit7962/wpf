@@ -425,6 +425,10 @@ namespace System.Windows
         {
             get
             {
+                if(ThemeManager.IsFluentWindowsThemeEnabled)
+                {
+                    return 14;
+                }
                 return ConvertFontHeight(SystemParameters.NonClientMetrics.lfMessageFont.lfHeight);
             }
         }
