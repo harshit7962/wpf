@@ -14,8 +14,8 @@ internal static class WindowBackdropManager
     {
         return backdropType switch
         {
-            WindowBackdropType.Auto => Utility.IsOSWindows11Insider1OrNewer,
-            WindowBackdropType.TabbedWindow => Utility.IsOSWindows11Insider1OrNewer,
+            WindowBackdropType.Auto => Utility.IsWindows11_22H2OrNewer,
+            WindowBackdropType.TabbedWindow => Utility.IsWindows11_22H2OrNewer,
             WindowBackdropType.MainWindow => Utility.IsOSWindows11OrNewer,
             WindowBackdropType.TransientWindow => Utility.IsOSWindows7OrNewer,
             WindowBackdropType.None => true,
@@ -132,6 +132,7 @@ internal static class WindowBackdropManager
 
     #region Internal Properties
 
+<<<<<<< HEAD
     // internal static bool IsBackdropEnabled
     // {
     //     get
@@ -153,6 +154,11 @@ internal static class WindowBackdropManager
     internal static bool IsBackdropEnabled => _isBackdropEnabled ??= Utility.IsOSWindows11Insider1OrNewer && 
                                                                         ThemeManager.IsFluentThemeEnabled &&
                                                                         !FrameworkAppContextSwitches.DisableFluentThemeWindowBackdrop;
+=======
+    internal static bool IsBackdropEnabled => _isBackdropEnabled ??= Utility.IsWindows11_22H2OrNewer && 
+                                                                        ThemeManager.IsFluentWindowsThemeEnabled &&
+                                                                        !FrameworkAppContextSwitches.DisableFluentWindowsThemeWindowBackdrop;
+>>>>>>> CompleteWin11Changes
 
     private static bool? _isBackdropEnabled = null;
 

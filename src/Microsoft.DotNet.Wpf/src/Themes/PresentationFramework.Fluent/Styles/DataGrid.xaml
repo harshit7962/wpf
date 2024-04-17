@@ -440,7 +440,7 @@
                                 VerticalAlignment="Center"
                                 FontSize="12"
                                 Opacity="0"
-                                FontFamily="Segoe Fluent Icons"
+                                FontFamily="{DynamicResource SegoeFluentIcons}"
                                 Text="&#xE8CB;" />
                         </Grid>
                         <VisualStateManager.VisualStateGroups>
@@ -683,7 +683,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="{StaticResource CheckBoxIconSize}"
                                         FontWeight="Bold"
-                                        FontFamily="Segoe Fluent Icons"
+                                        FontFamily="{DynamicResource SegoeFluentIcons}"
                                         Text="{StaticResource CheckBoxCheckedGlyph}"
                                         Visibility="Collapsed">
                                         <TextBlock.Foreground>
@@ -772,20 +772,12 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
     </Style>
 
-    <Style
-        x:Key="DefaultUiDataGridStyle"
-        BasedOn="{StaticResource DefaultDataGridStyle}"
-        TargetType="{x:Type DataGrid}">
-        
-    </Style>
-
     <Style TargetType="{x:Type DataGridCheckBoxColumn}">
         <Setter Property="ElementStyle" Value="{StaticResource DataGridCheckBoxElementDefaultStyle}" />
         <Setter Property="EditingElementStyle" Value="{StaticResource DataGridCheckBoxEditingElementDefaultStyle}" />
     </Style>
 
     <Style BasedOn="{StaticResource DefaultDataGridColumnHeadersPresenterStyle}" TargetType="{x:Type DataGridColumnHeadersPresenter}" />
-    <!--<Style BasedOn="{StaticResource DefaultDataGridStyle}" TargetType="{x:Type DataGrid}" />-->
-    <Style BasedOn="{StaticResource DefaultUiDataGridStyle}" TargetType="{x:Type DataGrid}" />
+    <Style BasedOn="{StaticResource DefaultDataGridStyle}" TargetType="{x:Type DataGrid}" />
 
 </ResourceDictionary>
