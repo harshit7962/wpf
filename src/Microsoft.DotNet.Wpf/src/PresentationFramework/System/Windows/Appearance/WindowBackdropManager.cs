@@ -132,33 +132,9 @@ internal static class WindowBackdropManager
 
     #region Internal Properties
 
-<<<<<<< HEAD
-    // internal static bool IsBackdropEnabled
-    // {
-    //     get
-    //     {
-    //         if (_isBackdropEnabled == null)
-    //         {
-    //             _isBackdropEnabled = true;
-
-    //             if (FrameworkAppContextSwitches.DisableFluentThemeWindowBackdrop || !Utility.IsOSWindows11Insider1OrNewer || !ThemeManager.IsFluentThemeEnabled)
-    //             {
-    //                 _isBackdropEnabled = false;
-    //             }
-    //         }
-
-    //         return (bool)_isBackdropEnabled;
-    //     }
-    // }
-
-    internal static bool IsBackdropEnabled => _isBackdropEnabled ??= Utility.IsOSWindows11Insider1OrNewer && 
+    internal static bool IsBackdropEnabled => _isBackdropEnabled ??= Utility.IsWindows11_22H2OrNewer && 
                                                                         ThemeManager.IsFluentThemeEnabled &&
                                                                         !FrameworkAppContextSwitches.DisableFluentThemeWindowBackdrop;
-=======
-    internal static bool IsBackdropEnabled => _isBackdropEnabled ??= Utility.IsWindows11_22H2OrNewer && 
-                                                                        ThemeManager.IsFluentWindowsThemeEnabled &&
-                                                                        !FrameworkAppContextSwitches.DisableFluentWindowsThemeWindowBackdrop;
->>>>>>> CompleteWin11Changes
 
     private static bool? _isBackdropEnabled = null;
 

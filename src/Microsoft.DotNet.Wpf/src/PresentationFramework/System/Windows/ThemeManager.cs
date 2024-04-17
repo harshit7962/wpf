@@ -214,9 +214,7 @@ internal static class ThemeManager
 
     internal static bool IsFluentThemeEnabled => _isFluentThemeEnabled;
     // TODO : Find a better way to deal with different default font sizes for different themes.
-    internal static double DefaultFluentWindowsThemeFontSize => 14;
-
-    internal static bool IsFluentWindowsThemeEnabled => _isFluentWindowsThemeEnabled;
+    internal static double DefaultFluentThemeFontSize => 14;
 
     #endregion
 
