@@ -20,10 +20,20 @@ internal static class ThemeManager
         {
             foreach (ResourceDictionary mergedDictionary in Application.Current.Resources.MergedDictionaries)
             {
-                if (mergedDictionary.Source != null && mergedDictionary.Source.ToString().EndsWith("Fluent.xaml"))
+                if (mergedDictionary.Source != null && (mergedDictionary.Source.ToString().EndsWith("Fluent.xaml") || mergedDictionary.Source.ToString().EndsWith("Fluent.Light.xaml") || mergedDictionary.Source.ToString().EndsWith("Fluent.Dark.xaml")))
                 {
                     _isFluentThemeEnabled = true;
-                    break;
+
+                    if(mergedDictionary.Source.ToString().EndsWith("Fluent.Light.xaml"))
+                    {
+                        _isFluentThemeSetLight = true;
+                        _isFluentThemeSetDark = false; // Safety check to ensure the ResourceDictionary listed last is taken into account
+                    }
+                    else if(mergedDictionary.Source.ToString().EndsWith("Fluent.Dark.xaml"))
+                    {
+                        _isFluentThemeSetDark = true;
+                        _isFluentThemeSetLight = false; // Safety check to ensure the ResourceDictionary listed last is taken into account
+                    }
                 }
             }
         }
@@ -170,6 +180,11 @@ internal static class ThemeManager
     /// <returns></returns>
     internal static bool IsSystemThemeLight()
     {
+        if(_isFluentThemeSetLight || _isFluentThemeSetDark)
+        {
+            return _isFluentThemeSetLight;
+        }
+
         var useLightTheme = Registry.GetValue(_regPersonalizeKeyPath,
             "AppsUseLightTheme", null) as int?;
 
@@ -253,6 +268,10 @@ internal static class ThemeManager
     private static bool _isFluentThemeEnabled = false;
 
     private static bool _isFluentThemeInitialized = false;
+
+    private static bool _isFluentThemeSetLight = false;
+
+    private static bool _isFluentThemeSetDark = false;
 
     #endregion
 }
