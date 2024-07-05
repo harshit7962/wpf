@@ -269,9 +269,9 @@ internal static class ThemeManager
 
     private static bool _isFluentThemeInitialized = false;
 
-    private static bool _isFluentThemeSetLight = false;
+    internal static bool _isFluentThemeSetLight = false;
 
-    private static bool _isFluentThemeSetDark = false;
+    internal static bool _isFluentThemeSetDark = false;
 
     #endregion
 }

@@ -1861,6 +1861,27 @@ namespace System.Windows
                             mergedDictionary.IsThemeDictionary = true;
                         }
 
+                        if (e != null && e.NewItems[i] != null && ((ResourceDictionary)e.NewItems[i]).Source != null)
+                        {
+                            if(((ResourceDictionary)e.NewItems[i]).Source.ToString().Contains("Fluent.Dark.xaml")) 
+                            {
+                                ThemeManager._isFluentThemeSetDark = true;
+                                ThemeManager._isFluentThemeSetLight = false;
+                            }
+                            else if(((ResourceDictionary)e.NewItems[i]).Source.ToString().Contains("Fluent.Light.xaml"))
+                            {
+                                ThemeManager._isFluentThemeSetLight = true;
+                                ThemeManager._isFluentThemeSetDark = false;
+                            }
+                            else if(((ResourceDictionary)e.NewItems[i]).Source.ToString().Contains("Fluent.xaml"))
+                            {
+                                ThemeManager._isFluentThemeSetLight = false;
+                                ThemeManager._isFluentThemeSetDark = false;
+                            }
+                            
+                            ThemeManager.ApplySystemTheme();
+                        }
+
                         PropagateParentOwners(mergedDictionary);
                     }
                 }
