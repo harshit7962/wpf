@@ -235,12 +235,6 @@ namespace System.Windows
             96.0 / 72.0,      // Pixels per Point
         };
 
-        static internal string ToString(double l, CultureInfo cultureInfo)
-        {
-            if(double.IsNaN(l)) return "Auto";
-            return Convert.ToString(l, cultureInfo);
-        }
-
         #endregion
 
     }
