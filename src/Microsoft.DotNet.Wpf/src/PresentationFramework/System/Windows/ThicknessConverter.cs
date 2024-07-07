@@ -112,7 +112,7 @@ namespace System.Windows
         /// ConvertTo - Attempt to convert a Thickness to the given type
         /// </summary>
         /// <returns>
-        /// The object which was constructoed.
+        /// The object which was constructed.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// An ArgumentNullException is thrown if the example object is null.
