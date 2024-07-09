@@ -180,9 +180,6 @@ namespace System.Windows
             return handler.ToStringAndClear();
         }
 
-        /// <summary> Holds the "Auto" string representation for <see cref="double.NaN"/> conversion. </summary>
-        private static ReadOnlySpan<char> NaNValue => ['A', 'u', 't', 'o'];
-
         /// <summary> Format <see cref="double"/> into <see cref="string"/> using specified <see cref="CultureInfo"/>
         /// in <paramref name="handler"/>. <br /> <br />
         /// Special representation applies for <see cref="double.NaN"/> values, emitted as "Auto" string instead. </summary>
@@ -191,7 +188,7 @@ namespace System.Windows
         static internal void FormatDoubleAsString(double value, ref DefaultInterpolatedStringHandler handler)
         {
             if (double.IsNaN(value))
-                handler.AppendFormatted(NaNValue);
+                handler.AppendLiteral("Auto");
             else
                 handler.AppendFormatted(value);
         }
