@@ -166,31 +166,18 @@ namespace System.Windows
             //  1 = 1x scratch space for alignment
 
             DefaultInterpolatedStringHandler handler = new(0, 7, cultureInfo, stackalloc char[64]);
-            FormatDoubleAsString(th.Left, ref handler);
+            LengthConverter.FormatLengthAsString(th.Left, ref handler);
             handler.AppendFormatted(listSeparator);
 
-            FormatDoubleAsString(th.Top, ref handler);
+            LengthConverter.FormatLengthAsString(th.Top, ref handler);
             handler.AppendFormatted(listSeparator);
 
-            FormatDoubleAsString(th.Right, ref handler);
+            LengthConverter.FormatLengthAsString(th.Right, ref handler);
             handler.AppendFormatted(listSeparator);
 
-            FormatDoubleAsString(th.Bottom, ref handler);
+            LengthConverter.FormatLengthAsString(th.Bottom, ref handler);
 
             return handler.ToStringAndClear();
-        }
-
-        /// <summary> Format <see cref="double"/> into <see cref="string"/> using specified <see cref="CultureInfo"/>
-        /// in <paramref name="handler"/>. <br /> <br />
-        /// Special representation applies for <see cref="double.NaN"/> values, emitted as "Auto" string instead. </summary>
-        /// <param name="value">The value to format as string.</param>
-        /// <param name="handler">The handler specifying culture used for conversion.</param>
-        static internal void FormatDoubleAsString(double value, ref DefaultInterpolatedStringHandler handler)
-        {
-            if (double.IsNaN(value))
-                handler.AppendLiteral("Auto");
-            else
-                handler.AppendFormatted(value);
         }
 
         static internal unsafe Thickness FromString(string s, CultureInfo cultureInfo)
