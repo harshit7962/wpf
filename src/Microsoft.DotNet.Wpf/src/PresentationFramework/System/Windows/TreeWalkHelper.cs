@@ -14,7 +14,6 @@ using MS.Utility;
 using System;
 using System.Diagnostics;
 using System.Security;
-using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
@@ -683,38 +682,9 @@ namespace System.Windows
 
             Window currentWindow = d as Window;
 
-            if(currentWindow != null)
+            if(currentWindow != null && !ThemeManager3.IgnoreWindowResourcesChange)
             {
-                Collection<ResourceDictionary> windowResources = currentWindow.Resources.MergedDictionaries;
-                bool containsFluentResource = false;
-
-                for (int i = windowResources.Count - 1 ; i >= 0 ; i--) 
-                {
-                    if (windowResources[i].Source.ToString().Contains("Fluent")) 
-                    {
-                        containsFluentResource = true;
-                        
-                        if(windowResources[i].Source.ToString().Contains("Light"))
-                        {
-                            currentWindow.ThemeMode = ThemeMode.Light;
-                        }
-                        else if(windowResources[i].Source.ToString().Contains("Dark"))
-                        {
-                            currentWindow.ThemeMode = ThemeMode.Dark;
-                        }
-                        else
-                        {
-                            currentWindow.ThemeMode = ThemeMode.System;
-                        }
-
-                        break;
-                    }
-                }
-
-                if(!containsFluentResource)
-                {
-                    currentWindow.ThemeMode = ThemeMode.None;
-                }
+                ThemeManager3.SyncWindowThemeModeAndResources(currentWindow);
             }
 
             // Find properties that have resource reference value
