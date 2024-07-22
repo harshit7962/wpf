@@ -231,7 +231,7 @@ internal static class ThemeManager3
         
         bool useLightColors = GetUseLightColors(window.ThemeMode);
         var fluentThemeResourceUri = GetFluentThemeResourceUri(useLightColors);
-        AddOrUpdateThemeResources(window.Resources, fluentThemeResourceUri);
+        AddOrUpdateThemeResources(window.Resources, fluentThemeResourceUri, true);
         ApplyStyleOnWindow(window, useLightColors);
 
         if(!FluentEnabledWindows.HasItem(window))
@@ -365,7 +365,7 @@ internal static class ThemeManager3
 
     }
 
-    private static void AddOrUpdateThemeResources(ResourceDictionary rd, Uri dictionaryUri)
+    private static void AddOrUpdateThemeResources(ResourceDictionary rd, Uri dictionaryUri, bool isWindowUpdate = false)
     {
         if (rd == null) return;
 
@@ -376,6 +376,11 @@ internal static class ThemeManager3
 
         if (index >= 0)
         {
+            if(isWindowUpdate && rd.MergedDictionaries[index].Source.ToString().Equals(dictionaryUri.ToString(), StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
             rd.MergedDictionaries[index] = newDictionary;
         }
         else
