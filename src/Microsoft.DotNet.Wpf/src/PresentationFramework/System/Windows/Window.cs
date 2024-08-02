@@ -2573,7 +2573,7 @@ namespace System.Windows
                     }
                 }
 
-                if(_deferThemeLoading)
+                if(_deferThemeLoading || ThemeMode != ThemeMode.None)
                 {
                     _deferThemeLoading = false;
                     ThemeManager.OnWindowThemeChanged(this, ThemeMode.None, ThemeMode);
