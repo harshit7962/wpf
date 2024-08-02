@@ -182,6 +182,16 @@ internal static class ThemeManager
 
     internal static void SyncWindowThemeModeAndResources(Window window)
     {
+
+        if(window._deferThemeLoading)
+        {
+            IgnoreWindowResourcesChange = true;
+            var uri = GetThemeResource(window.ThemeMode);
+            window.Resources.MergedDictionaries.Insert(0, new ResourceDictionary() { Source = uri });
+            window._deferThemeLoading = false;
+            IgnoreWindowResourcesChange = false;
+        }
+
         ThemeMode themeMode = GetThemeModeFromResourceDictionary(window.Resources);
 
         if(window.ThemeMode != themeMode)
