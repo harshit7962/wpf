@@ -707,6 +707,8 @@ namespace System.Windows
             }
             set
             {
+                bool invalidateResources = false;
+                
                 ResourceDictionary oldValue = ResourcesField.GetValue(this);
                 ResourcesField.SetValue(this, value);
 
@@ -727,6 +729,21 @@ namespace System.Windows
                     oldValue.RemoveOwner(this);
                 }
 
+                if(this is Window window)
+                {
+                    if(window.ReloadWindowsFluentDictionary && !window.IsWindowsResourcesInitialized)
+                    {
+                        if(value != null) 
+                        {
+                            var uri = ThemeManager.GetThemeResource(window.ThemeMode);
+                            value.MergedDictionaries.Insert(0, new ResourceDictionary() { Source = uri });
+                            invalidateResources = true;
+                        }
+
+                        window.ReloadWindowsFluentDictionary = false;
+                    }
+                }
+
                 if (value != null)
                 {
                     if (!value.ContainsOwner(this))
@@ -743,7 +760,7 @@ namespace System.Windows
                 // final invalidation & it is no worse than the old code that also did not invalidate in this case
                 // Removed the not-empty check to allow invalidations in the case that the old dictionary
                 // is replaced with a new empty dictionary
-                if (oldValue != value)
+                if (oldValue != value || invalidateResources)
                 {
                     TreeWalkHelper.InvalidateOnResourcesChange(this, null, new ResourcesChangeInfo(oldValue, value));
                 }

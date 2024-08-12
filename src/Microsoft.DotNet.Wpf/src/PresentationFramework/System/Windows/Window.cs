@@ -583,6 +583,14 @@ namespace System.Windows
                 ThemeMode oldTheme = _themeMode;
                 _themeMode = value;
                 
+                if(!IsWindowsResourcesInitialized)
+                {
+                    ThemeManager.OnWindowThemeChanged(this, oldTheme, value);
+                    IsWindowsResourcesInitialized = false;
+
+                    ReloadWindowsFluentDictionary = true;
+                }
+
                 if(IsSourceWindowNull)
                 {
                     _deferThemeLoading = true;
@@ -3292,6 +3300,31 @@ namespace System.Windows
         {
             get { return false; }
         }
+
+        internal bool ReloadWindowsFluentDictionary
+        {
+            get
+            {
+                return _reloadWindowsFluentDictionary;
+            }
+            set
+            {
+                _reloadWindowsFluentDictionary = value;
+            }
+        }
+
+        internal bool IsWindowsResourcesInitialized
+        {
+            get
+            {
+                return _windowsResourcesInitialized;
+            }
+            set
+            {
+                _windowsResourcesInitialized = value;
+            }
+        }
+
         #endregion Internal Properties
 
         //----------------------------------------------
@@ -7215,7 +7248,9 @@ namespace System.Windows
 
         private SourceWindowHelper  _swh;                               // object that will hold the window
         private Window              _ownerWindow;                       // owner window
-
+        private bool _reloadWindowsFluentDictionary = false;
+        private bool _windowsResourcesInitialized = false;
+        
         // keeps track of the owner hwnd
         // we need this one b/c a owner/parent
         // can be set through the WindowInteropHandler
