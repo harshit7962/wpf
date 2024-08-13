@@ -2131,7 +2131,7 @@ namespace System.Windows
         internal void AddFluentDictionary(ResourceDictionary value, out bool invalidateResources)
         {
             invalidateResources = false;
-            
+
             if(this.ReloadWindowsFluentDictionary && !this.IsWindowsResourcesInitialized)
             {
                 if(value != null) 
@@ -3318,7 +3318,7 @@ namespace System.Windows
             get { return false; }
         }
 
-        internal bool ReloadWindowsFluentDictionary
+        private bool ReloadWindowsFluentDictionary
         {
             get
             {
