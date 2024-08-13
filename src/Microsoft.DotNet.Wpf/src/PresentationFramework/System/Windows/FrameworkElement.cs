@@ -731,17 +731,7 @@ namespace System.Windows
 
                 if(this is Window window)
                 {
-                    if(window.ReloadWindowsFluentDictionary && !window.IsWindowsResourcesInitialized)
-                    {
-                        if(value != null) 
-                        {
-                            var uri = ThemeManager.GetThemeResource(window.ThemeMode);
-                            value.MergedDictionaries.Insert(0, new ResourceDictionary() { Source = uri });
-                            invalidateResources = true;
-                        }
-
-                        window.ReloadWindowsFluentDictionary = false;
-                    }
+                    window.AddFluentDictionary(value, out invalidateResources);
                 }
 
                 if (value != null)

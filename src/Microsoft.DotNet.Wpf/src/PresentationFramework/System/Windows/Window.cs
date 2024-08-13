@@ -2128,6 +2128,23 @@ namespace System.Windows
             return ptDeviceUnits;
         }
 
+        internal void AddFluentDictionary(ResourceDictionary value, out bool invalidateResources)
+        {
+            invalidateResources = false;
+            
+            if(this.ReloadWindowsFluentDictionary && !this.IsWindowsResourcesInitialized)
+            {
+                if(value != null) 
+                {
+                    var uri = ThemeManager.GetThemeResource(this.ThemeMode);
+                    value.MergedDictionaries.Insert(0, new ResourceDictionary() { Source = uri });
+                    invalidateResources = true;
+                }
+
+                this.ReloadWindowsFluentDictionary = false;
+            }
+        }
+
         internal static bool VisibilityToBool(Visibility v)
         {
             switch (v)
