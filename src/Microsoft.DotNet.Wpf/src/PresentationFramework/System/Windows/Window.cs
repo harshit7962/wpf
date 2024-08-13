@@ -583,12 +583,12 @@ namespace System.Windows
                 ThemeMode oldTheme = _themeMode;
                 _themeMode = value;
                 
-                if(!IsWindowsResourcesInitialized)
+                if(!AreWindowResourcesInitialized)
                 {
                     ThemeManager.OnWindowThemeChanged(this, oldTheme, value);
-                    IsWindowsResourcesInitialized = false;
+                    AreWindowResourcesInitialized = false;
 
-                    ReloadWindowsFluentDictionary = true;
+                    ReloadFluentDictionary = true;
                 }
 
                 if(IsSourceWindowNull)
@@ -2132,7 +2132,7 @@ namespace System.Windows
         {
             invalidateResources = false;
 
-            if(this.ReloadWindowsFluentDictionary && !this.IsWindowsResourcesInitialized)
+            if(this.ReloadFluentDictionary && !this.AreWindowResourcesInitialized)
             {
                 if(value != null) 
                 {
@@ -2141,7 +2141,7 @@ namespace System.Windows
                     invalidateResources = true;
                 }
 
-                this.ReloadWindowsFluentDictionary = false;
+                this.ReloadFluentDictionary = false;
             }
         }
 
@@ -3318,27 +3318,27 @@ namespace System.Windows
             get { return false; }
         }
 
-        private bool ReloadWindowsFluentDictionary
+        private bool ReloadFluentDictionary
         {
             get
             {
-                return _reloadWindowsFluentDictionary;
+                return _reloadFluentDictionary;
             }
             set
             {
-                _reloadWindowsFluentDictionary = value;
+                _reloadFluentDictionary = value;
             }
         }
 
-        internal bool IsWindowsResourcesInitialized
+        internal bool AreWindowResourcesInitialized
         {
             get
             {
-                return _windowsResourcesInitialized;
+                return _windowResourcesInitialized;
             }
             set
             {
-                _windowsResourcesInitialized = value;
+                _windowResourcesInitialized = value;
             }
         }
 
@@ -7265,8 +7265,8 @@ namespace System.Windows
 
         private SourceWindowHelper  _swh;                               // object that will hold the window
         private Window              _ownerWindow;                       // owner window
-        private bool _reloadWindowsFluentDictionary = false;
-        private bool _windowsResourcesInitialized = false;
+        private bool _reloadFluentDictionary = false;
+        private bool _windowResourcesInitialized = false;
         
         // keeps track of the owner hwnd
         // we need this one b/c a owner/parent
