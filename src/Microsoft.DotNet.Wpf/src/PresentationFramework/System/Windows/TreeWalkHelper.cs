@@ -461,7 +461,7 @@ namespace System.Windows
             // The IgnoreWindowResourcesChange is a flag set to make sure the ThemeMode change does not cause an infinite loop of resource changes.
             if(fe is Window currentWindow)
             {
-                currentWindow.AreWindowResourcesInitialized = true;
+                currentWindow.AreResourcesInitialized = true;
                 if(!ThemeManager.IgnoreWindowResourcesChange)
                 {
                     ThemeManager.SyncWindowThemeModeAndResources(currentWindow);

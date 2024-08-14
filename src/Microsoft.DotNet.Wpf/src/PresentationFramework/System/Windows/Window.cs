@@ -583,10 +583,10 @@ namespace System.Windows
                 ThemeMode oldTheme = _themeMode;
                 _themeMode = value;
                 
-                if(!AreWindowResourcesInitialized)
+                if(!AreResourcesInitialized)
                 {
                     ThemeManager.OnWindowThemeChanged(this, oldTheme, value);
-                    AreWindowResourcesInitialized = false;
+                    AreResourcesInitialized = false;
 
                     ReloadFluentDictionary = true;
                 }
@@ -2132,7 +2132,7 @@ namespace System.Windows
         {
             invalidateResources = false;
 
-            if(this.ReloadFluentDictionary && !this.AreWindowResourcesInitialized)
+            if(this.ReloadFluentDictionary && !this.AreResourcesInitialized)
             {
                 if(value != null) 
                 {
@@ -3330,15 +3330,15 @@ namespace System.Windows
             }
         }
 
-        internal bool AreWindowResourcesInitialized
+        internal bool AreResourcesInitialized
         {
             get
             {
-                return _windowResourcesInitialized;
+                return _resourcesInitialized;
             }
             set
             {
-                _windowResourcesInitialized = value;
+                _resourcesInitialized = value;
             }
         }
 
@@ -7266,7 +7266,7 @@ namespace System.Windows
         private SourceWindowHelper  _swh;                               // object that will hold the window
         private Window              _ownerWindow;                       // owner window
         private bool _reloadFluentDictionary = false;
-        private bool _windowResourcesInitialized = false;
+        private bool _resourcesInitialized = false;
         
         // keeps track of the owner hwnd
         // we need this one b/c a owner/parent
