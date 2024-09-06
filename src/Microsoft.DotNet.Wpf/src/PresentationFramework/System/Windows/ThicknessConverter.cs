@@ -184,6 +184,13 @@ namespace System.Windows
             return handler.ToStringAndClear();
         }
 
+        /// <summary>
+        /// Constructs a <see cref="Thickness"/> struct out of string representation supplied by <paramref name="s"/> and the specified <paramref name="cultureInfo"/>.
+        /// </summary>
+        /// <param name="s">The string representation of a <see cref="Thickness"/> struct.</param>
+        /// <param name="cultureInfo">The <see cref="CultureInfo"/> which was used to format this string.</param>
+        /// <returns>A new instance of <see cref="Thickness"/> struct representing the data contained in <paramref name="s"/>.</returns>
+        /// <exception cref="FormatException">Thrown when <paramref name="s"/> contains invalid string representation.</exception>
         internal static Thickness FromString(string s, CultureInfo cultureInfo)
         {
             TokenizerHelper th = new(s, cultureInfo);
