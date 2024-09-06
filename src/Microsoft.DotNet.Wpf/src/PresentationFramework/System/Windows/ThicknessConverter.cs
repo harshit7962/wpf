@@ -95,17 +95,15 @@ namespace System.Windows
         /// <param name="source"> The object to convert to a Thickness. </param>
         public override object ConvertFrom(ITypeDescriptorContext typeDescriptorContext, CultureInfo cultureInfo, object source)
         {
-            if (source is not null)
-            {
-                if (source is string sourceString)
-                    return FromString(sourceString, cultureInfo);
-                else if (source is double sourceValue)
-                    return new Thickness(sourceValue);
-                else
-                    return new Thickness(Convert.ToDouble(source, cultureInfo));
-            }
+            if (source is null)
+                throw GetConvertFromException(source);
 
-            throw GetConvertFromException(source);
+            if (source is string sourceString)
+                return FromString(sourceString, cultureInfo);
+            else if (source is double sourceValue)
+                return new Thickness(sourceValue);
+            else
+                return new Thickness(Convert.ToDouble(source, cultureInfo));         
         }
 
         /// <summary>
@@ -155,7 +153,13 @@ namespace System.Windows
 
         #region Internal Methods
 
-        static internal string ToString(Thickness th, CultureInfo cultureInfo)
+        /// <summary>
+        /// Converts <paramref name="th"/> to its string representation using the specified <paramref name="cultureInfo"/>.
+        /// </summary>
+        /// <param name="th">The <see cref="Thickness"/> to convert to string.</param>
+        /// <param name="cultureInfo">Culture to use when formatting doubles and choosing separator.</param>
+        /// <returns>The formatted <paramref name="th"/> as string using the specified <paramref name="cultureInfo"/>.</returns>
+        internal static string ToString(Thickness th, CultureInfo cultureInfo)
         {
             char listSeparator = TokenizerHelper.GetNumericListSeparator(cultureInfo);
 
@@ -180,10 +184,10 @@ namespace System.Windows
             return handler.ToStringAndClear();
         }
 
-        static internal unsafe Thickness FromString(string s, CultureInfo cultureInfo)
+        internal static Thickness FromString(string s, CultureInfo cultureInfo)
         {
             TokenizerHelper th = new(s, cultureInfo);
-            double* lengths = stackalloc double[4];
+            Span<double> lengths = stackalloc double[4];
             int i = 0;
 
             // Peel off each double in the delimited list.
