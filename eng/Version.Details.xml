@@ -181,15 +181,9 @@
       <Uri>https://github.com/dotnet/arcade</Uri>
       <Sha>f4e11a15c7b8a949d4a366e792a9843ff6e88cd5</Sha>
     </Dependency>
-<<<<<<< HEAD
     <Dependency Name="Microsoft.DotNet.GenAPI" Version="9.0.0-beta.24459.6">
       <Uri>https://github.com/dotnet/arcade</Uri>
       <Sha>65260b148c869ada772a5843863c54737cd2361e</Sha>
-=======
-    <Dependency Name="Microsoft.DotNet.GenAPI" Version="9.0.0-beta.24421.7">
-      <Uri>https://github.com/dotnet/arcade</Uri>
-      <Sha>c28c6307d0600513219bcd9ab028c0fedbe591ec</Sha>
->>>>>>> pr-8622
     </Dependency>
     <Dependency Name="Microsoft.SourceLink.AzureRepos.Git" Version="8.0.0-beta.23409.2">
       <Uri>https://github.com/dotnet/sourcelink</Uri>
