@@ -28,4 +28,8 @@
   <Import Sdk="Microsoft.DotNet.Arcade.Wpf.Sdk"
           Project="Sdk.props"
           Condition="!Exists('$(WpfArcadeSdkProps)') Or !Exists('$(WpfArcadeSdkTargets)')"/>
+
+  <PropertyGroup>
+    <LangVersion>13</LangVersion>
+  </PropertyGroup>
 </Project>
