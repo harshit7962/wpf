@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <MajorVersion>10</MajorVersion>
+    <MajorVersion>9</MajorVersion>
     <MinorVersion>0</MinorVersion>
     <PatchVersion>0</PatchVersion>
-    <PreReleaseVersionLabel>alpha</PreReleaseVersionLabel>
-    <PreReleaseVersionIteration>1</PreReleaseVersionIteration>
+    <PreReleaseVersionLabel>rtm</PreReleaseVersionLabel>
+    <PreReleaseVersionIteration>
+    </PreReleaseVersionIteration>
     <VersionPrefix>$(MajorVersion).$(MinorVersion).$(PatchVersion)</VersionPrefix>
     <!--
       Set assembly version to align with major and minor version, as for the patches and revisions should be manually
@@ -21,28 +22,28 @@
   </PropertyGroup>
   <!-- Packages that come from https://github.com/dotnet/winforms -->
   <PropertyGroup>
-    <MicrosoftPrivateWinformsVersion>10.0.0-alpha.1.24473.6</MicrosoftPrivateWinformsVersion>
+    <MicrosoftPrivateWinformsVersion>9.0.0-rtm.24474.4</MicrosoftPrivateWinformsVersion>
   </PropertyGroup>
   <!-- Packages that come from https://github.com/dotnet/runtime -->
   <PropertyGroup>
-    <VSRedistCommonNetCoreSharedFrameworkx64100PackageVersion>10.0.0-alpha.1.24472.5</VSRedistCommonNetCoreSharedFrameworkx64100PackageVersion>
-    <MicrosoftNETCoreAppRefVersion>10.0.0-alpha.1.24472.5</MicrosoftNETCoreAppRefVersion>
-    <MicrosoftNETCoreAppRuntimewinx64Version>10.0.0-alpha.1.24472.5</MicrosoftNETCoreAppRuntimewinx64Version>
-    <MicrosoftNETCorePlatformsVersion>10.0.0-alpha.1.24472.5</MicrosoftNETCorePlatformsVersion>
-    <SystemCodeDomPackageVersion>10.0.0-alpha.1.24472.5</SystemCodeDomPackageVersion>
-    <SystemConfigurationConfigurationManagerPackageVersion>10.0.0-alpha.1.24472.5</SystemConfigurationConfigurationManagerPackageVersion>
-    <SystemDiagnosticsEventLogPackageVersion>10.0.0-alpha.1.24472.5</SystemDiagnosticsEventLogPackageVersion>
-    <SystemDrawingCommonVersion>10.0.0-alpha.1.24473.6</SystemDrawingCommonVersion>
-    <SystemDirectoryServicesVersion>10.0.0-alpha.1.24472.5</SystemDirectoryServicesVersion>
-    <SystemFormatsNrbfVersion>10.0.0-alpha.1.24472.5</SystemFormatsNrbfVersion>
-    <SystemIOPackagingVersion>10.0.0-alpha.1.24472.5</SystemIOPackagingVersion>
-    <SystemReflectionMetadataLoadContextVersion>10.0.0-alpha.1.24472.5</SystemReflectionMetadataLoadContextVersion>
+    <VSRedistCommonNetCoreSharedFrameworkx6490PackageVersion>9.0.0-rtm.24473.2</VSRedistCommonNetCoreSharedFrameworkx6490PackageVersion>
+    <MicrosoftNETCoreAppRefVersion>9.0.0-rtm.24473.2</MicrosoftNETCoreAppRefVersion>
+    <MicrosoftNETCoreAppRuntimewinx64Version>9.0.0-rtm.24473.2</MicrosoftNETCoreAppRuntimewinx64Version>
+    <MicrosoftNETCorePlatformsVersion>9.0.0-rtm.24473.2</MicrosoftNETCorePlatformsVersion>
+    <SystemCodeDomPackageVersion>9.0.0-rtm.24473.2</SystemCodeDomPackageVersion>
+    <SystemConfigurationConfigurationManagerPackageVersion>9.0.0-rtm.24473.2</SystemConfigurationConfigurationManagerPackageVersion>
+    <SystemDiagnosticsEventLogPackageVersion>9.0.0-rtm.24473.2</SystemDiagnosticsEventLogPackageVersion>
+    <SystemDrawingCommonVersion>9.0.0-rtm.24474.4</SystemDrawingCommonVersion>
+    <SystemDirectoryServicesVersion>9.0.0-rtm.24473.2</SystemDirectoryServicesVersion>
+    <SystemFormatsNrbfVersion>9.0.0-rtm.24473.2</SystemFormatsNrbfVersion>
+    <SystemIOPackagingVersion>9.0.0-rtm.24473.2</SystemIOPackagingVersion>
+    <SystemReflectionMetadataLoadContextVersion>9.0.0-rtm.24473.2</SystemReflectionMetadataLoadContextVersion>
     <SystemReflectionTypeExtensionsPackageVersion>4.6.0-preview4.19176.11</SystemReflectionTypeExtensionsPackageVersion>
-    <SystemResourcesExtensionsVersion>10.0.0-alpha.1.24472.5</SystemResourcesExtensionsVersion>
-    <SystemRuntimeSerializationFormattersPackageVersion>10.0.0-alpha.1.24472.5</SystemRuntimeSerializationFormattersPackageVersion>
-    <SystemSecurityCryptographyXmlPackageVersion>10.0.0-alpha.1.24472.5</SystemSecurityCryptographyXmlPackageVersion>
-    <SystemSecurityPermissionsPackageVersion>10.0.0-alpha.1.24472.5</SystemSecurityPermissionsPackageVersion>
-    <SystemWindowsExtensionsPackageVersion>10.0.0-alpha.1.24472.5</SystemWindowsExtensionsPackageVersion>
+    <SystemResourcesExtensionsVersion>9.0.0-rtm.24473.2</SystemResourcesExtensionsVersion>
+    <SystemRuntimeSerializationFormattersPackageVersion>9.0.0-rtm.24473.2</SystemRuntimeSerializationFormattersPackageVersion>
+    <SystemSecurityCryptographyXmlPackageVersion>9.0.0-rtm.24473.2</SystemSecurityCryptographyXmlPackageVersion>
+    <SystemSecurityPermissionsPackageVersion>9.0.0-rtm.24473.2</SystemSecurityPermissionsPackageVersion>
+    <SystemWindowsExtensionsPackageVersion>9.0.0-rtm.24473.2</SystemWindowsExtensionsPackageVersion>
   </PropertyGroup>
   <!-- Docs / Intellisense -->
   <PropertyGroup>
@@ -51,7 +52,7 @@
   <!-- Packages that come from https://github.com/dotnet/arcade -->
   <PropertyGroup>
     <MicrosoftDotNetApiCompatVersion>9.0.0-beta.24053.1</MicrosoftDotNetApiCompatVersion>
-    <MicrosoftDotNetCodeAnalysisPackageVersion>10.0.0-beta.24467.1</MicrosoftDotNetCodeAnalysisPackageVersion>
+    <MicrosoftDotNetCodeAnalysisPackageVersion>9.0.0-beta.24473.1</MicrosoftDotNetCodeAnalysisPackageVersion>
   </PropertyGroup>
   <!-- Sourcelink -->
   <PropertyGroup>
@@ -120,6 +121,6 @@
     <SystemReflectionMetadataLoadContextPackage>System.Reflection.MetadataLoadContext</SystemReflectionMetadataLoadContextPackage>
   </PropertyGroup>
   <PropertyGroup>
-    <MicrosoftDotNetWpfDncEngVersion>10.0.0-alpha.1.24468.2</MicrosoftDotNetWpfDncEngVersion>
+    <MicrosoftDotNetWpfDncEngVersion>9.0.0-rtm.24474.4</MicrosoftDotNetWpfDncEngVersion>
   </PropertyGroup>
 </Project>

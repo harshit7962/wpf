@@ -2636,7 +2636,7 @@ namespace System.Windows
 
             if(_useDarkMode == useDarkMode) return;
 
-            IntPtr handle = CriticalHandle;
+            IntPtr handle = Handle;
             if (handle != IntPtr.Zero)
             {
                 bool succeeded = SNM.DwmSetWindowAttributeUseImmersiveDarkMode(handle, useDarkMode);
