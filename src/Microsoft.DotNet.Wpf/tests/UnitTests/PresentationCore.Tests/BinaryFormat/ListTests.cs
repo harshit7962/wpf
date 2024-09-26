@@ -83,6 +83,7 @@ public class ListTests
         using var formatterScope = new BinaryFormatterScope(enable: true);
 #pragma warning disable SYSLIB0011 // Type or member is obsolete
         BinaryFormatter formatter = new();
+        // CodeQL [SM02229] : Testing a legacy implementation. This is safe to use because the data is trusted and the types are controlled.
         IList deserialized = (IList)formatter.Deserialize(stream);
 #pragma warning restore SYSLIB0011
 

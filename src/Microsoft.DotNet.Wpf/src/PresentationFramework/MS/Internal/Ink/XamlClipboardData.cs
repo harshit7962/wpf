@@ -100,6 +100,7 @@ namespace MS.Internal.Ink
 
             if ( !String.IsNullOrEmpty(xml) )
             {
+                // CodeQL [SM02229] : useRestrictiveXamlReader is set to true restricting the XamlReader to only load known types, hence mitigating the risk of loading malicious XAML.
                 UIElement element = XamlReader.Load(new System.Xml.XmlTextReader(new System.IO.StringReader(xml)), useRestrictiveXamlReader: true) as UIElement;
                 if (element != null)
                 {

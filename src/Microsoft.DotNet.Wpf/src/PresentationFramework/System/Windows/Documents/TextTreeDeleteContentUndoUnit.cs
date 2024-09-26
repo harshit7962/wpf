@@ -368,6 +368,7 @@ namespace System.Windows.Documents
                 {
                     try
                     {
+                        // CodeQL [SM02229] : The _xml is a readonly string and is being instantiated from a trusted source.
                         embeddedObject = (DependencyObject)XamlReader.Load(new XmlTextReader(new StringReader(_xml)));
                     }
                     catch (XamlParseException e)
