@@ -121,7 +121,7 @@ internal static class ThemeManager
 
             foreach (Window window in Application.Current.Windows)
             {
-                if (FluentEnabledWindows.HasItem(window))
+                if (!FluentEnabledWindows.HasItem(window))
                 {
                     ChangeWindowBackdrop(window, newBackdropType);
                 }
@@ -137,7 +137,7 @@ internal static class ThemeManager
         }
     }
 
-    private static void ChangeWindowBackdrop(Window window, BackdropType newBackdropType)
+    internal static void ChangeWindowBackdrop(Window window, BackdropType newBackdropType)
     {
         if (window == null || window.IsDisposed)
             return;

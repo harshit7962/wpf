@@ -602,6 +602,37 @@ namespace System.Windows
             }
         }
 
+        public BackdropType BackdropType
+        {
+            get
+            {
+                VerifyContextAndObjectState();
+                return _backdropType;
+            }
+            set
+            {
+                VerifyContextAndObjectState();
+
+                if(!BackdropType.IsValidBackdropType(value))
+                {
+                    throw new ArgumentException(string.Format("BackdropType value {0} is invalid. Use None, Mica, Acrylic or MicaAlt", value));
+                }
+
+                if(Application.Current.ThemeMode == ThemeMode.None && this.ThemeMode == ThemeMode.None)
+                {
+                    return;
+                }
+
+                if (_backdropType != value)
+                {
+                    BackdropType oldBackdrop = _backdropType;
+                    _backdropType = value;
+
+                    ThemeManager.ChangeWindowBackdrop(this, _backdropType);
+                }
+            }
+        }
+
         /// <summary>
         /// DependencyProperty for TaskbarItemInfo
         /// </summary>
@@ -7291,6 +7322,8 @@ namespace System.Windows
         private ThemeMode           _themeMode = ThemeMode.None;
         internal bool               _deferThemeLoading = false;
         private bool                _useDarkMode = false;
+
+        private BackdropType        _backdropType = BackdropType.None;
 
         //Never expose this at any cost
         private bool                        _inTrustedSubWindow;
