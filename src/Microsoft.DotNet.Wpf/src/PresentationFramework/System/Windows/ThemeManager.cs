@@ -110,6 +110,63 @@ internal static class ThemeManager
         }
     }
 
+    internal static void OnApplicationBackdropChanged(BackdropType oldBackdropType, BackdropType newBackdropType)
+    {
+        try
+        {
+            if (oldBackdropType == newBackdropType)
+            {
+                return;
+            }
+
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (FluentEnabledWindows.HasItem(window))
+                {
+                    ChangeWindowBackdrop(window, newBackdropType);
+                }
+                else
+                {
+                    Debug.WriteLine($"Backdrop cannot be changed for window: {window.Title} because it does not have Fluent enabled.");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("Failed to change backdrop for all windows.", ex);
+        }
+    }
+
+    private static void ChangeWindowBackdrop(Window window, BackdropType newBackdropType)
+    {
+        if (window == null || window.IsDisposed)
+            return;
+
+        if (SystemParameters.HighContrast || newBackdropType == BackdropType.None)
+        {
+            WindowBackdropManager.SetBackdrop(window, WindowBackdropType.None);
+        }
+        else
+        {
+            if(newBackdropType == BackdropType.Mica)
+            {
+                WindowBackdropManager.SetBackdrop(window, WindowBackdropType.MainWindow);
+            }
+            else if(newBackdropType == BackdropType.Acrylic)
+            {
+                WindowBackdropManager.SetBackdrop(window, WindowBackdropType.TransientWindow);
+            }
+            else if(newBackdropType == BackdropType.MicaAlt)
+            {
+                WindowBackdropManager.SetBackdrop(window, WindowBackdropType.TabbedWindow);
+            }
+            else
+            {
+                throw new InvalidOperationException("Invalid BackdropType");
+            }
+        }
+    }
+
     internal static void OnWindowThemeChanged(Window window, ThemeMode oldThemeMode, ThemeMode newThemeMode)
     {
         if (newThemeMode == ThemeMode.None)
