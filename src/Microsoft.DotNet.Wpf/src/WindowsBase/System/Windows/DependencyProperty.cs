@@ -600,7 +600,6 @@ namespace System.Windows
         }
 
 
-        [FriendAccessAllowed]   // Built into Base, also used by Core & Framework.
         internal object GetDefaultValue(DependencyObjectType dependencyObjectType)
         {
             if (!IsDefaultValueChanged)
@@ -611,7 +610,6 @@ namespace System.Windows
             return GetMetadata(dependencyObjectType).DefaultValue;
         }
 
-        [FriendAccessAllowed]   // Built into Base, also used by Core & Framework.
         internal object GetDefaultValue(Type forType)
         {
             if (!IsDefaultValueChanged)
@@ -967,7 +965,6 @@ namespace System.Windows
         /// <param name="name">Name of the property</param>
         /// <param name="ownerType">Owner type of the property</param>
         /// <returns>Dependency property</returns>
-        [FriendAccessAllowed]   // Built into Base, also used by Framework.
         internal static DependencyProperty FromName(string name, Type ownerType)
         {
             DependencyProperty dp = null;
