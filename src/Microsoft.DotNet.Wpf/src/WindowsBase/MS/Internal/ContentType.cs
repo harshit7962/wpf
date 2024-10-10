@@ -110,7 +110,7 @@ namespace MS.Internal
                 {
                     // Parse content type similar to - type/subtype ; param1=value1 ; param2=value2 ; param3="value3"
                     ParseTypeAndSubType(contentType.AsSpan(0, semiColonIndex));
-                    ParseParameterAndValue(contentType.Substring(semiColonIndex));
+                    ParseParameterAndValue(contentType.AsSpan(semiColonIndex));
                 }
             }
 
@@ -258,8 +258,8 @@ namespace MS.Internal
                 // safe comparison because the _type and _subType strings have been restricted to
                 // ASCII characters, digits, and a small set of symbols.  This is not a safe comparison
                 // for the broader set of strings that have not been restricted in the same way.
-                result = (String.Compare(_type, contentType.TypeComponent, StringComparison.OrdinalIgnoreCase) == 0 &&
-                          String.Compare(_subType, contentType.SubTypeComponent, StringComparison.OrdinalIgnoreCase) == 0);
+                result = string.Equals(_type, contentType.TypeComponent, StringComparison.OrdinalIgnoreCase) &&
+                         string.Equals(_subType, contentType.SubTypeComponent, StringComparison.OrdinalIgnoreCase);
             }           
             return result;
         }
