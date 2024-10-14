@@ -969,6 +969,7 @@ namespace System.Windows
             set { Resources = value; }
         }
 
+        [TypeConverter(typeof(BackdropTypeConverter))]
         public BackdropType BackdropType
         {
             get

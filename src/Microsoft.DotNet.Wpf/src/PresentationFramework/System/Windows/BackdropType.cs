@@ -41,7 +41,8 @@ public readonly struct BackdropType : IEquatable<BackdropType>
         return !left.Equals(right);
     }
 
-    public bool IsValidBackdropType(BackdropType backdropType) {
+    // Shouldn't be here, will be moved to another class
+    internal bool IsValidBackdropType(BackdropType backdropType) {
         return backdropType  == BackdropType.None || 
             backdropType == BackdropType.Mica || 
             backdropType == BackdropType.Acrylic || 

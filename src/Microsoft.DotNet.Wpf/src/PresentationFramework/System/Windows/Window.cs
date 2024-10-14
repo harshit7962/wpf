@@ -602,6 +602,7 @@ namespace System.Windows
             }
         }
 
+        [TypeConverter(typeof(BackdropTypeConverter))]
         public BackdropType BackdropType
         {
             get

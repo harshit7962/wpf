@@ -517,6 +517,7 @@
     <Compile Include="System\Windows\Automation\Peers\Viewport3DAutomationPeer.cs" />
     <Compile Include="System\Windows\Automation\Peers\WindowAutomationPeer.cs" />
     <Compile Include="System\Windows\BackdropType.cs" />
+    <Compile Include="System\Windows\BackdropTypeConverter.cs" />
     <Compile Include="System\Windows\BroadcastEventHelper.cs" />
     <Compile Include="System\Windows\ColorConvertedBitmapExtension.cs" />
     <Compile Include="System\Windows\ComponentResourceKey.cs" />
