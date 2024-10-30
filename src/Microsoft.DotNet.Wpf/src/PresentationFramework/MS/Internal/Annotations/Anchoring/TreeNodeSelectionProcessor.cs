@@ -83,9 +83,9 @@ namespace MS.Internal.Annotations.Anchoring
         /// null</returns>
         /// <exception cref="ArgumentNullException">selection is null</exception>
         /// <exception cref="ArgumentException">selection is of wrong type</exception>
-        public override ReadOnlySpan<DependencyObject> GetSelectedNodes(object selection)
+        public override IList<DependencyObject> GetSelectedNodes(Object selection)
         {
-            return new DependencyObject[1] { GetParent(selection) };
+            return new DependencyObject[] { GetParent(selection) };
         }
 
         /// <summary>
@@ -95,11 +95,12 @@ namespace MS.Internal.Annotations.Anchoring
         /// <returns>the parent element of the selection; can be null</returns>
         /// <exception cref="ArgumentNullException">selection is null</exception>
         /// <exception cref="ArgumentException">selection is of wrong type</exception>
-        public override UIElement GetParent(object selection)
+        public override UIElement GetParent(Object selection)
         {
             ArgumentNullException.ThrowIfNull(selection);
 
-            if (selection is not UIElement element)
+            UIElement element = selection as UIElement;
+            if (element == null)
             {
                 throw new ArgumentException(SR.WrongSelectionType, nameof(selection));
             }
@@ -176,7 +177,10 @@ namespace MS.Internal.Annotations.Anchoring
         ///     Returns a list of XmlQualifiedNames representing the
         ///     the locator parts this processor can resolve/generate.
         /// </summary>
-        public override ReadOnlySpan<XmlQualifiedName> GetLocatorPartTypes() => ReadOnlySpan<XmlQualifiedName>.Empty;
+        public override XmlQualifiedName[] GetLocatorPartTypes()
+        {
+            return (XmlQualifiedName[])LocatorPartTypeNames.Clone();
+        }
 
         #endregion Public Methods
 
@@ -203,6 +207,9 @@ namespace MS.Internal.Annotations.Anchoring
         //------------------------------------------------------
 
         #region Private Fields
+
+        // ContentLocatorPart types understood by this processor
+        private static readonly XmlQualifiedName[] LocatorPartTypeNames = Array.Empty<XmlQualifiedName>();
 
         #endregion Private Fields        
     }

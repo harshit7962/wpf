@@ -32,7 +32,6 @@ using System.Xml;
 using MS.Utility;
 using MS.Internal.Documents;
 using MS.Internal.PtsHost;
-using System.Runtime.InteropServices;
 
 namespace MS.Internal.Annotations.Anchoring
 {
@@ -94,11 +93,11 @@ namespace MS.Internal.Annotations.Anchoring
         /// <exception cref="ArgumentNullException">selection is null</exception>
         /// <exception cref="ArgumentException">selection is of wrong type</exception>
         /// <exception cref="ArgumentException">selection start or end point can not be resolved to a page</exception>
-        public override ReadOnlySpan<DependencyObject> GetSelectedNodes(object selection)
+        public override IList<DependencyObject> GetSelectedNodes(Object selection)
         {
             IList<TextSegment> textSegments = CheckSelection(selection);
 
-            List<DependencyObject> pageEl = new();
+            IList<DependencyObject> pageEl = new List<DependencyObject>();
 
             Point start;
             Point end;
@@ -109,14 +108,14 @@ namespace MS.Internal.Annotations.Anchoring
                 TextSelectionHelper.GetPointerPage(startPointer, out startPage);
                 start = TextSelectionHelper.GetPointForPointer(startPointer);
                 if (startPage == int.MinValue)
-                    throw new ArgumentException(SR.Format(SR.SelectionDoesNotResolveToAPage, "start"), nameof(selection));
+                    throw new ArgumentException(SR.Format(SR.SelectionDoesNotResolveToAPage, "start"), "selection");
 
                 int endPage = int.MinValue;
                 ITextPointer endPointer = segment.End.CreatePointer(LogicalDirection.Backward);
                 TextSelectionHelper.GetPointerPage(endPointer, out endPage);
                 end = TextSelectionHelper.GetPointForPointer(endPointer);
                 if (endPage == int.MinValue)
-                    throw new ArgumentException(SR.Format(SR.SelectionDoesNotResolveToAPage, "end"), nameof(selection));
+                    throw new ArgumentException(SR.Format(SR.SelectionDoesNotResolveToAPage, "end"), "selection");
 
                 int firstPage = pageEl.Count;
                 int numOfPages = endPage - startPage;
@@ -150,7 +149,7 @@ namespace MS.Internal.Annotations.Anchoring
                 }
             }
 
-            return CollectionsMarshal.AsSpan(pageEl);
+            return pageEl;
         }
 
         /// <summary>
@@ -161,7 +160,7 @@ namespace MS.Internal.Annotations.Anchoring
         /// <returns>the parent element of the selection; can be null</returns>
         /// <exception cref="ArgumentNullException">selection is null</exception>
         /// <exception cref="ArgumentException">selection is of wrong type</exception>
-        public override UIElement GetParent(object selection)
+        public override UIElement GetParent(Object selection)
         {
             CheckAnchor(selection);
             return TextSelectionHelper.GetParent(selection);
@@ -205,7 +204,7 @@ namespace MS.Internal.Annotations.Anchoring
             if (fp == null)
                 throw new ArgumentException(SR.StartNodeMustBeFixedPageProxy, "startNode");
 
-            ContentLocatorPart part = new ContentLocatorPart(s_fixedTextElementName);
+            ContentLocatorPart part = new ContentLocatorPart(FixedTextElementName);
             if (fp.Segments.Count == 0)
             {
                 part.NameValuePairs.Add(TextSelectionProcessor.CountAttribute, 1.ToString(NumberFormatInfo.InvariantInfo));
@@ -372,7 +371,10 @@ namespace MS.Internal.Annotations.Anchoring
         ///     Returns a list of XmlQualifiedNames representing the
         ///     the locator parts this processor can resolve/generate.
         /// </summary>
-        public override ReadOnlySpan<XmlQualifiedName> GetLocatorPartTypes() => new(in s_fixedTextElementName);
+        public override XmlQualifiedName[] GetLocatorPartTypes()
+        {
+            return (XmlQualifiedName[])LocatorPartTypeNames.Clone();
+        }
 
         #endregion Public Methods
 
@@ -499,7 +501,7 @@ namespace MS.Internal.Annotations.Anchoring
         {
             ArgumentNullException.ThrowIfNull(locatorPart);
 
-            if (s_fixedTextElementName != locatorPart.PartType)
+            if (FixedTextElementName != locatorPart.PartType)
                 throw new ArgumentException(SR.Format(SR.IncorrectLocatorPartType, $"{locatorPart.PartType.Namespace}:{locatorPart.PartType.Name}"), "locatorPart");
 
             string segmentValue = locatorPart.NameValuePairs[TextSelectionProcessor.SegmentAttribute + segmentNumber.ToString(NumberFormatInfo.InvariantInfo)];
@@ -622,7 +624,14 @@ namespace MS.Internal.Annotations.Anchoring
         #region Private Fields
 
         // Name of locator part element
-        private static readonly XmlQualifiedName s_fixedTextElementName = new("FixedTextRange", AnnotationXmlConstants.Namespaces.BaseSchemaNamespace);
+        private static readonly XmlQualifiedName FixedTextElementName = new XmlQualifiedName("FixedTextRange", AnnotationXmlConstants.Namespaces.BaseSchemaNamespace);
+
+        // ContentLocatorPart types understood by this processor
+        private static readonly XmlQualifiedName[] LocatorPartTypeNames =
+                new XmlQualifiedName[]
+                {
+                    FixedTextElementName
+                };
 
         #endregion Private Fields
 
