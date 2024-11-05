@@ -197,7 +197,7 @@ namespace System.Windows.Markup
                 {
                     // Even if we previously failed to find an EquivalentCulture, we retry, if only to
                     //   capture inner exception.
-                    _equivalentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(lowerCaseTag);
+                    _equivalentCulture = SafeSecurityHelper.GetCultureInfoByIetfLanguageTag(lowerCaseTag);
                 }
                 catch (ArgumentException e)
                 {
@@ -251,7 +251,7 @@ namespace System.Windows.Markup
                         {
                             // note that it's important that we use culture.Name, not culture.IetfLanguageTag, here
                             culture = CultureInfo.CreateSpecificCulture(culture.Name);
-                            _specificCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(culture.IetfLanguageTag);
+                            _specificCulture = SafeSecurityHelper.GetCultureInfoByIetfLanguageTag(culture.IetfLanguageTag);
                         }
                         catch (ArgumentException e)
                         {
@@ -272,7 +272,9 @@ namespace System.Windows.Markup
         {
             if (_compatibleCulture == null)
             {
-                if (!TryGetEquivalentCulture(out CultureInfo culture))
+                CultureInfo culture = null;
+
+                if (!TryGetEquivalentCulture(out culture))
                 {
                     string languageTag = IetfLanguageTag;
                     
@@ -289,7 +291,7 @@ namespace System.Windows.Markup
                         {
                             try
                             {
-                                culture = CultureInfo.GetCultureInfoByIetfLanguageTag(languageTag);
+                                culture = SafeSecurityHelper.GetCultureInfoByIetfLanguageTag(languageTag);
                             }
                             catch (ArgumentException)
                             {
