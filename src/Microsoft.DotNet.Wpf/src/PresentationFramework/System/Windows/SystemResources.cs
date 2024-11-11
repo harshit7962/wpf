@@ -1748,30 +1748,32 @@ namespace System.Windows
                     {
                         _keyOrValue = value;
                         RemoveFromDictionary();
+
+                        // Freeze if this value originated from a style or template
+                        bool freezeIfPossible =
+                            valueSource == BaseValueSourceInternal.ThemeStyle ||
+                            valueSource == BaseValueSourceInternal.ThemeStyleTrigger ||
+                            valueSource == BaseValueSourceInternal.Style ||
+                            valueSource == BaseValueSourceInternal.TemplateTrigger ||
+                            valueSource == BaseValueSourceInternal.StyleTrigger ||
+                            valueSource == BaseValueSourceInternal.ParentTemplate ||
+                            valueSource == BaseValueSourceInternal.ParentTemplateTrigger;
+
+                        // This is to freeze values produced by deferred
+                        // references within styles and templates
+                        if (freezeIfPossible)
+                        {
+                            StyleHelper.SealIfSealable(value);
+                        }
                     }
                     else
                     {
                         RemoveFromDictionary();
                         // Update after removal from dictionary as we need the key for proper removal
                         _keyOrValue = value;
+
+                        StyleHelper.SealIfSealable(value);
                     }
-                }
-
-                // Freeze if this value originated from a style or template
-                bool freezeIfPossible =
-                    valueSource == BaseValueSourceInternal.ThemeStyle ||
-                    valueSource == BaseValueSourceInternal.ThemeStyleTrigger ||
-                    valueSource == BaseValueSourceInternal.Style ||
-                    valueSource == BaseValueSourceInternal.TemplateTrigger ||
-                    valueSource == BaseValueSourceInternal.StyleTrigger ||
-                    valueSource == BaseValueSourceInternal.ParentTemplate ||
-                    valueSource == BaseValueSourceInternal.ParentTemplateTrigger;
-
-                // This is to freeze values produced by deferred
-                // references within styles and templates
-                if (freezeIfPossible)
-                {
-                    StyleHelper.SealIfSealable(value);
                 }
 
                 // tell any listeners (e.g. ResourceReferenceExpressions)
