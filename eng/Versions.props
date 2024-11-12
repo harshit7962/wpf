@@ -84,7 +84,11 @@
   </PropertyGroup>
   <!-- External Analyzers -->
   <PropertyGroup>
+    <CSharpIsNullAnalyzersVersion>0.1.495</CSharpIsNullAnalyzersVersion>
+    <DotNetAnalyzersDocumentationAnalyzersVersion>1.0.0-beta.59</DotNetAnalyzersDocumentationAnalyzersVersion>
     <MicrosoftCodeAnalysisNetAnalyzersVersion>7.0.0</MicrosoftCodeAnalysisNetAnalyzersVersion>
+    <MicrosoftCodeAnalysisNetAnalyzersVersionCleanup>8.0.0-preview.23327.3</MicrosoftCodeAnalysisNetAnalyzersVersionCleanup>
+    <StyleCopAnalyzersVersion>1.2.0-beta.556</StyleCopAnalyzersVersion>
   </PropertyGroup>
   <!-- XUnit-related (not extensions) -->
   <PropertyGroup>

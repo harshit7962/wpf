@@ -41,6 +41,7 @@
   <Import Project="$(WpfArcadeSdkToolsDir)Pbt.props" />
   <Import Project="$(WpfArcadeSdkToolsDir)Signing.props" />
   <Import Project="$(WpfArcadeSdkToolsDir)CodeGen.props" />
+  <Import Project="$(WpfArcadeSdkToolsDir)CodeStyle.props" />
   <Import Project="$(WpfArcadeSdkToolsDir)ApiCompat.props" />
   <Import Project="$(WpfArcadeSdkToolsDir)GenApi.props" />
   <Import Project="$(WpfArcadeSdkToolsDir)Publishing.props" />

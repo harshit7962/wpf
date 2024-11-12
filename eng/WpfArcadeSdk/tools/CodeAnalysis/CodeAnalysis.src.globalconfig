@@ -282,7 +282,7 @@ dotnet_diagnostic.CA1813.severity = none
 dotnet_diagnostic.CA1814.severity = none
 
 # CA1815: Override equals and operator equals on value types
-dotnet_diagnostic.CA1815.severity = none
+dotnet_diagnostic.CA1815.severity = warning
 
 # CA1816: Dispose methods should call SuppressFinalize
 dotnet_diagnostic.CA1816.severity = none
@@ -297,7 +297,7 @@ dotnet_diagnostic.CA1820.severity = none
 dotnet_diagnostic.CA1821.severity = none # TODO: warning
 
 # CA1822: Mark members as static
-dotnet_diagnostic.CA1822.severity = none # TODO: warning
+dotnet_diagnostic.CA1822.severity = warning
 dotnet_code_quality.CA1822.api_surface = private, internal
 
 # CA1823: Avoid unused private fields
@@ -388,7 +388,7 @@ dotnet_diagnostic.CA1850.severity = warning
 dotnet_diagnostic.CA1851.severity = suggestion
 
 # CA1852: Seal internal types
-dotnet_diagnostic.CA1852.severity = none # TODO: warning
+dotnet_diagnostic.CA1852.severity = warning
 
 # CA1853: Unnecessary call to 'Dictionary.ContainsKey(key)'
 dotnet_diagnostic.CA1853.severity =  warning
@@ -882,7 +882,7 @@ dotnet_diagnostic.SA1003.severity = none
 dotnet_diagnostic.SA1004.severity = none
 
 # SA1005: Single line comment should begin with a space
-dotnet_diagnostic.SA1005.severity = none
+dotnet_diagnostic.SA1005.severity = warning
 
 # SA1006: Preprocessor keywords should not be preceded by space
 dotnet_diagnostic.SA1006.severity = none
@@ -1176,7 +1176,7 @@ dotnet_diagnostic.SA1314.severity = none
 dotnet_diagnostic.SA1316.severity = none
 
 # SA1400: Member should declare an access modifier
-dotnet_diagnostic.SA1400.severity = none # TODO: warning
+dotnet_diagnostic.SA1400.severity = warning
 
 # SA1401: Fields should be private
 dotnet_diagnostic.SA1401.severity = none
@@ -1726,7 +1726,8 @@ dotnet_diagnostic.IDE0230.severity = suggestion
 dotnet_diagnostic.IDE1005.severity = warning
 
 # IDE1006: Naming styles
-dotnet_diagnostic.IDE1006.severity = silent
+# This rule is configured by individual rules in .editorconfig. Do not override the severity here.
+#dotnet_diagnostic.IDE1006.severity = silent
 
 # IDE2000: Allow multiple blank lines
 dotnet_diagnostic.IDE2000.severity = silent
