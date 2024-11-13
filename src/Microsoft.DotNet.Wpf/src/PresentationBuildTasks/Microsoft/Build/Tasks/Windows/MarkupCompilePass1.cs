@@ -585,7 +585,7 @@ namespace Microsoft.Build.Tasks.Windows
 
         /// <summary>
         /// Set to true when called from Visual Studio.
-        /// <summary>
+        /// </summary>
         public bool IsRunningInVisualStudio
         {
             get { return _isRunningInVisualStudio;   }
@@ -1091,7 +1091,7 @@ namespace Microsoft.Build.Tasks.Windows
                 // SourceDir.
                 //
                 int pathEndIndex = fullFilePath.LastIndexOf(Path.DirectorySeparatorChar);
-                
+
                 newSourceDir = fullFilePath.Substring(0, pathEndIndex + 1);
                 newRelativeFilePath = TaskHelper.GetRootRelativePath(newSourceDir, fullFilePath);
             }
@@ -1279,12 +1279,12 @@ namespace Microsoft.Build.Tasks.Windows
 
                 if (appDomain != null)
                 {
-                    System.Threading.Tasks.Task.Run(() => 
+                    System.Threading.Tasks.Task.Run(() =>
                     {
                         // Better GC behavior in 4.6 and later when wrapped in Task.Run().
                         // Inside of VisualStudio, when DesignTimeMarkupCompilation happens, it uses MarkupCompilePass1 only (not Pass2).
 
-                        // AppDomains are not supported on .NET Core.  'AppDomain.Unload' will always throw `CannotUnloadAppDomainException`.  
+                        // AppDomains are not supported on .NET Core.  'AppDomain.Unload' will always throw `CannotUnloadAppDomainException`.
                         #pragma warning disable SYSLIB0024
                         AppDomain.Unload(appDomain);
                         #pragma warning restore SYSLIB0024
@@ -1483,7 +1483,7 @@ namespace Microsoft.Build.Tasks.Windows
 
                     codeItem = new TaskItem();
                     codeItem.ItemSpec = genLangFilePath;
-                    
+
                     outputCodeFileList.Add(codeItem);
 
                     Log.LogMessageFromResources(MessageImportance.Low, nameof(SR.GeneratedCodeFile), codeItem.ItemSpec);

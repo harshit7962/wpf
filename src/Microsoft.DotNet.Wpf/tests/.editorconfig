@@ -1,0 +1,26 @@
+[*]
+dotnet_diagnostic.CA1838.severity = suggestion
+dotnet_diagnostic.CA1507.severity = suggestion
+dotnet_diagnostic.CA2219.severity = suggestion
+dotnet_diagnostic.CA2211.severity = suggestion
+dotnet_diagnostic.CA2019.severity = suggestion
+dotnet_diagnostic.CA1070.severity = suggestion
+dotnet_diagnostic.CA2020.severity = suggestion
+dotnet_diagnostic.CA1051.severity = suggestion
+dotnet_diagnostic.CA1310.severity = suggestion
+dotnet_diagnostic.CA1513.severity = suggestion
+dotnet_diagnostic.CA1725.severity = suggestion
+dotnet_diagnostic.CA1036.severity = suggestion
+dotnet_diagnostic.CA1825.severity = suggestion
+dotnet_diagnostic.CA1822.severity = suggestion
+
+# Failures from CodeAnalysis.src.globalconfig
+dotnet_diagnostic.SA1507.severity = suggestion
+dotnet_diagnostic.SA1505.severity = suggestion
+dotnet_diagnostic.CA1823.severity = suggestion
+dotnet_diagnostic.SA1005.severity = suggestion
+dotnet_diagnostic.SA1508.severity = suggestion
+dotnet_diagnostic.CS1574.severity = suggestion
+dotnet_diagnostic.CSIsNull002.severity = suggestion
+
+

@@ -1,6 +1,6 @@
 <Project>
   <ItemGroup Condition="'$(IsTestProject)'!='true' AND '$(EnableAnalyzers)'=='true'">
-    <EditorConfigFiles Include="$(MSBuildThisFileDirectory)CodeAnalysis\CodeAnalysis.src.globalconfig" />
+    <!-- <EditorConfigFiles Include="$(MSBuildThisFileDirectory)CodeAnalysis\CodeAnalysis.src.globalconfig" /> -->
     <!-- Managed Code Reference analyzers -->
     <PackageReference Include="Microsoft.DotNet.CodeAnalysis" Version="$(MicrosoftDotNetCodeAnalysisPackageVersion)" />
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="$(MicrosoftCodeAnalysisNetAnalyzersVersion)" PrivateAssets="all" />

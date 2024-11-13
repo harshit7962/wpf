@@ -16,11 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- TODO: Check if this is compatible with MicrosoftCodeAnalysisNetAnalyzersVersion -->
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="$(MicrosoftCodeAnalysisNetAnalyzersVersionCleanup)" PrivateAssets="all" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="DotNetAnalyzers.DocumentationAnalyzers" Version="$(DotNetAnalyzersDocumentationAnalyzersVersion)" PrivateAssets="all" />
   </ItemGroup>
 

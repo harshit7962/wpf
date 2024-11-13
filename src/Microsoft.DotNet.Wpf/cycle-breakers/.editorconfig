@@ -1,0 +1,12 @@
+[*]
+dotnet_diagnostic.CA1725.severity = suggestion
+dotnet_diagnostic.CA1822.severity = suggestion
+dotnet_diagnostic.CA1507.severity = suggestion
+dotnet_diagnostic.CA1821.severity = suggestion
+
+# CodeAnalysis.src.globalconfig warnings
+dotnet_diagnostic.CA1066.severity = suggestion
+dotnet_diagnostic.CA1823.severity = suggestion
+dotnet_diagnostic.SA1005.severity = suggestion
+dotnet_diagnostic.SA1518.severity = suggestion
+dotnet_diagnostic.SA1513.severity = suggestion

@@ -10,14 +10,14 @@ namespace System.Windows.Markup
     /// An attribute that specifies which property the xml:lang value should
     /// be directed to.
     /// Example:
-    //     [XmlLangProperty("Language")]
-    //     public class ExampleFrameworkElement
-    //
-    //   Means that when the parser sees:
-    //
-    //     <ExampleFrameworkElement xml:lang="en-US">
-    //
-    //   The parser will set the "Language" property with the value "en-US".
+    ///     [XmlLangProperty("Language")]
+    ///     public class ExampleFrameworkElement
+    ///
+    ///   Means that when the parser sees:
+    ///
+    ///     <ExampleFrameworkElement xml:lang="en-US">
+    ///
+    ///   The parser will set the "Language" property with the value "en-US".
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple=false)]
     [TypeForwardedFrom("WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35")]
