@@ -152,7 +152,7 @@ namespace System.Windows
 
                 if (--i == 0)
                 {
-                    SecurityHelper.ThrowExceptionForHR(hr);
+                    Marshal.ThrowExceptionForHR(hr, errorInfo: -1);
                 }
 
                 Thread.Sleep(OleRetryDelay);
