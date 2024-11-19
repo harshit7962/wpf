@@ -278,17 +278,10 @@ namespace System.Windows
                     }
                 }
 
-                if (FrameworkAppContextSwitches.DisableDynamicResourceOptimization)
-                {
-                    deferredResourceReference.RemoveFromDictionary();
-                }
-                else
-                {
-                    // This will inflate the deferred reference, causing it
-                    // to be removed from the list.  The list may also be
-                    // purged of dead references.
-                    deferredResourceReference.GetValue(BaseValueSourceInternal.Unknown);
-                }
+                // This will inflate the deferred reference, causing it
+                // to be removed from the list.  The list may also be
+                // purged of dead references.
+                deferredResourceReference.GetValue(BaseValueSourceInternal.Unknown);
             }
 
             StopListeningForFreezableChanges(resource);
