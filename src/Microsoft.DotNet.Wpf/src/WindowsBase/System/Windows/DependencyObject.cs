@@ -3482,7 +3482,6 @@ namespace System.Windows
         InheritedValueOverridden = 0x04,
     }
 
-    [FriendAccessAllowed] // Built into Base, also used by Framework.
     internal enum RequestFlags
     {
         FullyResolved = 0x00,

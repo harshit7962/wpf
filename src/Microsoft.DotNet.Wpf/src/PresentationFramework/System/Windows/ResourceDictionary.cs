@@ -1735,31 +1735,23 @@ namespace System.Windows
                     DeferredResourceReference deferredResourceReference;
                     if (!IsThemeDictionary)
                     {
+                        if (_ownerApps != null)
+                        {
+                            deferredResourceReference = new DeferredAppResourceReference(this, resourceKey);
+                        }
+                        else
+                        {
+                            deferredResourceReference = new DeferredResourceReference(this, resourceKey);
+                        }
+
                         // Cache the deferredResourceReference so that it can be validated
                         // in case of a dictionary change prior to its inflation
                         if (_deferredResourceReferences == null)
                         {
-                            _deferredResourceReferences = new DeferredResourceReferenceList();
+                            _deferredResourceReferences = new WeakReferenceList();
                         }
 
-                        if (_deferredResourceReferences.Get(resourceKey) is { } existingDeferredResourceReference
-                            && existingDeferredResourceReference.Dictionary == this)
-                        {
-                            deferredResourceReference = existingDeferredResourceReference;
-                        }
-                        else
-                        {
-                            if (_ownerApps != null)
-                            {
-                                deferredResourceReference = new DeferredAppResourceReference(this, resourceKey);
-                            }
-                            else
-                            {
-                                deferredResourceReference = new DeferredResourceReference(this, resourceKey);
-                            }
-
-                            _deferredResourceReferences.AddOrSet(deferredResourceReference);
-                        }
+                        _deferredResourceReferences.Add( deferredResourceReference, true /*SkipFind*/);
                     }
                     else
                     {
@@ -1783,17 +1775,21 @@ namespace System.Windows
         {
             if (_deferredResourceReferences != null)
             {
-                DeferredResourceReference deferredResourceReference = _deferredResourceReferences.Get(resourceKey);
-
-                if (deferredResourceReference is not null)
+                foreach (Object o in _deferredResourceReferences)
                 {
-                    // This will inflate the deferred reference, causing it
-                    // to be removed from the list.  The list may also be
-                    // purged of dead references.
-                    deferredResourceReference.GetValue(BaseValueSourceInternal.Unknown);
+
+                    DeferredResourceReference deferredResourceReference = o as DeferredResourceReference;
+                    if (deferredResourceReference != null && (resourceKey == null || Object.Equals(resourceKey, deferredResourceReference.Key)))
+                    {
+                        // This will inflate the deferred reference, causing it
+                        // to be removed from the list.  The list may also be
+                        // purged of dead references.
+                        deferredResourceReference.GetValue(BaseValueSourceInternal.Unknown);
+                    }
                 }
             }
         }
+
 
         /// <summary>
         /// Called when the MergedDictionaries collection changes
@@ -2057,7 +2053,7 @@ namespace System.Windows
 
         #region Properties
 
-        internal DeferredResourceReferenceList DeferredResourceReferences
+        internal WeakReferenceList DeferredResourceReferences
         {
             get { return _deferredResourceReferences; }
         }
@@ -2482,7 +2478,10 @@ namespace System.Windows
             // redirect each entry toward its new owner
             if (_deferredResourceReferences != null)
             {
-                _deferredResourceReferences.ChangeDictionary(this);
+                foreach (DeferredResourceReference drr in _deferredResourceReferences)
+                {
+                    drr.Dictionary = this;
+                }
             }
         }
 
@@ -2549,7 +2548,7 @@ namespace System.Windows
         private WeakReferenceList                         _ownerFEs = null;
         private WeakReferenceList                         _ownerFCEs = null;
         private WeakReferenceList                         _ownerApps = null;
-        private DeferredResourceReferenceList             _deferredResourceReferences = null;
+        private WeakReferenceList                         _deferredResourceReferences = null;
         private ObservableCollection<ResourceDictionary>  _mergedDictionaries = null;
         private Uri                                       _source = null;
         private Uri                                       _baseUri = null;
