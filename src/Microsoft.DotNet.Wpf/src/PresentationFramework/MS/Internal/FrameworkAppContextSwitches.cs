@@ -57,7 +57,7 @@ namespace MS.Internal
             }
         }
 
-        
+
         // Switch to enable non-adorner based rendering of TextSelection in TextBox and PasswordBox.
         internal const string UseAdornerForTextboxSelectionRenderingSwitchName = "Switch.System.Windows.Controls.Text.UseAdornerForTextboxSelectionRendering";
         private static int _useAdornerForTextboxSelectionRendering;
@@ -70,7 +70,7 @@ namespace MS.Internal
             }
         }
 
-        
+
         // Switch to enable appending the local assembly version to the Uri being set for ResourceDictionary.Source via Baml2006ReaderInternal.
         internal const string AppendLocalAssemblyVersionForSourceUriSwitchName = "Switch.System.Windows.Baml2006.AppendLocalAssemblyVersionForSourceUri";
         private static int _AppendLocalAssemblyVersionForSourceUriSwitchName;
@@ -83,7 +83,7 @@ namespace MS.Internal
             }
         }
 
-        
+
         // Switch to enable IList indexer hiding a custom indexer in a binding path
         internal const string IListIndexerHidesCustomIndexerSwitchName = "Switch.System.Windows.Data.Binding.IListIndexerHidesCustomIndexer";
         private static int _IListIndexerHidesCustomIndexer;
@@ -96,7 +96,7 @@ namespace MS.Internal
             }
         }
 
-        
+
         // Switch to enable keyboard navigation from a hyperlink to go to the wrong place
         internal const string KeyboardNavigationFromHyperlinkInItemsControlIsNotRelativeToFocusedElementSwitchName = "Switch.System.Windows.Controls.KeyboardNavigationFromHyperlinkInItemsControlIsNotRelativeToFocusedElement";
         private static int _KeyboardNavigationFromHyperlinkInItemsControlIsNotRelativeToFocusedElement;
@@ -109,7 +109,7 @@ namespace MS.Internal
             }
         }
 
-        
+
         // Switch to opt-out of the ItemAutomationPeer weak-reference.
         // Setting this to true can avoid NRE crashes, but re-introduces memory leaks
         internal const string ItemAutomationPeerKeepsItsItemAliveSwitchName = "Switch.System.Windows.Automation.Peers.ItemAutomationPeerKeepsItsItemAlive";
@@ -122,8 +122,8 @@ namespace MS.Internal
                 return LocalAppContext.GetCachedSwitchValue(ItemAutomationPeerKeepsItsItemAliveSwitchName, ref _ItemAutomationPeerKeepsItsItemAlive);
             }
         }
-    
-    
+
+
         // Switch to opt-out Fluent theme Window Backdrop feature
         internal const string DisableFluentThemeWindowBackdropSwitchName = "Switch.System.Windows.Appearance.DisableFluentThemeWindowBackdrop";
         private static int _DisableFluentThemeWindowBackdrop;
@@ -137,15 +137,15 @@ namespace MS.Internal
         }
 
 
-        // Switch to disable DynamicResource optimizations
-        internal const string DisableDynamicResourceOptimizationSwitchName = "Switch.System.Windows.Controls.DisableDynamicResourceOptimization";
-        private static int _DisableDynamicResourceOptimization;
-        public static bool DisableDynamicResourceOptimization
+        // Switch to enable DynamicResource optimizations
+        internal const string EnableDynamicResourceOptimizationSwitchName = "Switch.System.Windows.Controls.EnableDynamicResourceOptimization";
+        private static int _EnableDynamicResourceOptimization;
+        public static bool EnableDynamicResourceOptimization
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
-                return LocalAppContext.GetCachedSwitchValue(DisableDynamicResourceOptimizationSwitchName, ref _DisableDynamicResourceOptimization);
+                return LocalAppContext.GetCachedSwitchValue(EnableDynamicResourceOptimizationSwitchName, ref _EnableDynamicResourceOptimization);
             }
         }
     }

@@ -1745,7 +1745,7 @@ namespace System.Windows
                 {
                     // Note that we are replacing the _keyorValue field
                     // with the value and deleting the _dictionary field.
-                    if (FrameworkAppContextSwitches.DisableDynamicResourceOptimization)
+                    if (!FrameworkAppContextSwitches.EnableDynamicResourceOptimization)
                     {
                         _keyOrValue = value;
                         RemoveFromDictionary();
@@ -1817,7 +1817,7 @@ namespace System.Windows
         {
             if (_dictionary != null)
             {
-                if (FrameworkAppContextSwitches.DisableDynamicResourceOptimization)
+                if (!FrameworkAppContextSwitches.EnableDynamicResourceOptimization)
                 {
                     _dictionary.WeakDeferredResourceReferences.Remove(this);
                 }

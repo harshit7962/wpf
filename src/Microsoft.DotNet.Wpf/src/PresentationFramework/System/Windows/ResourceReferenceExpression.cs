@@ -278,7 +278,7 @@ namespace System.Windows
                     }
                 }
 
-                if (FrameworkAppContextSwitches.DisableDynamicResourceOptimization)
+                if (!FrameworkAppContextSwitches.EnableDynamicResourceOptimization)
                 {
                     deferredResourceReference.RemoveFromDictionary();
                 }
