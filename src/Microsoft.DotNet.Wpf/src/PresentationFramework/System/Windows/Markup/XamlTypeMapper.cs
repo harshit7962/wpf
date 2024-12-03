@@ -2559,8 +2559,10 @@ namespace System.Windows.Markup
                                 }
                             }
                             // Create new data structure to store information for the current type
-                            typeAndSerializer = new TypeAndSerializer();
-                            typeAndSerializer.ObjectType = objectType;
+                            typeAndSerializer = new TypeAndSerializer
+                            {
+                                ObjectType = objectType
+                            };
 
                             break;
                         }
@@ -2988,8 +2990,10 @@ namespace System.Windows.Markup
             typeInformationCacheData = _typeInformationCache[type] as TypeInformationCacheData;
             if (null == typeInformationCacheData)
             {
-                typeInformationCacheData = new TypeInformationCacheData(type.BaseType);
-                typeInformationCacheData.ClrNamespace = type.Namespace;
+                typeInformationCacheData = new TypeInformationCacheData(type.BaseType)
+                {
+                    ClrNamespace = type.Namespace
+                };
 
                 _typeInformationCache[type] = typeInformationCacheData;
             }

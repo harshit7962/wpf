@@ -74,9 +74,11 @@ namespace System.Windows.Markup
             _xamlTypeMapper = xamlTypeMapper;
 
             // Setup the assembly record for the known types of controls
-            _knownAssemblyInfoRecord = new BamlAssemblyInfoRecord();
-            _knownAssemblyInfoRecord.AssemblyId = -1;
-            _knownAssemblyInfoRecord.Assembly = ReflectionHelper.LoadAssembly(_frameworkAssembly, string.Empty);
+            _knownAssemblyInfoRecord = new BamlAssemblyInfoRecord
+            {
+                AssemblyId = -1,
+                Assembly = ReflectionHelper.LoadAssembly(_frameworkAssembly, string.Empty)
+            };
             _knownAssemblyInfoRecord.AssemblyFullName = _knownAssemblyInfoRecord.Assembly.FullName;
         }
 
@@ -1023,16 +1025,20 @@ namespace System.Windows.Markup
         {
             Debug.Assert(assemblyFullName.Length != 0, "empty assembly");
 
-            AssemblyInfoKey key = new AssemblyInfoKey();
-            key.AssemblyFullName = assemblyFullName;
+            AssemblyInfoKey key = new AssemblyInfoKey
+            {
+                AssemblyFullName = assemblyFullName
+            };
 
             BamlAssemblyInfoRecord bamlAssemblyInfoRecord =
                 (BamlAssemblyInfoRecord)GetHashTableData(key);
 
             if (null == bamlAssemblyInfoRecord)
             {
-                bamlAssemblyInfoRecord = new BamlAssemblyInfoRecord();
-                bamlAssemblyInfoRecord.AssemblyFullName = assemblyFullName;
+                bamlAssemblyInfoRecord = new BamlAssemblyInfoRecord
+                {
+                    AssemblyFullName = assemblyFullName
+                };
 
 #if PBTCOMPILER
                 try
@@ -1140,9 +1146,11 @@ namespace System.Windows.Markup
             // and this is not written out the the baml stream.
             if (record == null)
             {
-                record = new BamlAssemblyInfoRecord();
-                record.AssemblyFullName = fullName;
-                record.Assembly = asm;
+                record = new BamlAssemblyInfoRecord
+                {
+                    AssemblyFullName = fullName,
+                    Assembly = asm
+                };
                 ObjectHashTable[fullName] = record;
             }
 
@@ -1155,9 +1163,11 @@ namespace System.Windows.Markup
                                string assemblyFullName,
                                string typeFullName)
         {
-            TypeInfoKey key = new TypeInfoKey();
-            key.DeclaringAssembly = assemblyFullName;
-            key.TypeFullName = typeFullName;
+            TypeInfoKey key = new TypeInfoKey
+            {
+                DeclaringAssembly = assemblyFullName,
+                TypeFullName = typeFullName
+            };
             return key;
         }
 
@@ -1351,10 +1361,11 @@ namespace System.Windows.Markup
             if (null == bamlAttributeInfoRecord)
             {
                 // The property is new and needs a record created.
-                bamlAttributeInfoRecord = new BamlAttributeInfoRecord();
-
-                bamlAttributeInfoRecord.Name = fieldName;
-                bamlAttributeInfoRecord.OwnerTypeId = typeId;
+                bamlAttributeInfoRecord = new BamlAttributeInfoRecord
+                {
+                    Name = fieldName,
+                    OwnerTypeId = typeId
+                };
 
                 bamlAttributeInfoRecord.AttributeId = (short)AttributeIdMap.Add(bamlAttributeInfoRecord);
                 bamlAttributeInfoRecord.AttributeUsage = attributeUsage;

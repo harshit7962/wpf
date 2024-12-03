@@ -1274,10 +1274,11 @@ namespace System.Windows
 
             if (HasHandlers)
             {
-                HandlerContextStorage hps = new HandlerContextStorage();
-
-                hps._handlerStorage = _contextStorage;
-                hps._contextStorage = context;
+                HandlerContextStorage hps = new HandlerContextStorage
+                {
+                    _handlerStorage = _contextStorage,
+                    _contextStorage = context
+                };
 
                 _contextStorage = hps;
             }
@@ -1556,10 +1557,11 @@ namespace System.Windows
 
             if (HasContextInformation)
             {
-                HandlerContextStorage hps = new HandlerContextStorage();
-
-                hps._contextStorage = _contextStorage;
-                hps._handlerStorage = handler;
+                HandlerContextStorage hps = new HandlerContextStorage
+                {
+                    _contextStorage = _contextStorage,
+                    _handlerStorage = handler
+                };
 
                 _contextStorage = hps;
             }

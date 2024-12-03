@@ -145,8 +145,10 @@ namespace System.Windows.Markup
 
             // push a rootLevel stack
             // For now always use InlineBlock.
-            TextFlowStackData textFlowStackData = new TextFlowStackData();
-            textFlowStackData.StripLeadingSpaces = true;
+            TextFlowStackData textFlowStackData = new TextFlowStackData
+            {
+                StripLeadingSpaces = true
+            };
 
             TextFlowStack.Push(textFlowStackData);
 
@@ -1957,8 +1959,10 @@ namespace System.Windows.Markup
 
             // Put an item on the context stack for this element.  The ContextType
             // may be modified by the call to CompileBamlTag.
-            ElementContextStackData elementContextStackData = new ElementContextStackData();
-            elementContextStackData.IsEmptyElement = isEmptyElement;
+            ElementContextStackData elementContextStackData = new ElementContextStackData
+            {
+                IsEmptyElement = isEmptyElement
+            };
 
             // If we have a parent stack, this context is the same as the parent
             // by default.
@@ -1970,8 +1974,10 @@ namespace System.Windows.Markup
             {
                 if(ShouldImplyContentProperty())
                 {
-                    ElementContextStackData CpaStackData = new ElementContextStackData();
-                    CpaStackData.ContextType = ElementContextType.Default;
+                    ElementContextStackData CpaStackData = new ElementContextStackData
+                    {
+                        ContextType = ElementContextType.Default
+                    };
                     ElementContextStack.Push(CpaStackData);
                     ParserContext.PushScope();
 
@@ -4572,8 +4578,10 @@ namespace System.Windows.Markup
             Type propertyBaseType = null;
 
             // Push a frame for GetPropertyComplex()
-            ElementContextStackData elementContextStackData = new ElementContextStackData();
-            elementContextStackData.ContextType = ElementContextType.Default;
+            ElementContextStackData elementContextStackData = new ElementContextStackData
+            {
+                ContextType = ElementContextType.Default
+            };
             ElementContextStack.Push(elementContextStackData);
 
             bool resolved = GetPropertyComplex(elementType.Name, contentPropertyName, namespaceUri,

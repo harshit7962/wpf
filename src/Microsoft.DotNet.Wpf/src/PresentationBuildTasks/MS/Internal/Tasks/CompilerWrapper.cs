@@ -227,12 +227,14 @@ namespace MS.Internal
         {
             bool ret = true;
 
-            CompilationUnit compUnit = new CompilationUnit(assemblyName, language, rootNamespace, fileList);
-            compUnit.Pass2 = isSecondPass;
+            CompilationUnit compUnit = new CompilationUnit(assemblyName, language, rootNamespace, fileList)
+            {
+                Pass2 = isSecondPass,
 
-            // Set some properties required by the CompilationUnit
-            compUnit.ApplicationFile = _applicationMarkup;
-            compUnit.SourcePath = _sourceDir;
+                // Set some properties required by the CompilationUnit
+                ApplicationFile = _applicationMarkup,
+                SourcePath = _sourceDir
+            };
 
             //Set the properties required by MarkupCompiler
 
