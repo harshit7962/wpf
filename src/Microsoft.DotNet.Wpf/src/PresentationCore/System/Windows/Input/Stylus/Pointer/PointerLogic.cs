@@ -1,11 +1,11 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using MS.Internal;
-using MS.Internal.Interop;
 using System.Windows.Input.Tracing;
 using System.Windows.Threading;
+using MS.Internal;
+using MS.Internal.Interop;
 
 namespace System.Windows.Input.StylusPointer
 {
@@ -220,7 +220,7 @@ namespace System.Windows.Input.StylusPointer
                 if ((rawMouseInputReport.Actions & RawMouseActions.Activate) == RawMouseActions.Activate)
                 {
                     // don't copy the extra information, so that the new event isn't treated as a promoted event
-                    MouseDevice.PushActivateInputReport(e, input, rawMouseInputReport, clearExtraInformation:true);
+                    MouseDevice.PushActivateInputReport(e, input, rawMouseInputReport, clearExtraInformation: true);
                 }
 
                 input.Handled = true;
@@ -385,7 +385,7 @@ namespace System.Windows.Input.StylusPointer
                                 }
                                 else
                                 {
-                                    
+
                                     // Previously, lifting a StylusDevice that was not the CurrentMousePromotionStylusDevice
                                     // during a multi-touch down drag/drop would ignore the Up for that device.  This was
                                     // resulting in an invalid active devices count in StylusTouchDevice, causing subsequent
@@ -531,7 +531,7 @@ namespace System.Windows.Input.StylusPointer
                     }
                     else
                     {
-                        throw new InvalidOperationException(SR.Format(SR.Invalid_IInputElement, oldCapture.GetType())); 
+                        throw new InvalidOperationException(SR.Format(SR.Invalid_IInputElement, oldCapture.GetType()));
                     }
                 }
 
@@ -557,7 +557,7 @@ namespace System.Windows.Input.StylusPointer
                     }
                     else
                     {
-                        throw new InvalidOperationException(SR.Format(SR.Invalid_IInputElement, _stylusCapture.GetType())); 
+                        throw new InvalidOperationException(SR.Format(SR.Invalid_IInputElement, _stylusCapture.GetType()));
                     }
                 }
 
@@ -622,7 +622,7 @@ namespace System.Windows.Input.StylusPointer
                     }
                     else
                     {
-                        throw new InvalidOperationException(SR.Format(SR.Invalid_IInputElement, oldOver.GetType())); 
+                        throw new InvalidOperationException(SR.Format(SR.Invalid_IInputElement, oldOver.GetType()));
                     }
                 }
                 if (_stylusOver != null)
@@ -651,7 +651,7 @@ namespace System.Windows.Input.StylusPointer
                     }
                     else
                     {
-                        throw new InvalidOperationException(SR.Format(SR.Invalid_IInputElement, _stylusOver.GetType())); 
+                        throw new InvalidOperationException(SR.Format(SR.Invalid_IInputElement, _stylusOver.GetType()));
                     }
                 }
 
@@ -787,7 +787,7 @@ namespace System.Windows.Input.StylusPointer
             }
             else
             {
-                throw new InvalidOperationException(SR.Format(SR.Invalid_IInputElement, _stylusCapture.GetType())); 
+                throw new InvalidOperationException(SR.Format(SR.Invalid_IInputElement, _stylusCapture.GetType()));
             }
 
             //
@@ -969,7 +969,7 @@ namespace System.Windows.Input.StylusPointer
                         (routedEvent == Stylus.StylusMoveEvent ||
                          routedEvent == Stylus.StylusDownEvent ||
                          routedEvent == Stylus.StylusUpEvent));
-}
+            }
             return false;
         }
 

@@ -1,18 +1,18 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
 // Contents:  The XML Composite font parsing
 
+using System.Collections;
+using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Interop;
-using System.Windows.Media;
 using System.Windows.Markup;
+using System.Windows.Media;
 using System.Xml;
-using System.Globalization;
-using System.Collections;
-using System.ComponentModel;
 using MS.Internal.TextFormatting;
 
 namespace MS.Internal.FontFace
@@ -139,10 +139,10 @@ namespace MS.Internal.FontFace
         }
 
         private const NumberStyles UnsignedDecimalPointStyle =
-            NumberStyles.AllowTrailingWhite | 
-            NumberStyles.AllowLeadingWhite  | 
+            NumberStyles.AllowTrailingWhite |
+            NumberStyles.AllowLeadingWhite |
             NumberStyles.AllowDecimalPoint;
- 
+
         private const NumberStyles SignedDecimalPointStyle = UnsignedDecimalPointStyle | NumberStyles.AllowLeadingSign;
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace MS.Internal.FontFace
             {
                 FailNotWellFormed(x);
             }
-            catch (Exception x) when(string.Equals(x.GetType().FullName, "System.Security.XmlSyntaxException", StringComparison.OrdinalIgnoreCase))
+            catch (Exception x) when (string.Equals(x.GetType().FullName, "System.Security.XmlSyntaxException", StringComparison.OrdinalIgnoreCase))
             {
                 FailNotWellFormed(x);
             }
@@ -233,7 +233,7 @@ namespace MS.Internal.FontFace
             return new XmlCompatibilityReader(baseReader, new IsXmlNamespaceSupportedCallback(IsXmlNamespaceSupported));
         }
 
-        
+
         /// <summary>
         /// Determines whether a given XML namespace is "known" (i.e., should always be processed)
         /// or "unknown" (i.e., should be skipped if declared ignorable).
@@ -257,8 +257,8 @@ namespace MS.Internal.FontFace
         private bool IsXmlNamespaceSupported(string xmlNamespace, out string newXmlNamespace)
         {
             newXmlNamespace = null;
-            return xmlNamespace == CompositeFontNamespace || 
-                xmlNamespace == XamlNamespace || 
+            return xmlNamespace == CompositeFontNamespace ||
+                xmlNamespace == XamlNamespace ||
                 IsMappedNamespace(xmlNamespace);
         }
 
@@ -303,7 +303,7 @@ namespace MS.Internal.FontFace
 
         #region ProcessingInstructions
 
-       private bool IsMappedNamespace(string xmlNamespace)
+        private bool IsMappedNamespace(string xmlNamespace)
         {
             return _namespaceMap.ContainsKey(xmlNamespace);
         }
@@ -381,7 +381,7 @@ namespace MS.Internal.FontFace
                     {
                         FailUnknownAttribute();
                     }
-} while (_reader.MoveToNextAttribute());
+                } while (_reader.MoveToNextAttribute());
 
                 _reader.MoveToElement();
             }
@@ -498,7 +498,7 @@ namespace MS.Internal.FontFace
                 {
                     if (!IsIgnorableAttribute())
                         FailUnknownAttribute();
-} while (_reader.MoveToNextAttribute());
+                } while (_reader.MoveToNextAttribute());
 
                 _reader.MoveToElement();
             }
@@ -525,7 +525,7 @@ namespace MS.Internal.FontFace
                     {
                         FailUnknownAttribute();
                     }
-} while (_reader.MoveToNextAttribute());
+                } while (_reader.MoveToNextAttribute());
 
                 _reader.MoveToElement();
             }
@@ -693,7 +693,7 @@ namespace MS.Internal.FontFace
                     {
                         FailUnknownAttribute();
                     }
-} while (_reader.MoveToNextAttribute());
+                } while (_reader.MoveToNextAttribute());
 
                 _reader.MoveToElement();
             }
@@ -787,7 +787,7 @@ namespace MS.Internal.FontFace
                     {
                         FailUnknownAttribute();
                     }
-} while (_reader.MoveToNextAttribute());
+                } while (_reader.MoveToNextAttribute());
 
                 _reader.MoveToElement();
             }
@@ -915,7 +915,7 @@ namespace MS.Internal.FontFace
                 _reader.LocalName,
                 _reader.NamespaceURI));
         }
-        
+
         /// <summary>
         /// Fail because a required attribute is not present.
         /// </summary>

@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -9,15 +9,14 @@
 //
 
 using System.ComponentModel;
-using System.Windows.Media;
 using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Markup;
+using System.Windows.Media;
 using MS.Internal;
 using MS.Internal.KnownBoxes;
-using System.Windows.Documents;
-
-using MS.Utility;
 using MS.Internal.PresentationFramework;
+using MS.Utility;
 
 namespace System.Windows.Controls
 {
@@ -99,7 +98,7 @@ namespace System.Windows.Controls
             // Initialize the _templateCache to the default value for TemplateProperty.
             // If the default value is non-null then wire it to the current instance.
             PropertyMetadata metadata = TemplateProperty.GetMetadata(DependencyObjectType);
-            DataTemplate defaultValue = (DataTemplate) metadata.DefaultValue;
+            DataTemplate defaultValue = (DataTemplate)metadata.DefaultValue;
             if (defaultValue != null)
             {
                 OnTemplateChanged(this, new DependencyPropertyChangedEventArgs(TemplateProperty, metadata, null, defaultValue));
@@ -133,7 +132,7 @@ namespace System.Windows.Controls
         /// </summary>
         public bool RecognizesAccessKey
         {
-            get { return (bool) GetValue(RecognizesAccessKeyProperty); }
+            get { return (bool)GetValue(RecognizesAccessKeyProperty); }
             set { SetValue(RecognizesAccessKeyProperty, BooleanBoxes.Box(value)); }
         }
 
@@ -258,7 +257,7 @@ namespace System.Windows.Controls
         /// </summary>
         public DataTemplate ContentTemplate
         {
-            get { return (DataTemplate) GetValue(ContentControl.ContentTemplateProperty); }
+            get { return (DataTemplate)GetValue(ContentControl.ContentTemplateProperty); }
             set { SetValue(ContentControl.ContentTemplateProperty, value); }
         }
 
@@ -269,7 +268,7 @@ namespace System.Windows.Controls
         {
             ContentPresenter ctrl = (ContentPresenter)d;
             ctrl._templateIsCurrent = false;
-            ctrl.OnContentTemplateChanged((DataTemplate) e.OldValue, (DataTemplate) e.NewValue);
+            ctrl.OnContentTemplateChanged((DataTemplate)e.OldValue, (DataTemplate)e.NewValue);
         }
 
         /// <summary>
@@ -309,7 +308,7 @@ namespace System.Windows.Controls
         /// </remarks>
         public DataTemplateSelector ContentTemplateSelector
         {
-            get { return (DataTemplateSelector) GetValue(ContentControl.ContentTemplateSelectorProperty); }
+            get { return (DataTemplateSelector)GetValue(ContentControl.ContentTemplateSelectorProperty); }
             set { SetValue(ContentControl.ContentTemplateSelectorProperty, value); }
         }
 
@@ -328,9 +327,9 @@ namespace System.Windows.Controls
         /// </summary>
         private static void OnContentTemplateSelectorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ContentPresenter ctrl = (ContentPresenter) d;
+            ContentPresenter ctrl = (ContentPresenter)d;
             ctrl._templateIsCurrent = false;
-            ctrl.OnContentTemplateSelectorChanged((DataTemplateSelector) e.OldValue, (DataTemplateSelector) e.NewValue);
+            ctrl.OnContentTemplateSelectorChanged((DataTemplateSelector)e.OldValue, (DataTemplateSelector)e.NewValue);
         }
 
         /// <summary>
@@ -358,7 +357,7 @@ namespace System.Windows.Controls
                         typeof(String),
                         typeof(ContentPresenter),
                         new FrameworkPropertyMetadata(
-                                (String) null,
+                                (String)null,
                               new PropertyChangedCallback(OnContentStringFormatChanged)));
 
 
@@ -370,7 +369,7 @@ namespace System.Windows.Controls
         [Bindable(true), CustomCategory("Content")]
         public String ContentStringFormat
         {
-            get { return (String) GetValue(ContentStringFormatProperty); }
+            get { return (String)GetValue(ContentStringFormatProperty); }
             set { SetValue(ContentStringFormatProperty, value); }
         }
 
@@ -380,7 +379,7 @@ namespace System.Windows.Controls
         private static void OnContentStringFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ContentPresenter ctrl = (ContentPresenter)d;
-            ctrl.OnContentStringFormatChanged((String) e.OldValue, (String) e.NewValue);
+            ctrl.OnContentStringFormatChanged((String)e.OldValue, (String)e.NewValue);
         }
 
         /// <summary>
@@ -772,7 +771,7 @@ namespace System.Windows.Controls
                         typeof(DataTemplate),
                         typeof(ContentPresenter),
                         new FrameworkPropertyMetadata(
-                                (DataTemplate) null,  // default value
+                                (DataTemplate)null,  // default value
                                 FrameworkPropertyMetadataOptions.AffectsMeasure,
                                 new PropertyChangedCallback(OnTemplateChanged)));
 
@@ -782,7 +781,7 @@ namespace System.Windows.Controls
         /// </summary>
         private DataTemplate Template
         {
-            get {  return _templateCache; }
+            get { return _templateCache; }
             set { SetValue(TemplateProperty, value); }
         }
 
@@ -795,8 +794,8 @@ namespace System.Windows.Controls
         // Property invalidation callback invoked when TemplateProperty is invalidated
         private static void OnTemplateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ContentPresenter c = (ContentPresenter) d;
-            StyleHelper.UpdateTemplateCache(c, (FrameworkTemplate) e.OldValue, (FrameworkTemplate) e.NewValue, TemplateProperty);
+            ContentPresenter c = (ContentPresenter)d;
+            StyleHelper.UpdateTemplateCache(c, (FrameworkTemplate)e.OldValue, (FrameworkTemplate)e.NewValue, TemplateProperty);
         }
 
         /// <summary>
@@ -824,7 +823,7 @@ namespace System.Windows.Controls
             DataTemplate oldTemplate = Template;
             DataTemplate newTemplate = null;
 
-            for (_templateIsCurrent = false; !_templateIsCurrent; )
+            for (_templateIsCurrent = false; !_templateIsCurrent;)
             {
                 // normally this loop will execute exactly once.  The only exception
                 // is when setting the DataContext causes the ContentTemplate or
@@ -1003,10 +1002,10 @@ namespace System.Windows.Controls
                 {
                     TypeConverter tc = TypeDescriptor.GetConverter(ReflectionHelper.GetReflectionType(content));
                     Debug.Assert(tc.CanConvertTo(typeof(UIElement)));
-                    e = (UIElement) tc.ConvertTo(content, typeof(UIElement));
+                    e = (UIElement)tc.ConvertTo(content, typeof(UIElement));
                 }
 
-                StyleHelper.AddCustomTemplateRoot( container, e );
+                StyleHelper.AddCustomTemplateRoot(container, e);
 
                 return true;
             }
@@ -1056,7 +1055,7 @@ namespace System.Windows.Controls
 
                 TextBlock textBlock = CreateTextBlock(container);
                 textBlock.IsContentPresenterContainer = true; // this is done so that the TextBlock does not steal away the logical child
-                if( container != null )
+                if (container != null)
                 {
                     StyleHelper.AddCustomTemplateRoot(
                         container,
@@ -1133,7 +1132,7 @@ namespace System.Windows.Controls
                 IContainer ITypeDescriptorContext.Container { get { return null; } }
                 object ITypeDescriptorContext.Instance { get { return _instance; } }
                 PropertyDescriptor ITypeDescriptorContext.PropertyDescriptor { get { return null; } }
-                void ITypeDescriptorContext.OnComponentChanged() {}
+                void ITypeDescriptorContext.OnComponentChanged() { }
                 bool ITypeDescriptorContext.OnComponentChanging() { return false; }
                 object IServiceProvider.GetService(Type serviceType) { return null; }
             }

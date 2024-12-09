@@ -1,16 +1,16 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Runtime.InteropServices; // HandleRef
+using System.Windows.Controls; // ScrollViewer
+using System.Windows.Controls.Primitives;
+using System.Windows.Interop;
 using System.Windows.Media; // Brush, Transform
 using System.Windows.Media.Animation; // AnimationClock
-using System.Windows.Controls; // ScrollViewer
-using MS.Win32; // SafeNativeMethods
 using MS.Internal; // DoubleUtil.AreClose(), Invariant.Assert
 using MS.Internal.Documents; // IFlowDocumentViewer
-using System.Runtime.InteropServices; // HandleRef
-using System.Windows.Interop;
-using System.Windows.Controls.Primitives;
+using MS.Win32; // SafeNativeMethods
 
 //
 // Description: Caret rendering visual.
@@ -165,8 +165,8 @@ namespace System.Windows.Documents
             // This is safer, because adding (even zero) margin to double.MaxValue causes available size to become infinite again.
             // UIElement.Measure enforces that MeasureCore can not return PositiveInfinity size even if given Infinite available size.
             return new Size(
-                double.IsInfinity(availableSize.Width) ? double.MaxValue/2 : availableSize.Width,
-                double.IsInfinity(availableSize.Height) ? double.MaxValue/2 : availableSize.Height);
+                double.IsInfinity(availableSize.Width) ? double.MaxValue / 2 : availableSize.Width,
+                double.IsInfinity(availableSize.Height) ? double.MaxValue / 2 : availableSize.Height);
             // Note we do not use _systemCaretWidth for caret width,
             // because italic caret would be clipped in this case.
             // We use maximum available visible width - as for height.
@@ -198,7 +198,7 @@ namespace System.Windows.Documents
             return availableSize;
         }
 
-#endregion Protected Events
+        #endregion Protected Events
 
         //------------------------------------------------------
         //
@@ -662,7 +662,7 @@ namespace System.Windows.Documents
                     context.PushTransform(new RotateTransform(
                     flowDirection == FlowDirection.RightToLeft ? -20 : 20,
 
-                        0,  _height));
+                        0, _height));
 
                     contextPushedCount++;
                 }
@@ -972,7 +972,7 @@ namespace System.Windows.Documents
 
                 if (source != null)
                 {
-                        hwnd = (source as IWin32Window).Handle;
+                    hwnd = (source as IWin32Window).Handle;
                 }
 
                 if (hwnd != IntPtr.Zero)

@@ -1,10 +1,10 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using MS.Internal;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
+using MS.Internal;
 
 namespace System.Windows.Media
 {
@@ -39,9 +39,9 @@ namespace System.Windows.Media
             Point point0,
             Point point1)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("DrawLine(const)");
-        #endif
+#endif
 
             // Forward call to the animate version with null animations
             DrawLine(pen, point0, null, point1, null);
@@ -64,9 +64,9 @@ namespace System.Windows.Media
             Point point1,
             AnimationClock point1Animations)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("DrawLine(animate)");
-        #endif
+#endif
 
             //
             // Verify that parameters & state are valid
@@ -106,7 +106,7 @@ namespace System.Windows.Media
                 geometry.ApplyAnimationClock(LineGeometry.StartPointProperty, point0Animations);
             }
 
-            if(point1Animations != null)
+            if (point1Animations != null)
             {
                 geometry.ApplyAnimationClock(LineGeometry.EndPointProperty, point1Animations);
             }
@@ -136,9 +136,9 @@ namespace System.Windows.Media
             Pen pen,
             Rect rectangle)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("DrawRectangle(const)");
-        #endif
+#endif
 
             // Forward call to the animate version with null animations
             DrawRectangle(brush, pen, rectangle, null);
@@ -165,9 +165,9 @@ namespace System.Windows.Media
             Rect rectangle,
             AnimationClock rectangleAnimations)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("DrawRectangle(animate)");
-        #endif
+#endif
 
             //
             // Verify that parameters & state are valid
@@ -242,9 +242,9 @@ namespace System.Windows.Media
             Double radiusX,
             Double radiusY)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("DrawRoundedRectangle(const)");
-        #endif
+#endif
 
             // Forward call to the animate version with null animations
             DrawRoundedRectangle(brush, pen, rectangle, null, radiusX, null, radiusY, null);
@@ -285,9 +285,9 @@ namespace System.Windows.Media
             Double radiusY,
             AnimationClock radiusYAnimations)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("DrawRoundedRectangle(animate)");
-        #endif
+#endif
 
             //
             // Verify that parameters & state are valid
@@ -376,9 +376,9 @@ namespace System.Windows.Media
             Double radiusX,
             Double radiusY)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("DrawEllipse(const)");
-        #endif
+#endif
 
             // Forward call to the animate version with null animations
             DrawEllipse(brush, pen, center, null, radiusX, null, radiusY, null);
@@ -421,9 +421,9 @@ namespace System.Windows.Media
             Double radiusY,
             AnimationClock radiusYAnimations)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("DrawEllipse(animate)");
-        #endif
+#endif
 
             //
             // Verify that parameters & state are valid
@@ -499,9 +499,9 @@ namespace System.Windows.Media
             Pen pen,
             Geometry geometry)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("DrawGeometry(const)");
-        #endif
+#endif
 
             //
             // Create a drawing & add animations if they exist
@@ -532,9 +532,9 @@ namespace System.Windows.Media
             ImageSource imageSource,
             Rect rectangle)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("DrawImage(const)");
-        #endif
+#endif
 
             // Forward call to the animate version with null animations
             DrawImage(imageSource, rectangle, null);
@@ -557,9 +557,9 @@ namespace System.Windows.Media
             Rect rectangle,
             AnimationClock rectangleAnimations)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("DrawImage(animate)");
-        #endif
+#endif
 
             //
             // Verify that parameters & state are valid
@@ -611,9 +611,9 @@ namespace System.Windows.Media
         public override void DrawDrawing(
             Drawing drawing)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("DrawDrawing(const)");
-        #endif
+#endif
 
             //
             // Verify that parameters & state are valid
@@ -648,9 +648,9 @@ namespace System.Windows.Media
             MediaPlayer player,
             Rect rectangle)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("DrawVideo(const)");
-        #endif
+#endif
 
             // Forward to non-animate version with null animations
             DrawVideo(player, rectangle, null);
@@ -673,9 +673,9 @@ namespace System.Windows.Media
             Rect rectangle,
             AnimationClock rectangleAnimations)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("DrawVideo(animate)");
-        #endif
+#endif
 
             //
             // Verify that parameters & state are valid
@@ -727,9 +727,9 @@ namespace System.Windows.Media
         public override void PushClip(
             Geometry clipGeometry)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("PushClip(const)");
-        #endif
+#endif
 
             //
             // Verify that parameters & state are valid
@@ -752,9 +752,9 @@ namespace System.Windows.Media
 
         public override void PushOpacityMask(Brush brush)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("PushOpacityMask(const)");
-        #endif
+#endif
 
             //
             // Verify this object's state
@@ -784,9 +784,9 @@ namespace System.Windows.Media
             Double opacity
             )
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("PushOpacity(const)");
-        #endif
+#endif
 
             // Forward to the animate version with null animations
             PushOpacity(opacity, null);
@@ -805,9 +805,9 @@ namespace System.Windows.Media
             Double opacity,
             AnimationClock opacityAnimations)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("PushOpacity(animate)");
-        #endif
+#endif
 
             //
             // Verify this object's state
@@ -841,9 +841,9 @@ namespace System.Windows.Media
         public override void PushTransform(
             Transform transform)
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("PushTransform(const)");
-        #endif
+#endif
 
             //
             // Verify that parameters & state are valid
@@ -1022,27 +1022,27 @@ namespace System.Windows.Media
             //
             // Set the transform on the new DrawingGroup
             //
-            
+
             // NOTE:Disabling this API for now
-            
+
             _currentDrawingGroup.BitmapEffect = effect;
             _currentDrawingGroup.BitmapEffectInput = (effectInput != null) ?
                                                         effectInput : new BitmapEffectInput();
-}
+        }
 
         /// <summary>
         /// Pop
         /// </summary>
         public override void Pop()
         {
-        #if DEBUG
+#if DEBUG
             MediaTrace.DrawingContextOp.Trace("Pop");
-        #endif
+#endif
 
             VerifyApiNonstructuralChange();
 
             // Verify that Pop hasn't been called too many times
-            if ( (_previousDrawingGroupStack == null) ||
+            if ((_previousDrawingGroupStack == null) ||
                  (_previousDrawingGroupStack.Count == 0))
             {
                 throw new InvalidOperationException(SR.DrawingContext_TooManyPops);
@@ -1157,7 +1157,7 @@ namespace System.Windows.Media
                 DrawingCollection rootChildren;
 
                 if (_currentDrawingGroup != null)
-                 {
+                {
                     // If we created a root DrawingGroup because multiple elements
                     // exist at the root level, provide it's Children collection
                     // directly.

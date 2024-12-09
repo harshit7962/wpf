@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -296,13 +296,13 @@ namespace System.Windows.Media
 
                 var sb = new StringBuilder();
                 sb.AppendFormat(provider, "{0}{1} ", Parsers.s_ContextColor, uriString);
-                sb.AppendFormat(provider,"{1:" + format + "}{0}",separator,scRgbColor.a);
-                for (int i = 0; i < nativeColorValue.Length; ++i )
+                sb.AppendFormat(provider, "{1:" + format + "}{0}", separator, scRgbColor.a);
+                for (int i = 0; i < nativeColorValue.Length; ++i)
                 {
-                    sb.AppendFormat(provider,"{0:" + format + "}",nativeColorValue[i]);
+                    sb.AppendFormat(provider, "{0:" + format + "}", nativeColorValue[i]);
                     if (i < nativeColorValue.Length - 1)
                     {
-                        sb.AppendFormat(provider,"{0}",separator);
+                        sb.AppendFormat(provider, "{0}", separator);
                     }
                 }
                 return sb.ToString();
@@ -399,19 +399,19 @@ namespace System.Windows.Media
         {
             if (color1.context == null && color2.context == null)
             {
-            Color c1 = FromScRgb(
-                  color1.scRgbColor.a + color2.scRgbColor.a,
-                  color1.scRgbColor.r + color2.scRgbColor.r,
-                  color1.scRgbColor.g + color2.scRgbColor.g,
-                  color1.scRgbColor.b + color2.scRgbColor.b);
+                Color c1 = FromScRgb(
+                      color1.scRgbColor.a + color2.scRgbColor.a,
+                      color1.scRgbColor.r + color2.scRgbColor.r,
+                      color1.scRgbColor.g + color2.scRgbColor.g,
+                      color1.scRgbColor.b + color2.scRgbColor.b);
                 return c1;
             }
             else if (color1.context == color2.context)
             {
                 Color c1 = new Color();
                 c1.context = color1.context;
-                
-                #pragma warning suppress 6506 // c1.context is obviously not null - both color1.context AND color2.context are not null
+
+#pragma warning suppress 6506 // c1.context is obviously not null - both color1.context AND color2.context are not null
                 c1.nativeColorValue = new float[c1.context.NumChannels];
                 for (int i = 0; i < c1.nativeColorValue.Length; i++)
                 {
@@ -530,7 +530,7 @@ namespace System.Windows.Media
                 Color c1 = new Color();
                 c1.context = color1.context;
 
-                #pragma warning suppress 6506 // c1.context is obviously not null - both color1.context AND color2.context are not null
+#pragma warning suppress 6506 // c1.context is obviously not null - both color1.context AND color2.context are not null
                 c1.nativeColorValue = new float[c1.context.NumChannels];
                 for (int i = 0; i < c1.nativeColorValue.Length; i++)
                 {
@@ -639,7 +639,7 @@ namespace System.Windows.Media
             {
                 c1.context = color.context;
 
-                #pragma warning suppress 6506 // c1.context is obviously not null
+#pragma warning suppress 6506 // c1.context is obviously not null
                 c1.ComputeNativeValues(c1.context.NumChannels);
             }
 
@@ -695,7 +695,7 @@ namespace System.Windows.Media
             }
         }
 
-       ///<summary>
+        ///<summary>
         /// IsEqual operator - Compares two colors for exact equality.  Note that float values can acquire error
         /// when operated upon, such that an exact comparison between two values which are logically
         /// equal may fail. see cref="AreClose".

@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -45,9 +45,9 @@ namespace System.Windows.Documents
         {
             _symbolOffsetCache = -1;
         }
- 
+
         #endregion Constructors
- 
+
         //------------------------------------------------------
         //
         //  Public Methods
@@ -258,7 +258,7 @@ namespace System.Windows.Documents
 
             newNode.InsertAtNode(this, newNodeEdge);
 
-            return edgeNode;            
+            return edgeNode;
         }
 
         #endregion Internal methods
@@ -279,7 +279,7 @@ namespace System.Windows.Documents
             {
                 return _parentNode;
             }
-            
+
             set
             {
                 _parentNode = (TextTreeNode)value;
@@ -293,7 +293,7 @@ namespace System.Windows.Documents
             {
                 return null;
             }
-            
+
             set
             {
                 Invariant.Assert(false, "Can't set child on a TextTreeTextNode!");
@@ -335,7 +335,7 @@ namespace System.Windows.Documents
             {
                 return _leftChildNode;
             }
-            
+
             set
             {
                 _leftChildNode = (TextTreeNode)value;
@@ -349,7 +349,7 @@ namespace System.Windows.Documents
             {
                 return _rightChildNode;
             }
-            
+
             set
             {
                 _rightChildNode = (TextTreeNode)value;
@@ -365,7 +365,7 @@ namespace System.Windows.Documents
             {
                 return _generation;
             }
-            
+
             set
             {
                 _generation = value;
@@ -379,7 +379,7 @@ namespace System.Windows.Documents
             {
                 return _symbolOffsetCache;
             }
-            
+
             set
             {
                 _symbolOffsetCache = value;
@@ -393,7 +393,7 @@ namespace System.Windows.Documents
             {
                 return _symbolCount;
             }
-            
+
             set
             {
                 _symbolCount = value;
@@ -490,7 +490,7 @@ namespace System.Windows.Documents
             TextTreeTextNode nextNode;
 
             Invariant.Assert(_positionRefCount == 0, "Inappropriate Merge call!");
-            
+
             // Check the previous node.
             previousNode = GetPreviousNode() as TextTreeTextNode;
 
@@ -510,7 +510,7 @@ namespace System.Windows.Documents
             {
                 previousNode = this;
             }
-            
+
             // Check the following node.
             nextNode = previousNode.GetNextNode() as TextTreeTextNode;
 

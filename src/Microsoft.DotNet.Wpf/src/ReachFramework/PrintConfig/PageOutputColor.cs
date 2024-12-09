@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -14,17 +14,16 @@ Abstract:
 
 --*/
 
-using System.Xml;
 using System.Collections.ObjectModel;
-
 using System.Printing;
+using System.Xml;
 
 namespace MS.Internal.Printing.Configuration
 {
     /// <summary>
     /// Represents an output color option.
     /// </summary>
-    internal class OutputColorOption: PrintCapabilityOption
+    internal class OutputColorOption : PrintCapabilityOption
     {
         #region Constructors
 

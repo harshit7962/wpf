@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -90,10 +90,10 @@ namespace System.Windows.Media.Imaging
         {
             BitmapSizeOptions sizeOptions = new BitmapSizeOptions();
 
-            sizeOptions._rotationAngle          = Rotation.Rotate0;
+            sizeOptions._rotationAngle = Rotation.Rotate0;
             sizeOptions._preservesAspectRatio = true;
-            sizeOptions._pixelHeight         = 0;
-            sizeOptions._pixelWidth          = 0;
+            sizeOptions._pixelHeight = 0;
+            sizeOptions._pixelWidth = 0;
 
             return sizeOptions;
         }
@@ -108,10 +108,10 @@ namespace System.Windows.Media.Imaging
 
             BitmapSizeOptions sizeOptions = new BitmapSizeOptions();
 
-            sizeOptions._rotationAngle          = Rotation.Rotate0;
+            sizeOptions._rotationAngle = Rotation.Rotate0;
             sizeOptions._preservesAspectRatio = true;
-            sizeOptions._pixelHeight         = pixelHeight;
-            sizeOptions._pixelWidth          = 0;
+            sizeOptions._pixelHeight = pixelHeight;
+            sizeOptions._pixelWidth = 0;
 
             return sizeOptions;
         }
@@ -126,10 +126,10 @@ namespace System.Windows.Media.Imaging
 
             BitmapSizeOptions sizeOptions = new BitmapSizeOptions();
 
-            sizeOptions._rotationAngle          = Rotation.Rotate0;
+            sizeOptions._rotationAngle = Rotation.Rotate0;
             sizeOptions._preservesAspectRatio = true;
-            sizeOptions._pixelWidth          = pixelWidth;
-            sizeOptions._pixelHeight         = 0;
+            sizeOptions._pixelWidth = pixelWidth;
+            sizeOptions._pixelHeight = 0;
 
             return sizeOptions;
         }
@@ -147,10 +147,10 @@ namespace System.Windows.Media.Imaging
 
             BitmapSizeOptions sizeOptions = new BitmapSizeOptions();
 
-            sizeOptions._rotationAngle          = Rotation.Rotate0;
+            sizeOptions._rotationAngle = Rotation.Rotate0;
             sizeOptions._preservesAspectRatio = false;
-            sizeOptions._pixelWidth          = pixelWidth;
-            sizeOptions._pixelHeight         = pixelHeight;
+            sizeOptions._pixelWidth = pixelWidth;
+            sizeOptions._pixelHeight = pixelHeight;
 
             return sizeOptions;
         }
@@ -162,7 +162,7 @@ namespace System.Windows.Media.Imaging
         /// <param name="rotation">Angle to rotate</param>
         public static BitmapSizeOptions FromRotation(Rotation rotation)
         {
-            switch(rotation)
+            switch (rotation)
             {
                 case Rotation.Rotate0:
                 case Rotation.Rotate90:
@@ -175,10 +175,10 @@ namespace System.Windows.Media.Imaging
 
             BitmapSizeOptions sizeOptions = new BitmapSizeOptions();
 
-            sizeOptions._rotationAngle          = rotation;
+            sizeOptions._rotationAngle = rotation;
             sizeOptions._preservesAspectRatio = true;
-            sizeOptions._pixelWidth          = 0;
-            sizeOptions._pixelHeight         = 0;
+            sizeOptions._pixelWidth = 0;
+            sizeOptions._pixelHeight = 0;
 
             return sizeOptions;
         }
@@ -195,7 +195,7 @@ namespace System.Windows.Media.Imaging
             {
                 Debug.Assert(_preservesAspectRatio == true);
 
-                newWidth = (uint)((_pixelHeight * width)/height);
+                newWidth = (uint)((_pixelHeight * width) / height);
                 newHeight = (uint)_pixelHeight;
             }
             else if (_pixelWidth != 0 && _pixelHeight == 0)
@@ -203,7 +203,7 @@ namespace System.Windows.Media.Imaging
                 Debug.Assert(_preservesAspectRatio == true);
 
                 newWidth = (uint)_pixelWidth;
-                newHeight = (uint)((_pixelWidth * height)/width);
+                newHeight = (uint)((_pixelWidth * height) / width);
             }
             else if (_pixelWidth != 0 && _pixelHeight != 0)
             {
@@ -256,10 +256,10 @@ namespace System.Windows.Media.Imaging
             }
         }
 
-        private bool        _preservesAspectRatio;
-        private int         _pixelWidth;
-        private int         _pixelHeight;
-        private Rotation    _rotationAngle;
+        private bool _preservesAspectRatio;
+        private int _pixelWidth;
+        private int _pixelHeight;
+        private Rotation _rotationAngle;
     }
 
     #endregion // BitmapSizeOptions

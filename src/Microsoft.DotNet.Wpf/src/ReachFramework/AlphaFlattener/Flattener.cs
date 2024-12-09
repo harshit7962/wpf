@@ -1,18 +1,17 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
 
 using System.Collections;              // for ArrayList
+using System.Globalization;
+using System.IO;
+using System.Printing;
 using System.Windows;                  // for Rect                        WindowsBase.dll
 using System.Windows.Media;            // for Geometry, Brush, ImageData. PresentationCore.dll
 using System.Windows.Media.Imaging;
-using System.IO;
-using System.Xml;
-using System.Globalization;
-
 using System.Windows.Xps.Serialization;
-using System.Printing;
+using System.Xml;
 using MS.Utility;
 
 namespace Microsoft.Internal.AlphaFlattener
@@ -155,10 +154,10 @@ namespace Microsoft.Internal.AlphaFlattener
                     // A semi-transparent sub-tree with more than one child
                     Flattener fl = new Flattener(true, _dl.m_width, _dl.m_height);
 
-                    Primitive ntree   = tree;
-                    ntree.Clip        = null;
-                    ntree.Transform   = Matrix.Identity;
-                    ntree.Opacity     = 1.0;
+                    Primitive ntree = tree;
+                    ntree.Clip = null;
+                    ntree.Transform = Matrix.Identity;
+                    ntree.Opacity = 1.0;
                     ntree.OpacityMask = null;
 
 #if DEBUG
@@ -340,7 +339,7 @@ namespace Microsoft.Internal.AlphaFlattener
 
                 DisplayList.PrintPrimitive(null, -1, true);
 
-                for (int i = 0; i < count; i ++)
+                for (int i = 0; i < count; i++)
                 {
                     DisplayList.PrintPrimitive(commands[i], i, true);
                 }
@@ -359,7 +358,7 @@ namespace Microsoft.Internal.AlphaFlattener
             }
 
 #if DEBUG
-            for (int i = 0; i < count; i ++)
+            for (int i = 0; i < count; i++)
             {
                 if (commands[i] != null)
                 {
@@ -438,7 +437,7 @@ namespace Microsoft.Internal.AlphaFlattener
 
             if (pi.underlay != null)
             {
-                bool trans = ! pi.primitive.IsOpaque;
+                bool trans = !pi.primitive.IsOpaque;
 
                 foreach (int j in pi.underlay)
                 {
@@ -460,10 +459,10 @@ namespace Microsoft.Internal.AlphaFlattener
 
         static void SerializeVisual(Visual visual, double width, double height, String filename)
         {
-            FileStream    stream = new FileStream(filename, FileMode.Create, FileAccess.ReadWrite);
+            FileStream stream = new FileStream(filename, FileMode.Create, FileAccess.ReadWrite);
             XmlTextWriter writer = new System.Xml.XmlTextWriter(stream, System.Text.Encoding.UTF8);
 
-            writer.Formatting  = System.Xml.Formatting.Indented;
+            writer.Formatting = System.Xml.Formatting.Indented;
             writer.Indentation = 4;
             writer.WriteStartElement("FixedDocument");
             writer.WriteAttributeString("xmlns", "http://schemas.microsoft.com/winfx/2006/xaml/presentation");
@@ -471,7 +470,7 @@ namespace Microsoft.Internal.AlphaFlattener
 
             writer.WriteStartElement("PageContent");
             writer.WriteStartElement("FixedPage");
-            writer.WriteAttributeString("Width",  width.ToString(CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("Width", width.ToString(CultureInfo.InvariantCulture));
             writer.WriteAttributeString("Height", height.ToString(CultureInfo.InvariantCulture));
             writer.WriteAttributeString("Background", "White");
             writer.WriteStartElement("Canvas");
@@ -615,7 +614,7 @@ namespace Microsoft.Internal.AlphaFlattener
                 return;
             }
 
-            for (int n = pj.underlay.Count - 1; n >= 0; n --)
+            for (int n = pj.underlay.Count - 1; n >= 0; n--)
             {
                 int i = pj.underlay[n];
 
@@ -635,17 +634,17 @@ namespace Microsoft.Internal.AlphaFlattener
                     {
                         pj.underlay.Remove(i);
 
-                        pi.overlap                = null;
+                        pi.overlap = null;
                         pi.overlapHasTransparency = 0;
 
                         while (i < j)
                         {
                             SwitchCommands(commands, i, commands[i], i + 1, commands[i + 1], false);
 
-                            i ++;
+                            i++;
                         }
 
-                        j --;
+                        j--;
                     }
                 }
             }
@@ -819,7 +818,7 @@ namespace Microsoft.Internal.AlphaFlattener
             Console.WriteLine("Start 3: Display list optimization");
             Console.WriteLine();
 #endif
-            List<int> [] oldUnderlay = null;
+            List<int>[] oldUnderlay = null;
 
             if (!disjoint) // If not in a subtree which needs full flattening
             {
@@ -895,7 +894,7 @@ namespace Microsoft.Internal.AlphaFlattener
                     {
                         // Optimization: If a transparent primitive is covered underneath immediately by an opaque primitive,
                         // or has nothing underneath, convert it to opaque primitive
-                        if (! ConvertTransparentOnOpaque(commands, i))
+                        if (!ConvertTransparentOnOpaque(commands, i))
                         {
                             PushTransparencyDown(commands, i);
                         }
@@ -1104,20 +1103,20 @@ namespace Microsoft.Internal.AlphaFlattener
 
             PrimitiveRenderer ri = new PrimitiveRenderer();
 
-            ri.Clip        = primitive.Clip;
-            ri.Brush       = null;
-            ri.Pen         = null;
+            ri.Clip = primitive.Clip;
+            ri.Brush = null;
+            ri.Pen = null;
             ri.Overlapping = overlapping;
-            ri.Commands    = _dl.Commands;
-            ri.DC          = _dc;
-            ri.Disjoint    = disjoint;
+            ri.Commands = _dl.Commands;
+            ri.DC = _dc;
+            ri.Disjoint = disjoint;
 
             GeometryPrimitive p = primitive as GeometryPrimitive;
 
             if (p != null)
             {
                 ri.Brush = p.Brush;
-                ri.Pen   = p.Pen;
+                ri.Pen = p.Pen;
 
                 bool done = false;
 
@@ -1178,7 +1177,7 @@ namespace Microsoft.Internal.AlphaFlattener
         #region Private Fields
 
         private IProxyDrawingContext _dc;
-        private DisplayList          _dl;
+        private DisplayList _dl;
 
         #endregion
 
@@ -1366,13 +1365,13 @@ namespace Microsoft.Internal.AlphaFlattener
             throw new InvalidOperationException();
         }
 
-/*      void ILegacyDevice.PushOpacity(double opacity, Brush opacityMask)
-        {
-            Debug.Assert(opacityMask == null);
+        /*      void ILegacyDevice.PushOpacity(double opacity, Brush opacityMask)
+                {
+                    Debug.Assert(opacityMask == null);
 
-            _ctx.PushOpacity(opacity);
-        }
-*/
+                    _ctx.PushOpacity(opacity);
+                }
+        */
         void ILegacyDevice.DrawGeometry(Brush brush, Pen pen, Brush strokeBrush, Geometry geometry)
         {
             if (pen != null)

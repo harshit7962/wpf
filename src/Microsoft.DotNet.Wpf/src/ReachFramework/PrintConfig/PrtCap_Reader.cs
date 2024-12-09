@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -13,9 +13,9 @@ Abstract:
 
 --*/
 
-using System.Xml;
-using System.IO;
 using System.Globalization;
+using System.IO;
+using System.Xml;
 
 #pragma warning disable 1634, 1691 // Allows suppression of certain PreSharp messages
 
@@ -158,11 +158,11 @@ namespace MS.Internal.Printing.Configuration
                 }
                 else
                 {
-                    #if _DEBUG
+#if _DEBUG
                     Trace.WriteLine("-Warning- skip unknown element '" + _xmlReader.LocalName +
                                     "' at line " + _xmlReader.LineNumber + ", position " +
                                     _xmlReader.LinePosition);
-                    #endif
+#endif
 
                     foundElement = false;
                 }
@@ -173,11 +173,11 @@ namespace MS.Internal.Printing.Configuration
                     // If not, we will skip this element.
                     if ((CurrentElementNodeType & typeFilterFlags) == 0)
                     {
-                        #if _DEBUG
+#if _DEBUG
                         Trace.WriteLine("-Warning- skip not-wanted element '" + _xmlReader.LocalName +
                                         "' at line " + _xmlReader.LineNumber + ", position " +
                                         _xmlReader.LinePosition);
-                        #endif
+#endif
 
                         foundElement = false;
                     }
@@ -199,11 +199,11 @@ namespace MS.Internal.Printing.Configuration
                         {
                             if (CurrentElementNodeType != PrintSchemaNodeTypes.Option)
                             {
-                                #if _DEBUG
+#if _DEBUG
                                 Trace.WriteLine("-Warning- skip element " + CurrentElementNodeType +
                                                 " at line " + _xmlReader.LineNumber + ", position " +
                                                 _xmlReader.LinePosition + " due to missing 'name' XML attribute");
-                                #endif
+#endif
 
                                 foundElement = false;
                             }
@@ -225,12 +225,12 @@ namespace MS.Internal.Printing.Configuration
                             {
                                 // If QName value is not in standard PSF or PSK namespace,
                                 // then skip this Schema element.
-                                #if _DEBUG
+#if _DEBUG
                                 Trace.WriteLine("-Warning- skip element " + CurrentElementNodeType +
                                                 " at line " + _xmlReader.LineNumber + ", position " +
                                                 _xmlReader.LinePosition +
                                                 " due to non-PSF/PSK 'name' XML attribute value: " + QName);
-                                #endif
+#endif
 
                                 foundElement = false;
                             }
@@ -250,11 +250,11 @@ namespace MS.Internal.Printing.Configuration
                         // Our schema requires that <Value> element should always have non-empty value.
                         if ((_currentElementTextValue == null) || (_currentElementTextValue.Length == 0))
                         {
-                            #if _DEBUG
+#if _DEBUG
                             Trace.WriteLine("-Warning- skip element " + CurrentElementNodeType +
                                             " at line " + _xmlReader.LineNumber + ", position " +
                                             _xmlReader.LinePosition + " since it has empty element text");
-                            #endif
+#endif
 
                             _currentElementTextValue = null;
                             foundElement = false;
@@ -500,12 +500,12 @@ namespace MS.Internal.Printing.Configuration
 
         #region Private Fields
 
-        private PrintSchemaNodeTypes    _currentElementNodeType;
-        private int                     _currentElementDepth;
-        private bool                    _currentElementIsEmpty;
-        private string                  _currentElementNameAttrValue;
-        private string                  _currentElementTextValue;
-        private string                  _currentElementPSFNameAttrValue;
+        private PrintSchemaNodeTypes _currentElementNodeType;
+        private int _currentElementDepth;
+        private bool _currentElementIsEmpty;
+        private string _currentElementNameAttrValue;
+        private string _currentElementTextValue;
+        private string _currentElementPSFNameAttrValue;
 
         #endregion Private Fields
     }
@@ -518,7 +518,7 @@ namespace MS.Internal.Printing.Configuration
         #region Constructors
 
         // Never need to use an instance. All static methods.
-        private XmlReaderQName() {}
+        private XmlReaderQName() { }
 
         #endregion Constructors
 

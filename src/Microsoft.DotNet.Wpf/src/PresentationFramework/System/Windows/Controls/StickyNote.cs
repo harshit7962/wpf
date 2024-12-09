@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -13,20 +13,20 @@
 //
 
 using System.Globalization;
-using System.Xml;
-using MS.Internal;
-using MS.Internal.Annotations.Component;
-using MS.Internal.Controls.StickyNote;
-using MS.Internal.Commands;
-using MS.Internal.KnownBoxes;
-using System.Windows.Threading;
-using System.Windows.Data;
 using System.Windows.Annotations;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
+using System.Xml;
+using MS.Internal;
+using MS.Internal.Annotations.Component;
+using MS.Internal.Commands;
+using MS.Internal.Controls.StickyNote;
+using MS.Internal.KnownBoxes;
 using MS.Utility;
 
 
@@ -264,7 +264,7 @@ namespace System.Windows.Controls
         /// </summary>
         public bool IsExpanded
         {
-            get { return (bool) GetValue(IsExpandedProperty); }
+            get { return (bool)GetValue(IsExpandedProperty); }
             set { SetValue(IsExpandedProperty, value); }
         }
 
@@ -313,7 +313,7 @@ namespace System.Windows.Controls
         {
             get
             {
-               return  (bool) GetValue(StickyNoteControl.IsMouseOverAnchorProperty);
+                return (bool)GetValue(StickyNoteControl.IsMouseOverAnchorProperty);
             }
         }
 
@@ -336,7 +336,7 @@ namespace System.Windows.Controls
         /// </summary>
         public FontFamily CaptionFontFamily
         {
-            get { return (FontFamily) GetValue(CaptionFontFamilyProperty); }
+            get { return (FontFamily)GetValue(CaptionFontFamilyProperty); }
             set { SetValue(CaptionFontFamilyProperty, value); }
         }
 
@@ -359,7 +359,7 @@ namespace System.Windows.Controls
         /// </summary>
         public double CaptionFontSize
         {
-            get { return (double) GetValue(CaptionFontSizeProperty); }
+            get { return (double)GetValue(CaptionFontSizeProperty); }
             set { SetValue(CaptionFontSizeProperty, value); }
         }
 
@@ -382,7 +382,7 @@ namespace System.Windows.Controls
         /// </summary>
         public FontStretch CaptionFontStretch
         {
-            get { return (FontStretch) GetValue(CaptionFontStretchProperty); }
+            get { return (FontStretch)GetValue(CaptionFontStretchProperty); }
             set { SetValue(CaptionFontStretchProperty, value); }
         }
 
@@ -404,7 +404,7 @@ namespace System.Windows.Controls
         /// </summary>
         public FontStyle CaptionFontStyle
         {
-            get { return (FontStyle) GetValue(CaptionFontStyleProperty); }
+            get { return (FontStyle)GetValue(CaptionFontStyleProperty); }
             set { SetValue(CaptionFontStyleProperty, value); }
         }
 
@@ -427,7 +427,7 @@ namespace System.Windows.Controls
         /// </summary>
         public FontWeight CaptionFontWeight
         {
-            get { return (FontWeight) GetValue(CaptionFontWeightProperty); }
+            get { return (FontWeight)GetValue(CaptionFontWeightProperty); }
             set { SetValue(CaptionFontWeightProperty, value); }
         }
 
@@ -451,7 +451,7 @@ namespace System.Windows.Controls
         /// </summary>
         public double PenWidth
         {
-            get { return (double) GetValue(PenWidthProperty); }
+            get { return (double)GetValue(PenWidthProperty); }
             set { SetValue(PenWidthProperty, value); }
         }
 
@@ -475,7 +475,7 @@ namespace System.Windows.Controls
         /// </summary>
         public StickyNoteType StickyNoteType
         {
-            get{ return (StickyNoteType) GetValue(StickyNoteTypeProperty); }
+            get { return (StickyNoteType)GetValue(StickyNoteTypeProperty); }
         }
 
         /// <summary>
@@ -552,7 +552,7 @@ namespace System.Windows.Controls
             {
                 if (menu.PlacementTarget != null && menu.PlacementTarget.IsDescendantOf(this))
                 {
-                        return;
+                    return;
                 }
             }
 
@@ -575,19 +575,19 @@ namespace System.Windows.Controls
             ApplyTemplate();
 
             // We are interested in the expanded note.
-            if ( IsExpanded == true )
+            if (IsExpanded == true)
             {
                 Invariant.Assert(Content != null);
 
                 BringToFront();
                 // If focus was set on us, we should set the focus on our inner control
-                if ( args.NewFocus == this )
+                if (args.NewFocus == this)
                 {
                     UIElement innerControl = this.Content.InnerControl as UIElement;
                     Invariant.Assert(innerControl != null, "InnerControl is null or not a UIElement.");
 
                     // Don't mess with focus if its already on our inner control
-                    if ( innerControl.IsKeyboardFocused == false )
+                    if (innerControl.IsKeyboardFocused == false)
                     {
                         // We should set the focus to the inner control after it is added the visual tree.
                         innerControl.Focus();
@@ -703,7 +703,7 @@ namespace System.Windows.Controls
         /// </summary>
         private Button GetIconButton()
         {
-                return GetTemplateChild(SNBConstants.c_IconButtonId) as Button;
+            return GetTemplateChild(SNBConstants.c_IconButtonId) as Button;
         }
 
         /// <summary>
@@ -873,7 +873,7 @@ namespace System.Windows.Controls
 
             // Check whether Stylus or Mouse has been captured.
             stylusDevice = args.Device as StylusDevice;
-            if ( stylusDevice != null )
+            if (stylusDevice != null)
             {
                 captured = stylusDevice.Captured;
             }
@@ -889,7 +889,7 @@ namespace System.Windows.Controls
 
             // ContextMenu may capture the inputdevice in front.
             // If the device is captured by an element other than StickyNote, we should not try to bring note to front.
-            if ( snc != null && ( captured == snc || captured == null ) )
+            if (snc != null && (captured == snc || captured == null))
             {
                 snc.OnPreviewDeviceDown(sender, args);
             }
@@ -1128,7 +1128,7 @@ namespace System.Windows.Controls
             }
 
             // Figure out the new position while enforcing a portion of the note being always on the page.
-            Point minBoundary = new Point(-(rectNote.X + rectNote.Width - leftBoundary), - rectNote.Y);
+            Point minBoundary = new Point(-(rectNote.X + rectNote.Width - leftBoundary), -rectNote.Y);
             Point maxBoundary = new Point(rectPage.Width - rectNote.X - rightBoundary, rectPage.Height - rectNote.Y - 20);
 
             horizontalChange = Math.Min(Math.Max(minBoundary.X, horizontalChange), maxBoundary.X);
@@ -1395,7 +1395,7 @@ namespace System.Windows.Controls
         private void BringToFront()
         {
             PresentationContext pc = ((IAnnotationComponent)this).PresentationContext;
-            if ( pc != null )
+            if (pc != null)
             {
                 pc.BringToFront(this);
             }
@@ -1421,7 +1421,7 @@ namespace System.Windows.Controls
         private void InvalidateTransform()
         {
             PresentationContext pc = ((IAnnotationComponent)this).PresentationContext;
-            if ( pc != null )
+            if (pc != null)
             {
                 pc.InvalidateTransform(this);
             }
@@ -1594,11 +1594,11 @@ namespace System.Windows.Controls
                                                             _propertyDataChangedHandler.OnStrokeChanged);
                 s.DrawingAttributesReplaced += new DrawingAttributesReplacedEventHandler(
                                                             _strokeDrawingAttributesReplacedHandler.OnStrokeChanged);
-                s.StylusPointsReplaced +=               new StylusPointsReplacedEventHandler(
+                s.StylusPointsReplaced += new StylusPointsReplacedEventHandler(
                                                             _strokePacketDataChangedHandler.OnStrokeChanged);
-                s.StylusPoints.Changed +=               new EventHandler(
+                s.StylusPoints.Changed += new EventHandler(
                                                             _strokePacketDataChangedHandler.OnStrokeChanged);
-                s.PropertyDataChanged +=                new PropertyDataChangedEventHandler(
+                s.PropertyDataChanged += new PropertyDataChangedEventHandler(
                                                             _propertyDataChangedHandler.OnStrokeChanged);
             }
         }
@@ -1615,11 +1615,11 @@ namespace System.Windows.Controls
                                                             _propertyDataChangedHandler.OnStrokeChanged);
                 s.DrawingAttributesReplaced -= new DrawingAttributesReplacedEventHandler(
                                                             _strokeDrawingAttributesReplacedHandler.OnStrokeChanged);
-                s.StylusPointsReplaced  -=              new StylusPointsReplacedEventHandler(
+                s.StylusPointsReplaced -= new StylusPointsReplacedEventHandler(
                                                             _strokePacketDataChangedHandler.OnStrokeChanged);
-                s.StylusPoints.Changed -=               new EventHandler(
+                s.StylusPoints.Changed -= new EventHandler(
                                                             _strokePacketDataChangedHandler.OnStrokeChanged);
-                s.PropertyDataChanged -=                new PropertyDataChangedEventHandler(
+                s.PropertyDataChanged -= new PropertyDataChangedEventHandler(
                                                             _propertyDataChangedHandler.OnStrokeChanged);
             }
         }
@@ -1697,7 +1697,7 @@ namespace System.Windows.Controls
             Invariant.Assert(command == StickyNoteControl.DeleteNoteCommand
                 || command == StickyNoteControl.InkCommand, "Unknown Commands");
 
-            if ( command == StickyNoteControl.DeleteNoteCommand )
+            if (command == StickyNoteControl.DeleteNoteCommand)
             {
                 // DeleteNote Command
                 snc.DeleteStickyNote();
@@ -1726,14 +1726,14 @@ namespace System.Windows.Controls
         /// </summary>
         private static void _OnQueryCommandEnabled(object sender, CanExecuteRoutedEventArgs args)
         {
-            RoutedCommand command = (RoutedCommand)( args.Command );
+            RoutedCommand command = (RoutedCommand)(args.Command);
             StickyNoteControl snc = sender as StickyNoteControl;
 
             Invariant.Assert(snc != null, "Unexpected Commands");
             Invariant.Assert(command == StickyNoteControl.DeleteNoteCommand
                 || command == StickyNoteControl.InkCommand, "Unknown Commands");
 
-            if ( command == StickyNoteControl.DeleteNoteCommand )
+            if (command == StickyNoteControl.DeleteNoteCommand)
             {
                 // Enable/Disable DeleteNote Command based on the Attached Annotation.
                 args.CanExecute = snc._attachedAnnotation != null;
@@ -1757,7 +1757,7 @@ namespace System.Windows.Controls
         /// </summary>
         private void UpdateInkDrawingAttributes()
         {
-            if ( Content == null || Content.Type != StickyNoteType.Ink )
+            if (Content == null || Content.Type != StickyNoteType.Ink)
             {
                 // Return now if there is no InkCanvas.
                 return;
@@ -1768,7 +1768,7 @@ namespace System.Windows.Controls
             SolidColorBrush foreground = Foreground as SolidColorBrush;
 
             // Make sure the foreground is type of SolidColorBrush.
-            if ( foreground == null )
+            if (foreground == null)
             {
                 throw new ArgumentException(SR.InvalidInkForeground);
             }
@@ -1779,7 +1779,7 @@ namespace System.Windows.Controls
             da.Color = foreground.Color;
 
             // Update the DA on InkCanvas.
-            ( (InkCanvas)( Content.InnerControl ) ).DefaultDrawingAttributes = da;
+            ((InkCanvas)(Content.InnerControl)).DefaultDrawingAttributes = da;
         }
 
         #endregion // Private Methods
@@ -1901,7 +1901,7 @@ namespace System.Windows.Controls
                 InkCanvasEditingMode currentMode = (InkCanvasEditingMode)o;
 
                 // If the current EditingMode is the mode which menuitem is expecting, return true for IsChecked.
-                if ( currentMode == expectedMode )
+                if (currentMode == expectedMode)
                 {
                     return true;
                 }
@@ -1929,7 +1929,7 @@ namespace System.Windows.Controls
 
                 // If there is no focus on the StickyNote, we should return InkCanvasEditingMode.None to disable the RTI.
                 // Otherwise return the  value of the StickyNoteControl.InkEditingMode property.
-                if ( sncIsKeyboardFocusWithin )
+                if (sncIsKeyboardFocusWithin)
                 {
                     return sncInkEditingMode;
                 }

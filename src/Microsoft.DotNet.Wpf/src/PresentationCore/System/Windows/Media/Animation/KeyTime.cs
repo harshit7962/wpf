@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -18,7 +18,7 @@ namespace System.Windows.Media.Animation
     {
         private object _value;
         private KeyTimeType _type;
-        
+
         #region Static Create Methods
 
         /// <summary>
@@ -170,12 +170,12 @@ namespace System.Windows.Media.Animation
         /// </summary>
         public override bool Equals(object value)
         {
-            if (   value == null
+            if (value == null
                 || !(value is KeyTime))
             {
                 return false;
             }
-            
+
             return this == (KeyTime)value;
         }
 
@@ -195,7 +195,7 @@ namespace System.Windows.Media.Animation
                 return _type.GetHashCode();
             }
         }
-        
+
         /// <summary>
         /// Generates a string representing this KeyTime.
         /// </summary>

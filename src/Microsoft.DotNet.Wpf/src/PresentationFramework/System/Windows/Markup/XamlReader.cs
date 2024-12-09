@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -7,20 +7,19 @@
 //   base Parser class that parses XML markup into an Avalon Element Tree
 //
 
-using System.Xml;
-using System.IO;
 using System.ComponentModel;
-
-using MS.Utility;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
-using MS.Internal;
 using System.Windows.Baml2006;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 using System.Xaml;
 using System.Xaml.Permissions;
-using System.Windows.Navigation;
+using System.Xml;
+using MS.Internal;
 using MS.Internal.Xaml.Context;
-using System.Runtime.CompilerServices;
+using MS.Utility;
 
 namespace System.Windows.Markup
 {
@@ -155,7 +154,7 @@ namespace System.Windows.Markup
         /// <param name="useRestrictiveXamlReader">Whether or not this method should use 
         /// RestrictiveXamlXmlReader to restrict instantiation of potentially dangerous types</param>
         /// <returns>object root generated after xml parsed</returns>
-        public static object Load(Stream stream, ParserContext parserContext, bool useRestrictiveXamlReader )
+        public static object Load(Stream stream, ParserContext parserContext, bool useRestrictiveXamlReader)
         {
             ArgumentNullException.ThrowIfNull(stream);
             if (parserContext == null)
@@ -259,7 +258,7 @@ namespace System.Windows.Markup
         /// </remarks>
         public object LoadAsync(Stream stream, ParserContext parserContext)
         {
-            return LoadAsync(stream, parserContext, useRestrictiveXamlReader:false);
+            return LoadAsync(stream, parserContext, useRestrictiveXamlReader: false);
         }
 
         /// <summary>
@@ -275,7 +274,7 @@ namespace System.Windows.Markup
         /// <remarks>
         /// Notice that this is an instance method
         /// </remarks>
-        public object LoadAsync(Stream stream, ParserContext parserContext , bool useRestrictiveXamlReader)
+        public object LoadAsync(Stream stream, ParserContext parserContext, bool useRestrictiveXamlReader)
         {
             ArgumentNullException.ThrowIfNull(stream);
             _stream = stream;
@@ -353,7 +352,7 @@ namespace System.Windows.Markup
                 _stack = new XamlContextStack<WpfXamlFrame>(() => new WpfXamlFrame());
 
                 System.Xaml.XamlObjectWriterSettings objectSettings = XamlReader.CreateObjectWriterSettings();
-                objectSettings.AfterBeginInitHandler = delegate(object sender, System.Xaml.XamlObjectEventArgs args)
+                objectSettings.AfterBeginInitHandler = delegate (object sender, System.Xaml.XamlObjectEventArgs args)
                     {
                         if (rootObject == null)
                         {
@@ -679,7 +678,7 @@ namespace System.Windows.Markup
                 // Fire the ParseCompleted event asynchronously
                 Dispatcher.CurrentDispatcher.BeginInvoke(
                     DispatcherPriority.Normal,
-                    (DispatcherOperationCallback)delegate(object obj)
+                    (DispatcherOperationCallback)delegate (object obj)
                     {
                         LoadCompleted(this, new AsyncCompletedEventArgs(_parseException, _parseCancelled, null));
                         return null;
@@ -918,10 +917,10 @@ namespace System.Windows.Markup
             }
             return root;
         }
-        
-            internal static object Load(
-            System.Xaml.XamlReader xamlReader,
-            ParserContext parserContext)
+
+        internal static object Load(
+        System.Xaml.XamlReader xamlReader,
+        ParserContext parserContext)
         {
             if (parserContext == null)
             {

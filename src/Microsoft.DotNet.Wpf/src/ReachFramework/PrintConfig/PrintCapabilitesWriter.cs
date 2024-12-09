@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -33,7 +33,7 @@ namespace MS.Internal.Printing.Configuration
             settings.CloseOutput = false;
             settings.ConformanceLevel = ConformanceLevel.Document;
             settings.NamespaceHandling = NamespaceHandling.Default;
-            this._writer = XmlWriter.Create(new StreamWriter(stream, Encoding.UTF8), settings);            
+            this._writer = XmlWriter.Create(new StreamWriter(stream, Encoding.UTF8), settings);
             this._privateNamespace = privateNamespace;
             this._privateQName = privateQname;
 
@@ -89,8 +89,8 @@ namespace MS.Internal.Printing.Configuration
         /// Print Schema Reference Guide v1.0 Chapter 11.1.2 - Page Imagable Size
         /// </summary>
         public void WritePageImageableSizeProperty(
-            int imageableWidth, int imageableHeight, 
-            int originWidth, int originHeight, 
+            int imageableWidth, int imageableHeight,
+            int originWidth, int originHeight,
             int extentWidth, int extentHeight)
         {
             WriteStartProperty(PrintSchemaNamespaces.StandardKeywordSet, "PageImageableSize");
@@ -112,12 +112,12 @@ namespace MS.Internal.Printing.Configuration
         /// <summary>
         /// Print Schema Reference Guide v1.0 Appendix E.3.1 - Document Collation
         /// </summary>
-        public void WriteDocumentCollateFeature() 
-        {            
+        public void WriteDocumentCollateFeature()
+        {
             WriteStartFeature(
                 PrintSchemaNamespaces.StandardKeywordSet, "DocumentCollate",
                 PrintSchemaNamespaces.StandardKeywordSet, "PickOne",
-                COMPSTUISR.IDS_CPSUI_COLLATE); 
+                COMPSTUISR.IDS_CPSUI_COLLATE);
             {
                 WriteOption(PrintSchemaNamespaces.StandardKeywordSet, "Collated", COMPSTUISR.IDS_CPSUI_YES, "None");
                 WriteOption(PrintSchemaNamespaces.StandardKeywordSet, "Uncollated", COMPSTUISR.IDS_CPSUI_NO, "None");
@@ -149,7 +149,7 @@ namespace MS.Internal.Printing.Configuration
         /// </summary>
         public void WriteJobCopiesAllDocumentsParameterDef(int minCopies, int maxCopies, int defaultCopies)
         {
-            WriteStartParameterDef(PrintSchemaNamespaces.StandardKeywordSet, "JobCopiesAllDocuments", COMPSTUISR.IDS_CPSUI_NUM_OF_COPIES); 
+            WriteStartParameterDef(PrintSchemaNamespaces.StandardKeywordSet, "JobCopiesAllDocuments", COMPSTUISR.IDS_CPSUI_NUM_OF_COPIES);
             {
                 WriteQNameProperty(PrintSchemaNamespaces.Framework, "DataType", PrintSchemaNamespaces.xsd, "integer");
                 WriteProperty(PrintSchemaNamespaces.Framework, "UnitType", "copies");
@@ -182,7 +182,7 @@ namespace MS.Internal.Printing.Configuration
                             }
                             WriteEndScoredProperty();
 
-                            if(nUp == 1)
+                            if (nUp == 1)
                             {
                                 WriteProperty(PrintSchemaNamespaces.Framework, "IdentityOption", "True");
                             }
@@ -245,7 +245,7 @@ namespace MS.Internal.Printing.Configuration
                 WriteOption(PrintSchemaNamespaces.StandardKeywordSet, "None", COMPSTUISR.IDS_NULL, "None");
                 WriteOption(PrintSchemaNamespaces.StandardKeywordSet, "System", COMPSTUISR.IDS_NULL, "None");
                 WriteOption(PrintSchemaNamespaces.StandardKeywordSet, "Driver", COMPSTUISR.IDS_NULL, "None");
-                WriteOption(PrintSchemaNamespaces.StandardKeywordSet, "Device",  COMPSTUISR.IDS_NULL, "None");
+                WriteOption(PrintSchemaNamespaces.StandardKeywordSet, "Device", COMPSTUISR.IDS_NULL, "None");
             }
             WriteEndFeature();
         }
@@ -320,8 +320,8 @@ namespace MS.Internal.Printing.Configuration
         /// Print Schema Reference Guide v1.0 Appendix E.3.8 - Page Media Size
         /// </summary>
         public void WritePageMediaSizeFeature(
-            IList<short> paperSizeCodes, 
-            IList<string> paperSizeDisplayNames, 
+            IList<short> paperSizeCodes,
+            IList<string> paperSizeDisplayNames,
             IList<DC_PAPER_SIZE> paperSizes)
         {
             if (paperSizeCodes.Count > 0)
@@ -332,7 +332,7 @@ namespace MS.Internal.Printing.Configuration
                     COMPSTUISR.IDS_CPSUI_FORMNAME);
                 {
                     for (int i = 0; i < paperSizeCodes.Count; i++)
-                    {                        
+                    {
                         string optionNamespace = null;
                         string optionLocalName = null;
                         PageMediaSizeName mediaSizeEnum;
@@ -370,7 +370,7 @@ namespace MS.Internal.Printing.Configuration
                                 }
                             }
                             WriteEndOption();
-                        }                        
+                        }
                     }
                 }
                 WriteEndFeature();
@@ -398,8 +398,8 @@ namespace MS.Internal.Printing.Configuration
                         string pskMaterial;
 
                         bool found = PrintSchemaShim.TryGetMediaTypeOption(
-                            mediaTypes[i], 
-                            out optionLocalName, 
+                            mediaTypes[i],
+                            out optionLocalName,
                             out optionDisplayNameId,
                             out pskFrontCoating,
                             out pskBackCoating,
@@ -467,19 +467,19 @@ namespace MS.Internal.Printing.Configuration
                 COMPSTUISR.IDS_CPSUI_ORIENTATION);
             {
                 WriteOption(PrintSchemaNamespaces.StandardKeywordSet, "Portrait", COMPSTUISR.IDS_CPSUI_PORTRAIT, "None");
-                switch(landscapeOrientation)
+                switch (landscapeOrientation)
                 {
                     case 90:
-                    {
-                        WriteOption(PrintSchemaNamespaces.StandardKeywordSet, "Landscape", COMPSTUISR.IDS_CPSUI_LANDSCAPE, "None");
-                        break;
-                    }
+                        {
+                            WriteOption(PrintSchemaNamespaces.StandardKeywordSet, "Landscape", COMPSTUISR.IDS_CPSUI_LANDSCAPE, "None");
+                            break;
+                        }
 
                     case 270:
-                    {
-                        WriteOption(PrintSchemaNamespaces.StandardKeywordSet, "ReverseLandscape", COMPSTUISR.IDS_CPSUI_ROT_LAND, "None");
-                        break;
-                    }
+                        {
+                            WriteOption(PrintSchemaNamespaces.StandardKeywordSet, "ReverseLandscape", COMPSTUISR.IDS_CPSUI_ROT_LAND, "None");
+                            break;
+                        }
                 }
             }
             WriteEndFeature();
@@ -490,7 +490,7 @@ namespace MS.Internal.Printing.Configuration
         /// </summary>
         public void WritePageResolutionFeature(IList<DC_RESOLUTION> resolutions)
         {
-            if(resolutions.Count > 0)
+            if (resolutions.Count > 0)
             {
                 WriteStartFeature(
                     PrintSchemaNamespaces.StandardKeywordSet, "PageResolution",
@@ -545,7 +545,7 @@ namespace MS.Internal.Printing.Configuration
         public void WritePageScalingFeature(int minScale, int maxScale, int defaultScale)
         {
             WriteStartFeature(
-                PrintSchemaNamespaces.StandardKeywordSet, "PageScaling", 
+                PrintSchemaNamespaces.StandardKeywordSet, "PageScaling",
                 PrintSchemaNamespaces.StandardKeywordSet, "PickOne",
                 COMPSTUISR.IDS_CPSUI_SCALING);
             {
@@ -584,7 +584,7 @@ namespace MS.Internal.Printing.Configuration
         public void WritePageTrueTypeFontModeFeature()
         {
             WriteStartFeature(
-                PrintSchemaNamespaces.StandardKeywordSet, "PageTrueTypeFontMode", 
+                PrintSchemaNamespaces.StandardKeywordSet, "PageTrueTypeFontMode",
                 PrintSchemaNamespaces.StandardKeywordSet, "PickOne",
                 COMPSTUISR.IDS_CPSUI_TTOPTION);
             {
@@ -601,7 +601,7 @@ namespace MS.Internal.Printing.Configuration
         public void WritePageDeviceFontSubstitutionFeature()
         {
             WriteStartFeature(
-                PrintSchemaNamespaces.StandardKeywordSet, "PageDeviceFontSubstitution", 
+                PrintSchemaNamespaces.StandardKeywordSet, "PageDeviceFontSubstitution",
                 PrintSchemaNamespaces.StandardKeywordSet, "PickOne",
                 COMPSTUISR.IDS_CPSUI_TT_SUBDEV);
             {
@@ -638,7 +638,7 @@ namespace MS.Internal.Printing.Configuration
         }
 
         private void WriteStartFeature(
-            string featureNamespace, string featureName, 
+            string featureNamespace, string featureName,
             string selectionTypeNamespace, string selectionTypeName,
             uint displayNameId)
         {

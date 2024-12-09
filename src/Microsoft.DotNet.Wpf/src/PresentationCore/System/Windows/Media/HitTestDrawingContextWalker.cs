@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -16,7 +16,7 @@ namespace System.Windows.Media
     /// HitTestDrawingContextWalker - a DrawingContextWalker which will perform a point or
     /// geometry based hit test on the contents of a render data.
     /// </summary>
-    internal abstract class HitTestDrawingContextWalker: DrawingContextWalker
+    internal abstract class HitTestDrawingContextWalker : DrawingContextWalker
     {
         /// <summary>
         /// Constructor

@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -8,11 +8,11 @@
 #pragma warning disable 1634, 1691
 
 using System;
-using System.Threading;
 using System.Collections;
 using System.Diagnostics;
-using MS.Win32;
+using System.Threading;
 using Microsoft.Win32.SafeHandles;
+using MS.Win32;
 
 namespace MS.Internal.Automation
 {
@@ -34,7 +34,7 @@ namespace MS.Internal.Automation
         //  Constructors
         //
         //------------------------------------------------------
- 
+
         #region Constructors
 
         // Usage is create QueueProcessor object and call StartOnThread
@@ -57,7 +57,7 @@ namespace MS.Internal.Automation
         //  Internal Methods
         //
         //------------------------------------------------------
- 
+
         #region Internal Methods
 
         internal void StartOnThread()
@@ -97,7 +97,7 @@ namespace MS.Internal.Automation
         {
             _quitting = true;
             _ev.Set();
-       }
+        }
 
         #endregion Internal Methods
 
@@ -107,7 +107,7 @@ namespace MS.Internal.Automation
         //  Private Methods
         //
         //------------------------------------------------------
- 
+
         #region Private Methods
 
         // The loop the thread uses to wait for queue items to process
@@ -157,7 +157,7 @@ namespace MS.Internal.Automation
             {
                 // pull an item off the queue, process, then clear it
                 QueueItem item = (QueueItem)_q.Dequeue();
-                if (! _quitting)
+                if (!_quitting)
                 {
                     try
                     {
@@ -165,8 +165,8 @@ namespace MS.Internal.Automation
                     }
                     catch (Exception e)
                     {
-                        if (Misc.IsCriticalException(e)) 
-                            throw; 
+                        if (Misc.IsCriticalException(e))
+                            throw;
                         // Eat it.
                         // There's no place to let this exception percolate out
                         // to so we'll stop it here.
@@ -183,7 +183,7 @@ namespace MS.Internal.Automation
         //  Private Fields
         //
         //------------------------------------------------------
- 
+
         #region Private Fields
 
         Thread _thread;              // the thread on which QueueItem's are processed
@@ -204,7 +204,7 @@ namespace MS.Internal.Automation
         //  Constructors
         //
         //------------------------------------------------------
- 
+
         #region Constructors
 
         internal SyncQueueItem(QueueItem qItem)
@@ -221,7 +221,7 @@ namespace MS.Internal.Automation
         //  Internal Methods
         //
         //------------------------------------------------------
- 
+
         #region Internal Methods
 
         internal override void Process()
@@ -238,7 +238,7 @@ namespace MS.Internal.Automation
         //  Private Fields
         //
         //------------------------------------------------------
- 
+
         #region Private Fields
 
         // Not many of these will be created at a time so having the

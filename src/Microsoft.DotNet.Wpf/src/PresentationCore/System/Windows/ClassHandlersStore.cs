@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -14,13 +14,13 @@ namespace System.Windows
     internal class ClassHandlersStore
     {
         #region Construction
-        
+
         // Constructor for ClassHandlersStore
         internal ClassHandlersStore(int size)
         {
             _eventHandlersList = new ItemStructList<ClassHandlers>(size);
         }
-        
+
         #endregion Construction
 
         #region Operations
@@ -36,11 +36,11 @@ namespace System.Windows
             Debug.Assert(index != -1, "There should exist a set of handlers for the given routedEvent");
 
             // Create a new RoutedEventHandler
-            RoutedEventHandlerInfo routedEventHandlerInfo = 
-                new RoutedEventHandlerInfo(handler, handledEventsToo);            
+            RoutedEventHandlerInfo routedEventHandlerInfo =
+                new RoutedEventHandlerInfo(handler, handledEventsToo);
 
             // Check if we need to create a new node in the linked list
-            RoutedEventHandlerInfoList handlers =  _eventHandlersList.List[index].Handlers;
+            RoutedEventHandlerInfoList handlers = _eventHandlersList.List[index].Handlers;
             if (handlers == null || _eventHandlersList.List[index].HasSelfHandlers == false)
             {
                 // Create a new node in the linked list of class 
@@ -58,13 +58,13 @@ namespace System.Windows
                 // of class handlers for this type and routed event.
                 int length = handlers.Handlers.Length;
                 RoutedEventHandlerInfo[] mergedHandlers = new RoutedEventHandlerInfo[length + 1];
-                Array.Copy(handlers.Handlers, 0, mergedHandlers,  0, length);
+                Array.Copy(handlers.Handlers, 0, mergedHandlers, 0, length);
                 mergedHandlers[length] = routedEventHandlerInfo;
                 handlers.Handlers = mergedHandlers;
-            }            
+            }
 
             return handlers;
-         }
+        }
 
         // Returns EventHandlers stored at the given index in the datastructure
         // NOTE: index must be valid, i.e. not -1
@@ -73,7 +73,7 @@ namespace System.Windows
             Debug.Assert(index != -1, "There should exist a set of handlers for the given index");
 
             return _eventHandlersList.List[index].Handlers;
-        }        
+        }
 
         // Creates reference to given handlers and RoutedEvent
         // Returns the index at which the new reference was added
@@ -90,7 +90,7 @@ namespace System.Windows
             _eventHandlersList.Add(classHandlers);
 
             return _eventHandlersList.Count - 1;
-        }        
+        }
 
         // Update Sub Class Handlers with the given base class listeners
         // NOTE : Do not wastefully try to update subclass listeners when 
@@ -100,7 +100,7 @@ namespace System.Windows
             RoutedEventHandlerInfoList baseClassListeners)
         {
             Debug.Assert(baseClassListeners != null, "Update only when there are base class listeners to be updated");
-            
+
             // Get the handlers index corresponding to the given RoutedEvent
             int index = GetHandlersIndex(routedEvent);
             if (index != -1)
@@ -108,9 +108,9 @@ namespace System.Windows
                 bool hasSelfHandlers = _eventHandlersList.List[index].HasSelfHandlers;
 
                 // Fetch the handlers for your baseType that the current node knows of
-                
-                RoutedEventHandlerInfoList handlers = hasSelfHandlers ? 
-                    _eventHandlersList.List[index].Handlers.Next : 
+
+                RoutedEventHandlerInfoList handlers = hasSelfHandlers ?
+                    _eventHandlersList.List[index].Handlers.Next :
                     _eventHandlersList.List[index].Handlers;
 
                 bool needToChange = false;
@@ -159,7 +159,7 @@ namespace System.Windows
                 //   knows of. The contains check below determines this. Since it isn't we do not need to 
                 //   change the linked list for C. Since B's linked list has already been updated we get 
                 //   C -> B - > A -> NULL.
-                
+
                 if (handlers != null)
                 {
                     if (baseClassListeners.Next != null && baseClassListeners.Next.Contains(handlers))
@@ -170,7 +170,7 @@ namespace System.Windows
 
                 // If the current node does not have any baseType handlers then if will 
                 // simply use the given baseClassListeners.
-                
+
                 else
                 {
                     needToChange = true;
@@ -191,22 +191,22 @@ namespace System.Windows
                     }
                 }
             }
-        }        
-        
+        }
+
         // Returns EventHandlers Index for the given RoutedEvent
         internal int GetHandlersIndex(RoutedEvent routedEvent)
-        {            
+        {
             // Linear Search
-            for (int i=0; i<_eventHandlersList.Count; i++)
+            for (int i = 0; i < _eventHandlersList.Count; i++)
             {
                 if (_eventHandlersList.List[i].RoutedEvent == routedEvent)
                 {
                     return i;
                 }
             }
-        
+
             return -1;
-        }        
+        }
 
         #endregion Operations
 
@@ -222,7 +222,7 @@ namespace System.Windows
     internal struct ClassHandlers
     {
         #region Operations
-        
+
         /// <summary>
         ///     Is the given object equals the current
         /// </summary>
@@ -230,7 +230,7 @@ namespace System.Windows
         {
             return Equals((ClassHandlers)o);
         }
-        
+
         /// <summary>
         ///     Is the given ClassHandlers struct equals the current
         /// </summary>
@@ -253,7 +253,7 @@ namespace System.Windows
         /// <summary>
         ///     Equals operator overload
         /// </summary>
-        public static bool operator== (ClassHandlers classHandlers1, ClassHandlers classHandlers2)
+        public static bool operator ==(ClassHandlers classHandlers1, ClassHandlers classHandlers2)
         {
             return classHandlers1.Equals(classHandlers2);
         }
@@ -261,15 +261,15 @@ namespace System.Windows
         /// <summary>
         ///     NotEquals operator overload
         /// </summary>
-        public static bool operator!= (ClassHandlers classHandlers1, ClassHandlers classHandlers2)
+        public static bool operator !=(ClassHandlers classHandlers1, ClassHandlers classHandlers2)
         {
             return !classHandlers1.Equals(classHandlers2);
         }
 
         #endregion Operations
-        
+
         #region Data
-        
+
         internal RoutedEvent RoutedEvent;
         internal RoutedEventHandlerInfoList Handlers;
         internal bool HasSelfHandlers;
@@ -295,7 +295,7 @@ namespace System.Windows
                 {
                     return true;
                 }
-                
+
                 tempHandlers = tempHandlers.Next;
             }
 

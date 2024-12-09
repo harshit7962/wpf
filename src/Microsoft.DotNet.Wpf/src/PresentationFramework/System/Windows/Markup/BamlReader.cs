@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -9,14 +9,13 @@
 *
 \***************************************************************************/
 
-using System.Xml;
-using System.IO;
-using System.Text;
 using System.Collections;
 using System.ComponentModel;
-using System.Reflection;
-
 using System.Globalization;
+using System.IO;
+using System.Reflection;
+using System.Text;
+using System.Xml;
 
 namespace System.Windows.Markup
 {
@@ -423,7 +422,7 @@ namespace System.Windows.Markup
                 }
 
                 BamlContentPropertyInfo cpInfo = obj as BamlContentPropertyInfo;
-                if(null != cpInfo)
+                if (null != cpInfo)
                 {
                     _contentPropertyName = cpInfo.LocalName;
                     _connectionId = 0;
@@ -507,7 +506,7 @@ namespace System.Windows.Markup
         private void ReadNextRecord()
         {
             // If this is the first call to Read.  Then read the Version Header.
-            if(_readState == ReadState.Initial)
+            if (_readState == ReadState.Initial)
             {
                 _bamlRecordReader.ReadVersionHeader();
             }
@@ -1332,7 +1331,7 @@ namespace System.Windows.Markup
                         // The "Shared"ness is stored in the BAML with the Key
                         // But at the XAML level it is a sibling attribute of the key.
                         info = CheckForSharedness();
-                        if(null != info)
+                        if (null != info)
                             _deferKeys.Add(info);
 
                         // Process the subtree that is stored as part of a key tree and
@@ -1362,7 +1361,7 @@ namespace System.Windows.Markup
                         }
 
                         // Add the current StaticResource record to the list of StaticResources held per key
-                        BamlKeyInfo keyInfo = _deferKeys[_deferKeys.Count-1];
+                        BamlKeyInfo keyInfo = _deferKeys[_deferKeys.Count - 1];
                         keyInfo.StaticResources.Add(srRecords);
                     }
                     break;
@@ -1741,14 +1740,14 @@ namespace System.Windows.Markup
         private string EscapeString(string value)
         {
             StringBuilder builder = null;
-            for (int i=0; i<value.Length; i++)
+            for (int i = 0; i < value.Length; i++)
             {
                 if (value[i] == '{' || value[i] == '}')
                 {
                     if (builder == null)
                     {
-                        builder = new StringBuilder(value.Length+2);
-                        builder.Append(value,0,i);
+                        builder = new StringBuilder(value.Length + 2);
+                        builder.Append(value, 0, i);
                     }
                     builder.Append('\\');
                 }
@@ -2331,8 +2330,8 @@ namespace System.Windows.Markup
         \***************************************************************************/
 
         private BamlAttributeInfoRecord SetCommonPropertyInfo(
-            BamlNodeInfo       nodeInfo,
-            short              attrId)
+            BamlNodeInfo nodeInfo,
+            short attrId)
         {
             BamlAttributeInfoRecord attrInfo = MapTable.GetAttributeInfoFromId(attrId);
             BamlTypeInfoRecord typeInfo = MapTable.GetTypeInfoFromId(attrInfo.OwnerTypeId);
@@ -2589,7 +2588,7 @@ namespace System.Windows.Markup
             {
                 valueString += $"{valuePrefix}:{typeName}";
             }
-            valueString +="}";
+            valueString += "}";
 
             return valueString;
         }
@@ -2641,7 +2640,7 @@ namespace System.Windows.Markup
                           typeInfo.ClrNamespace, assemblyFullName);
 
                 // Now check our own private list for URI based Xml Namespaces
-                if(String.IsNullOrEmpty(xmlns))
+                if (String.IsNullOrEmpty(xmlns))
                 {
                     List<String> xmlnsList = GetXmlNamespaceList(typeInfo.ClrNamespace, assemblyFullName);
                     prefix = GetXmlnsPrefix(xmlnsList);
@@ -2658,7 +2657,7 @@ namespace System.Windows.Markup
         {
             String fullName = $"{clrNamespace}#{assemblyFullName}";
             List<String> list;
-            if(_reverseXmlnsTable.ContainsKey(fullName))
+            if (_reverseXmlnsTable.ContainsKey(fullName))
             {
                 list = _reverseXmlnsTable[fullName];
             }
@@ -2675,7 +2674,7 @@ namespace System.Windows.Markup
         private List<String> GetXmlNamespaceList(string clrNamespace, string assemblyFullName)
         {
             String fullName = $"{clrNamespace}#{assemblyFullName}";
-            List<String> xmlnsList=null;
+            List<String> xmlnsList = null;
 
             if (_reverseXmlnsTable.ContainsKey(fullName))
             {
@@ -2720,11 +2719,11 @@ namespace System.Windows.Markup
             {
                 // return the first non-null prefix defined.
                 // the default prefix is "" and is non-null.
-                for (int i=0; i<xmlnsList.Count; i++)
+                for (int i = 0; i < xmlnsList.Count; i++)
                 {
                     xmlns = xmlnsList[i];
                     prefix = _prefixDictionary[xmlns];
-                    if(prefix != null)
+                    if (prefix != null)
                         return prefix;
                 }
             }
@@ -2778,7 +2777,7 @@ namespace System.Windows.Markup
 
         // The currently active StaticResourceInfo
         private List<BamlRecord> _currentStaticResourceRecords;
-        private int              _currentStaticResourceRecordIndex;
+        private int _currentStaticResourceRecordIndex;
 
         // The type of current BAML node (or a condensed version of the real baml record type)
         private BamlNodeType _bamlNodeType;
@@ -2847,7 +2846,7 @@ namespace System.Windows.Markup
         // Maps CLRNameSpace#AssemblyFullName  <-->  List of XmlNamespacesURIs.
         private Dictionary<String, List<String>> _reverseXmlnsTable;
 
-#endregion Data
+        #endregion Data
 
 
         /***************************************************************************\

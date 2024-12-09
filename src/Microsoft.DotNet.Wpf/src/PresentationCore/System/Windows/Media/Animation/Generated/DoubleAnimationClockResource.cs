@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -22,7 +22,7 @@ namespace System.Windows.Media.Animation
     /// They subscribe to the Changed event on the AnimationClock and ensure
     /// that the resource's current value is up to date.
     /// </summary>
-    internal class DoubleAnimationClockResource: AnimationClockResource, DUCE.IResource
+    internal class DoubleAnimationClockResource : AnimationClockResource, DUCE.IResource
     {
         /// <summary>
         /// Constructor for public DoubleAnimationClockResource.
@@ -39,7 +39,7 @@ namespace System.Windows.Media.Animation
         public DoubleAnimationClockResource(
             Double baseValue,
             AnimationClock animationClock
-            ): base( animationClock )
+            ) : base(animationClock)
         {
             _baseValue = baseValue;
         }
@@ -95,7 +95,7 @@ namespace System.Windows.Media.Animation
         {
             get
             {
-                 return DUCE.ResourceType.TYPE_DOUBLERESOURCE;
+                return DUCE.ResourceType.TYPE_DOUBLERESOURCE;
             }
         }
 

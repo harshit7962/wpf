@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -7,9 +7,9 @@
 // Description: Implementation of the class StreamGeometry
 //
 
-using MS.Internal;
 using System.ComponentModel;
 using System.Windows.Media.Composition;
+using MS.Internal;
 
 namespace System.Windows.Media
 {
@@ -67,7 +67,7 @@ namespace System.Windows.Media
             unsafe
             {
                 Invariant.Assert((_data != null) && (_data.Length >= sizeof(MIL_PATHGEOMETRY)));
-                fixed (byte *pbPathData = _data)
+                fixed (byte* pbPathData = _data)
                 {
                     MIL_PATHGEOMETRY* pPathGeometry = (MIL_PATHGEOMETRY*)pbPathData;
 
@@ -429,7 +429,8 @@ namespace System.Windows.Media
             {
                 Transform vTransform = Transform;
 
-                if (vTransform != null) ((DUCE.IResource)vTransform).AddRefOnChannel(channel);
+                if (vTransform != null)
+                    ((DUCE.IResource)vTransform).AddRefOnChannel(channel);
 
                 UpdateResource(channel, true /* skip "on channel" check - we already know that we're on channel */ );
             }
@@ -444,7 +445,8 @@ namespace System.Windows.Media
             if (_duceResource.ReleaseOnChannel(channel))
             {
                 Transform vTransform = Transform;
-                if (vTransform != null) ((DUCE.IResource)vTransform).ReleaseOnChannel(channel);
+                if (vTransform != null)
+                    ((DUCE.IResource)vTransform).ReleaseOnChannel(channel);
             }
         }
 
@@ -471,7 +473,7 @@ namespace System.Windows.Media
         {
             base.CloneCore(source);
 
-            StreamGeometry sourceStream = (StreamGeometry) source;
+            StreamGeometry sourceStream = (StreamGeometry)source;
 
             if ((sourceStream._data != null) && (sourceStream._data.Length > 0))
             {
@@ -486,7 +488,7 @@ namespace System.Windows.Media
         {
             base.CloneCurrentValueCore(source);
 
-            StreamGeometry sourceStream = (StreamGeometry) source;
+            StreamGeometry sourceStream = (StreamGeometry)source;
 
             if ((sourceStream._data != null) && (sourceStream._data.Length > 0))
             {
@@ -502,7 +504,7 @@ namespace System.Windows.Media
         {
             base.GetAsFrozenCore(source);
 
-            StreamGeometry sourceStream = (StreamGeometry) source;
+            StreamGeometry sourceStream = (StreamGeometry)source;
 
             if ((sourceStream._data != null) && (sourceStream._data.Length > 0))
             {
@@ -518,7 +520,7 @@ namespace System.Windows.Media
         {
             base.GetCurrentValueAsFrozenCore(source);
 
-            StreamGeometry sourceStream = (StreamGeometry) source;
+            StreamGeometry sourceStream = (StreamGeometry)source;
 
             if ((sourceStream._data != null) && (sourceStream._data.Length > 0))
             {
@@ -539,7 +541,7 @@ namespace System.Windows.Media
     #endregion
 
     #region StreamGeometryCallbackContext
-    internal class StreamGeometryCallbackContext: ByteStreamGeometryContext
+    internal class StreamGeometryCallbackContext : ByteStreamGeometryContext
     {
         /// <summary>
         /// Creates a geometry stream context which is associated with a given owner

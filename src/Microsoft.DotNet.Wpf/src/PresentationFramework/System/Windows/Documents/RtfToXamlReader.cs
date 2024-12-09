@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -8,8 +8,8 @@
 
 using System.Collections;
 using System.Globalization;
-using System.Text;
 using System.IO;
+using System.Text;
 using System.Windows.Media; // Color
 using Microsoft.Win32; // Registry for font substitutes
 using MS.Internal; // Invariant
@@ -500,23 +500,32 @@ namespace System.Windows.Documents
             switch (nCount / 100)
             {
                 case 9:
-                    sb.Append("CM"); break;
+                    sb.Append("CM");
+                    break;
                 case 8:
-                    sb.Append("DCCC"); break;
+                    sb.Append("DCCC");
+                    break;
                 case 7:
-                    sb.Append("DCC"); break;
+                    sb.Append("DCC");
+                    break;
                 case 6:
-                    sb.Append("DC"); break;
+                    sb.Append("DC");
+                    break;
                 case 5:
-                    sb.Append('D'); break;
+                    sb.Append('D');
+                    break;
                 case 4:
-                    sb.Append("CD"); break;
+                    sb.Append("CD");
+                    break;
                 case 3:
-                    sb.Append("CCC"); break;
+                    sb.Append("CCC");
+                    break;
                 case 2:
-                    sb.Append("CC"); break;
+                    sb.Append("CC");
+                    break;
                 case 1:
-                    sb.Append('C'); break;
+                    sb.Append('C');
+                    break;
                 case 0:
                     break;
             }
@@ -526,23 +535,32 @@ namespace System.Windows.Documents
             switch (nCount / 10)
             {
                 case 9:
-                    sb.Append("XC"); break;
+                    sb.Append("XC");
+                    break;
                 case 8:
-                    sb.Append("LXXX"); break;
+                    sb.Append("LXXX");
+                    break;
                 case 7:
-                    sb.Append("LXX"); break;
+                    sb.Append("LXX");
+                    break;
                 case 6:
-                    sb.Append("LX"); break;
+                    sb.Append("LX");
+                    break;
                 case 5:
-                    sb.Append('L'); break;
+                    sb.Append('L');
+                    break;
                 case 4:
-                    sb.Append("XL"); break;
+                    sb.Append("XL");
+                    break;
                 case 3:
-                    sb.Append("XXX"); break;
+                    sb.Append("XXX");
+                    break;
                 case 2:
-                    sb.Append("XX"); break;
+                    sb.Append("XX");
+                    break;
                 case 1:
-                    sb.Append('X'); break;
+                    sb.Append('X');
+                    break;
                 case 0:
                     break;
             }
@@ -552,23 +570,32 @@ namespace System.Windows.Documents
             switch (nCount)
             {
                 case 9:
-                    sb.Append("IX"); break;
+                    sb.Append("IX");
+                    break;
                 case 8:
-                    sb.Append("VIII"); break;
+                    sb.Append("VIII");
+                    break;
                 case 7:
-                    sb.Append("VII"); break;
+                    sb.Append("VII");
+                    break;
                 case 6:
-                    sb.Append("VI"); break;
+                    sb.Append("VI");
+                    break;
                 case 5:
-                    sb.Append('V'); break;
+                    sb.Append('V');
+                    break;
                 case 4:
-                    sb.Append("IV"); break;
+                    sb.Append("IV");
+                    break;
                 case 3:
-                    sb.Append("III"); break;
+                    sb.Append("III");
+                    break;
                 case 2:
-                    sb.Append("II"); break;
+                    sb.Append("II");
+                    break;
                 case 1:
-                    sb.Append('I'); break;
+                    sb.Append('I');
+                    break;
                 case 0:
                     break;
             }
@@ -600,7 +627,8 @@ namespace System.Windows.Documents
             }
             if (temp > 0)
             {
-                if (temp > 26) temp = 26;
+                if (temp > 26)
+                    temp = 26;
                 sb.Append((char)('A' + (temp - 1)));
             }
 
@@ -691,7 +719,8 @@ namespace System.Windows.Documents
 
         internal static long MakeValidShading(long s)
         {
-            if (s > 10000) s = 10000;
+            if (s > 10000)
+                s = 10000;
             return s;
         }
 
@@ -876,7 +905,7 @@ namespace System.Windows.Documents
         internal bool IsEqual(FormatState formatState)
         {
             return
-                // Font Settings
+                   // Font Settings
                    Bold == formatState.Bold
                 && Italic == formatState.Italic
                 && Engrave == formatState.Engrave
@@ -1926,10 +1955,13 @@ namespace System.Windows.Documents
             {
                 switch (Type)
                 {
-                    case BorderType.BorderNone: return 0;
-                    case BorderType.BorderDouble: return Width * 2;
+                    case BorderType.BorderNone:
+                        return 0;
+                    case BorderType.BorderDouble:
+                        return Width * 2;
                     default:
-                    case BorderType.BorderSingle: return Width;
+                    case BorderType.BorderSingle:
+                        return Width;
                 }
             }
         }
@@ -4771,14 +4803,14 @@ namespace System.Windows.Documents
             FormatState fsThis = FormatState;
             FormatState fsParent = ParentFormatStateForFont;
 
-            return      (fsThis.Strike != fsParent.Strike)
-                    ||  (fsThis.UL != fsParent.UL)
-                    ||  (fsThis.Font != fsParent.Font && fsThis.Font >= 0)
-                    ||  (fsThis.FontSize != fsParent.FontSize && fsThis.FontSize >= 0)
-                    ||  (fsThis.CF != fsParent.CF)
-                    ||  (fsThis.Bold != fsParent.Bold)
-                    ||  (fsThis.Italic != fsParent.Italic)
-                    ||  (fsThis.LangCur != fsParent.LangCur);
+            return (fsThis.Strike != fsParent.Strike)
+                    || (fsThis.UL != fsParent.UL)
+                    || (fsThis.Font != fsParent.Font && fsThis.Font >= 0)
+                    || (fsThis.FontSize != fsParent.FontSize && fsThis.FontSize >= 0)
+                    || (fsThis.CF != fsParent.CF)
+                    || (fsThis.Bold != fsParent.Bold)
+                    || (fsThis.Italic != fsParent.Italic)
+                    || (fsThis.LangCur != fsParent.LangCur);
         }
 
         internal void AppendXamlFontProperties(ConverterState converterState, StringBuilder sb)
@@ -5002,10 +5034,17 @@ namespace System.Windows.Documents
                     {
                         switch (text[currentIndex])
                         {
-                            case '&': xamlStringBuilder.Append("&amp;"); break;
-                            case '<': xamlStringBuilder.Append("&lt;"); break;
-                            case '>': xamlStringBuilder.Append("&gt;"); break;
-                            case (char)0: break;
+                            case '&':
+                                xamlStringBuilder.Append("&amp;");
+                                break;
+                            case '<':
+                                xamlStringBuilder.Append("&lt;");
+                                break;
+                            case '>':
+                                xamlStringBuilder.Append("&gt;");
+                                break;
+                            case (char)0:
+                                break;
                         }
                     }
                 }
@@ -8405,10 +8444,12 @@ namespace System.Windows.Documents
                         switch (instr[i])
                         {
                             case 'l':   // bookmark
-                                bBookmarkNext = true; bTargetNext = false;
+                                bBookmarkNext = true;
+                                bTargetNext = false;
                                 break;
                             case 't':   // target
-                                bBookmarkNext = false; bTargetNext = true;
+                                bBookmarkNext = false;
+                                bTargetNext = true;
                                 break;
                         }
                         i++;
@@ -8776,7 +8817,7 @@ namespace System.Windows.Documents
                     if (nChar < 256)
                     {
                         // Keep the byte char value as the unicode
-                        char singleChar = (char) nChar;
+                        char singleChar = (char)nChar;
                         dn.AppendXamlEncoded(new string(singleChar, 1));
                     }
                     break;

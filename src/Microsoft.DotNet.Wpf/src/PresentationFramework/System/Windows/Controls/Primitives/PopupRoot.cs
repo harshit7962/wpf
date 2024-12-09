@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -92,11 +92,11 @@ namespace System.Windows.Controls.Primitives
         {
             get
             {
-                return  _adornerDecorator.Child;
+                return _adornerDecorator.Child;
             }
             set
             {
-                 _adornerDecorator.Child = value;
+                _adornerDecorator.Child = value;
             }
         }
 
@@ -122,7 +122,7 @@ namespace System.Windows.Controls.Primitives
         {
             set
             {
-               _transformDecorator.LayoutTransform = value;
+                _transformDecorator.LayoutTransform = value;
             }
         }
 
@@ -343,14 +343,14 @@ namespace System.Windows.Controls.Primitives
         internal override bool IgnoreModelParentBuildRoute(RoutedEventArgs e)
         {
             // We do not want QueryCursor event to bubble up past this node
-            if(e is QueryCursorEventArgs)
+            if (e is QueryCursorEventArgs)
             {
                 return true;
             }
 
             // Defer to the child to determine if we should route events up the logical tree.
             FrameworkElement child = Child as FrameworkElement;
-            if(child != null)
+            if (child != null)
             {
                 return child.IgnoreModelParentBuildRoute(e);
             }

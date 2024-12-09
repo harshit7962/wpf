@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -75,10 +75,10 @@ namespace Microsoft.Internal.AlphaFlattener
         /// </summary>
         public static string OutputFile; // = null;
 
-     // public static bool ForceGrayScale    ; //= false;
-     // public static bool AlwaysUnfoldDB    ; //= false;
-     // public static bool PreserveText      ; //= false;
-     // public static bool SupportAlphaBlend ; //= false;
+        // public static bool ForceGrayScale    ; //= false;
+        // public static bool AlwaysUnfoldDB    ; //= false;
+        // public static bool PreserveText      ; //= false;
+        // public static bool SupportAlphaBlend ; //= false;
 
         /// <summary>
         /// Maximum number of gradient steps allowed in gradient decomposition
@@ -91,7 +91,7 @@ namespace Microsoft.Internal.AlphaFlattener
             {
 #if DEBUG
                 case "Verbose":
-                    Verbose = (int) val;
+                    Verbose = (int)val;
                     return true;
 
                 case "SerializePrimitives":
@@ -104,19 +104,19 @@ namespace Microsoft.Internal.AlphaFlattener
                     return true;
 
                 case "ForceAlphaOpaque":
-                    ForceAlphaOpaque = (bool) val;
+                    ForceAlphaOpaque = (bool)val;
                     return true;
 
                 case "BlendAlphaWithWhite":
-                    BlendAlphaWithWhite = (bool) val;
+                    BlendAlphaWithWhite = (bool)val;
                     return true;
 
                 case "GradientDecompositionDensity":
-                    GradientDecompositionDensity = (double) val;
+                    GradientDecompositionDensity = (double)val;
                     return true;
 
                 case "MaximumTransparencyLayer":
-                    MaximumTransparencyLayer = (int) val;
+                    MaximumTransparencyLayer = (int)val;
                     return true;
 
                 case "RasterizationDPI":
@@ -124,7 +124,7 @@ namespace Microsoft.Internal.AlphaFlattener
                     return true;
 
                 case "OutputFile":
-                    OutputFile = (string) val;
+                    OutputFile = (string)val;
                     return true;
 
                 default:
@@ -140,7 +140,7 @@ namespace Microsoft.Internal.AlphaFlattener
         /// <returns></returns>
         static internal double RasterizationCost(double width, double height)
         {
-            return  1024 + width / 96 * RasterizationDPI *
+            return 1024 + width / 96 * RasterizationDPI *
                            height / 96 * RasterizationDPI *
                             3;
         }
@@ -164,7 +164,7 @@ namespace Microsoft.Internal.AlphaFlattener
             Debug.Assert(pen != null, "pen expected");
             Debug.Assert(brush != null, "brush expected");
 
-            _pen   = pen;
+            _pen = pen;
             _brush = brush;
         }
 
@@ -227,7 +227,7 @@ namespace Microsoft.Internal.AlphaFlattener
 
         public void Scale(double ratio)
         {
-            if (! Utility.AreClose(ratio, 1.0))
+            if (!Utility.AreClose(ratio, 1.0))
             {
                 _pen = _pen.CloneCurrentValue();
                 _pen.Thickness *= ratio;
@@ -248,7 +248,7 @@ namespace Microsoft.Internal.AlphaFlattener
         {
             PenProxy pen = new PenProxy();
 
-            pen._pen   = this._pen;
+            pen._pen = this._pen;
             pen._brush = this._brush;
 
             return pen;
@@ -363,7 +363,7 @@ namespace Microsoft.Internal.AlphaFlattener
         /// <param name="brush"></param>
         private BrushProxy(Brush brush)
         {
-            _brush   = brush;
+            _brush = brush;
             _opacity = Utility.NormalizeOpacity(brush.Opacity);
         }
 
@@ -408,14 +408,14 @@ namespace Microsoft.Internal.AlphaFlattener
 
             _bounds = bounds;
 
-            if (! (_brush is SolidColorBrush) && ! Utility.IsIdentity(_brush.RelativeTransform))
+            if (!(_brush is SolidColorBrush) && !Utility.IsIdentity(_brush.RelativeTransform))
             {
                 _brush = _brush.CloneCurrentValue();
                 copied = true;
 
                 Matrix mat = Utility.MergeTransform(_brush.Transform, _brush.RelativeTransform, bounds);
 
-                _brush.Transform         = new MatrixTransform(mat);
+                _brush.Transform = new MatrixTransform(mat);
                 _brush.RelativeTransform = Transform.Identity;
             }
 
@@ -1969,7 +1969,7 @@ namespace Microsoft.Internal.AlphaFlattener
         {
             GradientBrush g = _brush as GradientBrush;
 
-            bool ScRgb   = interpolationMode == ColorInterpolationMode.ScRgbLinearInterpolation;
+            bool ScRgb = interpolationMode == ColorInterpolationMode.ScRgbLinearInterpolation;
             bool addStop = false;
 
             //
@@ -1983,7 +1983,7 @@ namespace Microsoft.Internal.AlphaFlattener
             // alpha when blending the stops, the resulting gradient is purely from blue to white. Without
             // premultiplied alpha the gradient is from blue to red to white.
             //
-            if (!_opacityOnly && ! ScRgb)
+            if (!_opacityOnly && !ScRgb)
             {
                 Debug.Assert(g.GradientStops != null);
 
@@ -2020,7 +2020,7 @@ namespace Microsoft.Internal.AlphaFlattener
 
             g.Opacity = 1.0f;
 
-            if (! ScRgb && ! addStop)
+            if (!ScRgb && !addStop)
             {
                 // Blend color into gradient stops.
                 foreach (GradientStop gs in g.GradientStops)
@@ -2062,7 +2062,7 @@ namespace Microsoft.Internal.AlphaFlattener
 
                     if (addStop)    // reducing addStop count for srgb
                     {
-                        blendCount = (blendCount + 1 ) / 2;
+                        blendCount = (blendCount + 1) / 2;
                     }
 
                     for (int blendIndex = 0; blendIndex < (blendCount - 1); blendIndex++)
@@ -2085,10 +2085,10 @@ namespace Microsoft.Internal.AlphaFlattener
                         else
                         {
                             blend = Color.FromArgb(
-                                        (Byte) (a * prevColor.A + b * currentColor.A),
-                                        (Byte) (a * prevColor.R + b * currentColor.R),
-                                        (Byte) (a * prevColor.G + b * currentColor.G),
-                                        (Byte) (a * prevColor.B + b * currentColor.B)
+                                        (Byte)(a * prevColor.A + b * currentColor.A),
+                                        (Byte)(a * prevColor.R + b * currentColor.R),
+                                        (Byte)(a * prevColor.G + b * currentColor.G),
+                                        (Byte)(a * prevColor.B + b * currentColor.B)
                                     );
                         }
 
@@ -2363,10 +2363,10 @@ namespace Microsoft.Internal.AlphaFlattener
 
                     ImageBrush ibnew = ib.CloneCurrentValue() as ImageBrush;
 
-                    ibnew.Opacity      = 1.0;
-                    ibnew.ImageSource  = image.GetImage();
+                    ibnew.Opacity = 1.0;
+                    ibnew.ImageSource = image.GetImage();
                     ibnew.ViewboxUnits = BrushMappingMode.RelativeToBoundingBox;
-                    ibnew.Viewbox      = new Rect(0, 0, 1, 1);
+                    ibnew.Viewbox = new Rect(0, 0, 1, 1);
 
                     BrushProxy bp = BrushProxy.CreateBrush(ibnew, _bounds);
 
@@ -2895,8 +2895,8 @@ namespace Microsoft.Internal.AlphaFlattener
 
             if (tileBrush != null)
             {
-                if (! Utility.IsRenderVisible(tileBrush.Viewport) ||
-                    ! Utility.IsValidViewbox(tileBrush.Viewbox, tileBrush.Stretch != Stretch.None)
+                if (!Utility.IsRenderVisible(tileBrush.Viewport) ||
+                    !Utility.IsValidViewbox(tileBrush.Viewbox, tileBrush.Stretch != Stretch.None)
                    )
                 {
                     return true;
@@ -2988,13 +2988,13 @@ namespace Microsoft.Internal.AlphaFlattener
                 {
                     return null;
                 }
-        
-                if(treeWalkProgress.IsTreeWalkInProgress(bcb))
+
+                if (treeWalkProgress.IsTreeWalkInProgress(bcb))
                 {
                     // A visual tree cycle has been detected while reducing vb, calling flattener.VisualWalk on bcb.Target will cause infinite recursion
                     return null;
                 }
-                                
+
                 //
                 // Convert from BitmapCacheBrush to DrawingBrush to reduce the number of brush types
                 // we need to handle.  This will render the BitmapCacheBrush like a VisualBrush (i.e. as vector content)
@@ -3012,15 +3012,15 @@ namespace Microsoft.Internal.AlphaFlattener
                     // Mark the brush to avoid cycles in the visual tree
                     treeWalkProgress.EnterTreeWalk(bcb);
                     Visual visual = bcb.Target;
-                    try 
+                    try
                     {
                         VisualTreeFlattener flattener = new VisualTreeFlattener(metroContext, pageSize, treeWalkProgress);
                         flattener.VisualWalk(visual);
                     }
-                    finally 
+                    finally
                     {
                         treeWalkProgress.ExitTreeWalk(bcb);
-                    }                    
+                    }
 
                     // Get Visual descendant bounds with clipping taken into consideration.
                     Rect visualBounds = VisualTreeHelper.GetDescendantBounds(visual);
@@ -3043,7 +3043,7 @@ namespace Microsoft.Internal.AlphaFlattener
                         new RectangleGeometry(visualBounds)
                         );
 
-                    context.Pop();                        
+                    context.Pop();
                 }
 
                 DrawingBrush drawingBrush = Utility.CreateNonInheritingDrawingBrush(drawing);
@@ -3055,7 +3055,7 @@ namespace Microsoft.Internal.AlphaFlattener
 
                 return drawingBrush;
             }
-            
+
             VisualBrush vb = brush as VisualBrush;
 
             if (vb != null)
@@ -3066,13 +3066,13 @@ namespace Microsoft.Internal.AlphaFlattener
                 {
                     return null;
                 }
-        
-                if(treeWalkProgress.IsTreeWalkInProgress(vb))
+
+                if (treeWalkProgress.IsTreeWalkInProgress(vb))
                 {
                     // A visual tree cycle has been detected while reducing vb, calling flattener.VisualWalk on its vb,Visual will cause infinite recursion
                     return null;
                 }
-                                
+
                 //
                 // Convert from VisualBrush to DrawingBrush to reduce the number of brush types
                 // we need to handle.
@@ -3106,16 +3106,16 @@ namespace Microsoft.Internal.AlphaFlattener
 
                     // Mark the visual brush to avoid cycles in the visual tree
                     treeWalkProgress.EnterTreeWalk(vb);
-                    try 
+                    try
                     {
                         VisualTreeFlattener flattener = new VisualTreeFlattener(metroContext, pageSize, treeWalkProgress);
                         flattener.InheritedTransformHint = visualToWorldTransformHint;
                         flattener.VisualWalk(vb.Visual);
                     }
-                    finally 
+                    finally
                     {
                         treeWalkProgress.ExitTreeWalk(vb);
-                    }                    
+                    }
 
                     // Get Visual descendant bounds with clipping taken into consideration.
                     Rect visualBounds = VisualTreeHelper.GetDescendantBounds(vb.Visual);
@@ -3138,7 +3138,7 @@ namespace Microsoft.Internal.AlphaFlattener
                         new RectangleGeometry(visualBounds)
                         );
 
-                    context.Pop();                        
+                    context.Pop();
                 }
 
                 DrawingBrush drawingBrush = Utility.CreateNonInheritingDrawingBrush(drawing);
@@ -3663,10 +3663,10 @@ namespace Microsoft.Internal.AlphaFlattener
             }
             else
             {
-                m_a = (float) (c.A / 255.0);
-                m_r = (float) (c.R / 255.0);
-                m_g = (float) (c.G / 255.0);
-                m_b = (float) (c.B / 255.0);
+                m_a = (float)(c.A / 255.0);
+                m_r = (float)(c.R / 255.0);
+                m_g = (float)(c.G / 255.0);
+                m_b = (float)(c.B / 255.0);
             }
         }
 
@@ -3711,9 +3711,9 @@ namespace Microsoft.Internal.AlphaFlattener
             double min = Double.MaxValue;
             double max = Double.MinValue;
 
-         // _count  = 0;
-            _color  = new MyColor[stops.Count + 2];
-            _offset = new double [stops.Count + 2];
+            // _count  = 0;
+            _color = new MyColor[stops.Count + 2];
+            _offset = new double[stops.Count + 2];
             _ciMode = ciMode;
 
             for (int i = 0; i < stops.Count; i++)
@@ -3833,9 +3833,9 @@ namespace Microsoft.Internal.AlphaFlattener
 
             Debug.Assert((i >= 0) && (i < steps));
 
-            float t = (float) (i) / (steps - 1);
+            float t = (float)(i) / (steps - 1);
 
-            for (int c = 0; c < _count - 1; c ++)
+            for (int c = 0; c < _count - 1; c++)
             {
                 if (t >= _offset[c] && (t <= _offset[c + 1]))
                 {
@@ -3861,10 +3861,14 @@ namespace Microsoft.Internal.AlphaFlattener
 
             double d;
 
-            d = c0.m_a - c1.m_a; sum += d * d;
-            d = c0.m_r - c1.m_r; sum += d * d;
-            d = c0.m_g - c1.m_g; sum += d * d;
-            d = c0.m_b - c1.m_b; sum += d * d;
+            d = c0.m_a - c1.m_a;
+            sum += d * d;
+            d = c0.m_r - c1.m_r;
+            sum += d * d;
+            d = c0.m_g - c1.m_g;
+            sum += d * d;
+            d = c0.m_b - c1.m_b;
+            sum += d * d;
 
             return Math.Sqrt(sum);
         }
@@ -4224,8 +4228,10 @@ namespace Microsoft.Internal.AlphaFlattener
             }
 
             {
-                Point p0 = new Point(0, 0); p0 = _trans.Transform(p0);
-                Point p1 = new Point(_rx, _ry); p1 = _trans.Transform(p1);
+                Point p0 = new Point(0, 0);
+                p0 = _trans.Transform(p0);
+                Point p1 = new Point(_rx, _ry);
+                p1 = _trans.Transform(p1);
 
                 Vector v = p0 - p1;
 
@@ -4246,7 +4252,7 @@ namespace Microsoft.Internal.AlphaFlattener
             // Force rasterization instead by making _right a huge value.
             if (missing)
             {
-                _left  = 0;
+                _left = 0;
                 _right = Int32.MaxValue;
             }
             else
@@ -4266,10 +4272,10 @@ namespace Microsoft.Internal.AlphaFlattener
                 }
 
                 double right = Math.Ceiling(maxt * _bandSteps);
-                double left  = Math.Floor(mint * _bandSteps);
+                double left = Math.Floor(mint * _bandSteps);
 
                 _right = BoundedInt(right);
-                _left  = BoundedInt(left);
+                _left = BoundedInt(left);
 
                 Debug.Assert(_left <= left);
                 Debug.Assert(_right >= right);
@@ -4523,7 +4529,7 @@ namespace Microsoft.Internal.AlphaFlattener
         private Geometry _shape; // fill region
 
         private GradientColor _gradient;
-        private Matrix        _trans;
+        private Matrix _trans;
 
         private int _bandSteps;
         private int _left;

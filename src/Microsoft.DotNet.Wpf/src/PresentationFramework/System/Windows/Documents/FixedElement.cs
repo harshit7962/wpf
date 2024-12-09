@@ -1,14 +1,14 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using MS.Internal.Documents;
+using System.Globalization;
+using System.Text;
 using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Markup;    // for XmlLanguage
 using System.Windows.Navigation;
-using System.Globalization;
-using System.Text;
+using MS.Internal.Documents;
 
 //
 // Description:
@@ -332,9 +332,9 @@ namespace System.Windows.Documents
                     dp.Append("    ");
                 }
                 dp.Append(this.ToString());
-                for(int i = 0, n = _children.Count; i < n; i++)
+                for (int i = 0, n = _children.Count; i < n; i++)
                 {
-                    ((FixedElement)_children[i]).DumpTree(indent+1);
+                    ((FixedElement)_children[i]).DumpTree(indent + 1);
                 }
 
                 DocumentsTrace.FixedTextOM.Map.Trace(dp.ToString());
@@ -352,7 +352,7 @@ namespace System.Windows.Documents
         {
             get
             {
-                return ! (_type == ElementType.Object
+                return !(_type == ElementType.Object
                     || _type == ElementType.Container);
             }
         }
@@ -451,11 +451,11 @@ namespace System.Windows.Documents
         //------------------------------------------------------
         #region Private Fields
 #if DEBUG
-        private List<FixedElement>      _children;
+        private List<FixedElement> _children;
 #endif
-        private ElementType  _type;             // logical type that this element represents
-        private FixedTextPointer  _start;      // start position for this element
-        private FixedTextPointer  _end;        // end position for this element
+        private ElementType _type;             // logical type that this element represents
+        private FixedTextPointer _start;      // start position for this element
+        private FixedTextPointer _end;        // end position for this element
         private object _object;                 // embedded object
         private int _pageIndex;
         #endregion Private Fields

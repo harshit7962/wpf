@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -14,9 +14,8 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MS.Internal.AppModel;
 using System.Windows.Threading;
-
+using MS.Internal.AppModel;
 using CommonDependencyProperty = MS.Internal.PresentationFramework.CommonDependencyPropertyAttribute;
 
 namespace System.Windows.Documents
@@ -739,7 +738,7 @@ namespace System.Windows.Documents
         {
             get
             {
-                return  BaseUri;
+                return BaseUri;
             }
             set
             {
@@ -1072,7 +1071,7 @@ namespace System.Windows.Documents
 
         private static void DoUserInitiatedNavigation(object sender)
         {
-                DispatchNavigation(sender);
+            DispatchNavigation(sender);
         }
 
         private static void DoNonUserInitiatedNavigation(object sender)

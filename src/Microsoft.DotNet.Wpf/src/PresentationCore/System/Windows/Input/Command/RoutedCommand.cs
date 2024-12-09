@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -215,7 +215,7 @@ namespace System.Windows.Input
         {
             get
             {
-                if(InputGesturesInternal == null)
+                if (InputGesturesInternal == null)
                 {
                     _inputGestureCollection = new InputGestureCollection();
                 }
@@ -227,7 +227,7 @@ namespace System.Windows.Input
         {
             get
             {
-                if(_inputGestureCollection == null && AreInputGesturesDelayLoaded)
+                if (_inputGestureCollection == null && AreInputGesturesDelayLoaded)
                 {
                     _inputGestureCollection = GetInputGestures();
                     AreInputGesturesDelayLoaded = false;
@@ -242,19 +242,19 @@ namespace System.Windows.Input
         /// <returns>collection of input gestures for the command</returns>
         private InputGestureCollection GetInputGestures()
         {
-            if(OwnerType == typeof(ApplicationCommands))
+            if (OwnerType == typeof(ApplicationCommands))
             {
                 return ApplicationCommands.LoadDefaultGestureFromResource(_commandId);
             }
-            else if(OwnerType == typeof(NavigationCommands))
+            else if (OwnerType == typeof(NavigationCommands))
             {
                 return NavigationCommands.LoadDefaultGestureFromResource(_commandId);
             }
-            else if(OwnerType == typeof(MediaCommands))
+            else if (OwnerType == typeof(MediaCommands))
             {
                 return MediaCommands.LoadDefaultGestureFromResource(_commandId);
             }
-            else if(OwnerType == typeof(ComponentCommands))
+            else if (OwnerType == typeof(ComponentCommands))
             {
                 return ComponentCommands.LoadDefaultGestureFromResource(_commandId);
             }
@@ -286,7 +286,7 @@ namespace System.Windows.Input
                 return ReadPrivateFlag(PrivateFlags.AreInputGesturesDelayLoaded);
             }
 
-            
+
             set
             {
                 WritePrivateFlag(PrivateFlags.AreInputGesturesDelayLoaded, value);
@@ -343,7 +343,7 @@ namespace System.Windows.Input
             // This cast is ok since we are already testing for UIElement, ContentElement, or UIElement3D
             // both of which derive from DO
             DependencyObject targetAsDO = (DependencyObject)target;
-            
+
             if (targetAsDO is UIElement uie)
             {
                 uie.RaiseEvent(args, trusted);
@@ -355,7 +355,7 @@ namespace System.Windows.Input
             else if (targetAsDO is UIElement3D uie3D)
             {
                 uie3D.RaiseEvent(args, trusted);
-            }            
+            }
         }
         internal bool ExecuteCore(object parameter, IInputElement target, bool userInitiated)
         {
@@ -380,7 +380,7 @@ namespace System.Windows.Input
                 // Raise the regular ExecuteEvent.
                 ExecutedRoutedEventArgs args = new ExecutedRoutedEventArgs(this, parameter);
                 args.RoutedEvent = CommandManager.PreviewExecutedEvent;
-                
+
                 if (targetUIElement != null)
                 {
                     targetUIElement.RaiseEvent(args, userInitiated);
@@ -399,7 +399,7 @@ namespace System.Windows.Input
                         {
                             targetAsUIElement3D.RaiseEvent(args, userInitiated);
                         }
-                    }                    
+                    }
                 }
 
                 if (!args.Handled)
@@ -467,4 +467,4 @@ namespace System.Windows.Input
 
         #endregion
     }
- }
+}

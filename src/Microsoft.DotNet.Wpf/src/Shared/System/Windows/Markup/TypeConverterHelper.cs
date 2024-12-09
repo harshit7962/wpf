@@ -5,10 +5,10 @@
 //  Description: Specifies that the whitespace surrounding an element should be trimmed.
 
 using System;
-using System.Reflection;
 using System.ComponentModel;
-using System.Globalization;
 using System.Diagnostics;
+using System.Globalization;
+using System.Reflection;
 #if SYSTEM_XAML
 using System.Xaml.Replacements;
 #else
@@ -134,7 +134,7 @@ namespace System.Windows.Markup
                             !ReflectionHelper.IsInternalAllowedOnType(converterType))
                         {
 #endif
-                            converterType = null;
+                        converterType = null;
 #if PBTCOMPILER
                         }
 #endif

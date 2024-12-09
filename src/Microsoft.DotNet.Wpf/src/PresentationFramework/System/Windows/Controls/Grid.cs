@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -13,15 +13,15 @@
 //      Grid Tutorial: Grid Tutorial.mht
 //
 
+using System.Collections;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows.Markup;
+using System.Windows.Media;
 using MS.Internal;
 using MS.Internal.Controls;
 using MS.Internal.PresentationFramework;
 using MS.Internal.Telemetry.PresentationFramework;
-using System.Collections;
-using System.ComponentModel;
-using System.Threading;
-using System.Windows.Media;
-using System.Windows.Markup;
 
 #pragma warning disable 1634, 1691  // suppressing PreSharp warnings
 
@@ -50,7 +50,7 @@ namespace System.Windows.Controls
         /// </summary>
         public Grid()
         {
-            SetFlags((bool) ShowGridLinesProperty.GetDefaultValue(DependencyObjectType), Flags.ShowGridLinesPropertyValue);
+            SetFlags((bool)ShowGridLinesProperty.GetDefaultValue(DependencyObjectType), Flags.ShowGridLinesPropertyValue);
         }
 
         #endregion Constructors
@@ -103,9 +103,9 @@ namespace System.Windows.Controls
                 {
                     ExtendedData extData = ExtData;
 
-                    if (    extData == null
-                        ||  (   (extData.ColumnDefinitions == null || extData.ColumnDefinitions.Count == 0)
-                            &&  (extData.RowDefinitions    == null || extData.RowDefinitions.Count    == 0) )
+                    if (extData == null
+                        || ((extData.ColumnDefinitions == null || extData.ColumnDefinitions.Count == 0)
+                            && (extData.RowDefinitions == null || extData.RowDefinitions.Count == 0))
                        )
                     {
                         //  grid is empty
@@ -268,8 +268,10 @@ namespace System.Windows.Controls
         {
             get
             {
-                if (_data == null) { _data = new ExtendedData(); }
-                if (_data.ColumnDefinitions == null) { _data.ColumnDefinitions = new ColumnDefinitionCollection(this); }
+                if (_data == null)
+                { _data = new ExtendedData(); }
+                if (_data.ColumnDefinitions == null)
+                { _data.ColumnDefinitions = new ColumnDefinitionCollection(this); }
 
                 return (_data.ColumnDefinitions);
             }
@@ -283,8 +285,10 @@ namespace System.Windows.Controls
         {
             get
             {
-                if (_data == null) { _data = new ExtendedData(); }
-                if (_data.RowDefinitions == null) { _data.RowDefinitions = new RowDefinitionCollection(this); }
+                if (_data == null)
+                { _data = new ExtendedData(); }
+                if (_data.RowDefinitions == null)
+                { _data.RowDefinitions = new RowDefinitionCollection(this); }
 
                 return (_data.RowDefinitions);
             }
@@ -313,7 +317,7 @@ namespace System.Windows.Controls
         {
             // because "base.Count + 1" for GridLinesRenderer
             // argument checking done at the base class
-            if(index == base.VisualChildrenCount)
+            if (index == base.VisualChildrenCount)
             {
                 if (_gridLinesRenderer == null)
                 {
@@ -321,7 +325,8 @@ namespace System.Windows.Controls
                 }
                 return _gridLinesRenderer;
             }
-            else return base.GetVisualChild(index);
+            else
+                return base.GetVisualChild(index);
         }
 
         /// <summary>
@@ -572,9 +577,11 @@ namespace System.Windows.Controls
 
                         if (canResolveStarsV)
                         {
-                            if (HasStarCellsV) { ResolveStar(DefinitionsV, constraint.Height); }
+                            if (HasStarCellsV)
+                            { ResolveStar(DefinitionsV, constraint.Height); }
                             MeasureCellsGroup(extData.CellGroup2, constraint, false, false);
-                            if (HasStarCellsU) { ResolveStar(DefinitionsU, constraint.Width); }
+                            if (HasStarCellsU)
+                            { ResolveStar(DefinitionsU, constraint.Width); }
                             MeasureCellsGroup(extData.CellGroup3, constraint, false, false);
                         }
                         else
@@ -584,9 +591,11 @@ namespace System.Windows.Controls
                             bool canResolveStarsU = extData.CellGroup2 > PrivateCells.Length;
                             if (canResolveStarsU)
                             {
-                                if (HasStarCellsU) { ResolveStar(DefinitionsU, constraint.Width); }
+                                if (HasStarCellsU)
+                                { ResolveStar(DefinitionsU, constraint.Width); }
                                 MeasureCellsGroup(extData.CellGroup3, constraint, false, false);
-                                if (HasStarCellsV) { ResolveStar(DefinitionsV, constraint.Height); }
+                                if (HasStarCellsV)
+                                { ResolveStar(DefinitionsV, constraint.Height); }
                             }
                             else
                             {
@@ -596,7 +605,7 @@ namespace System.Windows.Controls
                                 // also use a count heuristic to break a loop in case of one.
 
                                 bool hasDesiredSizeUChanged = false;
-                                int cnt=0;
+                                int cnt = 0;
 
                                 // Cache Group2MinWidths & Group3MinHeights
                                 double[] group2MinSizes = CacheMinSizes(extData.CellGroup2, false);
@@ -612,13 +621,15 @@ namespace System.Windows.Controls
                                         ApplyCachedMinSizes(group3MinSizes, true);
                                     }
 
-                                    if (HasStarCellsU) { ResolveStar(DefinitionsU, constraint.Width); }
+                                    if (HasStarCellsU)
+                                    { ResolveStar(DefinitionsU, constraint.Width); }
                                     MeasureCellsGroup(extData.CellGroup3, constraint, false, false);
 
                                     // Reset cached Group2Widths
                                     ApplyCachedMinSizes(group2MinSizes, false);
 
-                                    if (HasStarCellsV) { ResolveStar(DefinitionsV, constraint.Height); }
+                                    if (HasStarCellsV)
+                                    { ResolveStar(DefinitionsV, constraint.Height); }
                                     MeasureCellsGroup(extData.CellGroup2, constraint, cnt == c_layoutLoopMaxCount, false, out hasDesiredSizeUChanged);
                                 }
                                 while (hasDesiredSizeUChanged && ++cnt <= c_layoutLoopMaxCount);
@@ -699,7 +710,7 @@ namespace System.Windows.Controls
                             columnIndex == 0 ? 0.0 : DefinitionsU[columnIndex].FinalOffset,
                             rowIndex == 0 ? 0.0 : DefinitionsV[rowIndex].FinalOffset,
                             GetFinalSizeForRange(DefinitionsU, columnIndex, columnSpan),
-                            GetFinalSizeForRange(DefinitionsV, rowIndex, rowSpan)   );
+                            GetFinalSizeForRange(DefinitionsV, rowIndex, rowSpan));
 
                         EnterCounter(Counters._ArrangeChildHelper2);
                         cell.Arrange(cellRect);
@@ -771,7 +782,8 @@ namespace System.Windows.Controls
             {
                 DefinitionBase[] definitions = DefinitionsU;
                 value = definitions[(columnIndex + 1) % definitions.Length].FinalOffset;
-                if (columnIndex != 0) { value -= definitions[columnIndex].FinalOffset; }
+                if (columnIndex != 0)
+                { value -= definitions[columnIndex].FinalOffset; }
             }
             return (value);
         }
@@ -793,7 +805,8 @@ namespace System.Windows.Controls
             {
                 DefinitionBase[] definitions = DefinitionsV;
                 value = definitions[(rowIndex + 1) % definitions.Length].FinalOffset;
-                if (rowIndex != 0) { value -= definitions[rowIndex].FinalOffset; }
+                if (rowIndex != 0)
+                { value -= definitions[rowIndex].FinalOffset; }
             }
             return (value);
         }
@@ -954,9 +967,9 @@ namespace System.Windows.Controls
                 }
                 else
                 {
-                    if (    cell.IsAutoU
-                            //  note below: if spans through Star column it is NOT Auto
-                        &&  !cell.IsStarU )
+                    if (cell.IsAutoU
+                        //  note below: if spans through Star column it is NOT Auto
+                        && !cell.IsStarU)
                     {
                         cell.Next = extData.CellGroup2;
                         extData.CellGroup2 = i;
@@ -1126,7 +1139,7 @@ namespace System.Windows.Controls
         {
             double[] minSizes = isRows ? new double[DefinitionsV.Length] : new double[DefinitionsU.Length];
 
-            for (int j=0; j<minSizes.Length; j++)
+            for (int j = 0; j < minSizes.Length; j++)
             {
                 minSizes[j] = -1;
             }
@@ -1151,7 +1164,7 @@ namespace System.Windows.Controls
 
         private void ApplyCachedMinSizes(double[] minSizes, bool isRows)
         {
-            for (int i=0; i<minSizes.Length; i++)
+            for (int i = 0; i < minSizes.Length; i++)
             {
                 if (DoubleUtil.GreaterThanOrClose(minSizes[i], 0))
                 {
@@ -1291,8 +1304,8 @@ namespace System.Windows.Controls
             SpanKey key = new SpanKey(start, count, u);
             object o = store[key];
 
-            if (    o == null
-                ||  value > (double)o   )
+            if (o == null
+                || value > (double)o)
             {
                 store[key] = value;
             }
@@ -1313,8 +1326,8 @@ namespace System.Windows.Controls
             double cellMeasureWidth;
             double cellMeasureHeight;
 
-            if (    PrivateCells[cell].IsAutoU
-                &&  !PrivateCells[cell].IsStarU   )
+            if (PrivateCells[cell].IsAutoU
+                && !PrivateCells[cell].IsStarU)
             {
                 //  if cell belongs to at least one Auto column and not a single Star column
                 //  then it should be calculated "to content", thus it is possible to "shortcut"
@@ -1334,8 +1347,8 @@ namespace System.Windows.Controls
             {
                 cellMeasureHeight = double.PositiveInfinity;
             }
-            else if (   PrivateCells[cell].IsAutoV
-                    &&  !PrivateCells[cell].IsStarV   )
+            else if (PrivateCells[cell].IsAutoV
+                    && !PrivateCells[cell].IsStarV)
             {
                 //  if cell belongs to at least one Auto row and not a single Star row
                 //  then it should be calculated "to content", thus it is possible to "shortcut"
@@ -1466,13 +1479,15 @@ namespace System.Windows.Controls
 
                     //  sanity check: no matter what, but min size must always be the smaller;
                     //  max size must be the biggest; and preferred should be in between
-                    Debug.Assert(   minSize <= preferredSize
-                                &&  preferredSize <= maxSize
-                                &&  rangeMinSize <= rangePreferredSize
-                                &&  rangePreferredSize <= rangeMaxSize  );
+                    Debug.Assert(minSize <= preferredSize
+                                && preferredSize <= maxSize
+                                && rangeMinSize <= rangePreferredSize
+                                && rangePreferredSize <= rangeMaxSize);
 
-                    if (maxMaxSize < maxSize)   maxMaxSize = maxSize;
-                    if (definitions[i].UserSize.IsAuto) autoDefinitionsCount++;
+                    if (maxMaxSize < maxSize)
+                        maxMaxSize = maxSize;
+                    if (definitions[i].UserSize.IsAuto)
+                        autoDefinitionsCount++;
                     tempDefinitions[i - start] = definitions[i];
                 }
 
@@ -1509,7 +1524,8 @@ namespace System.Windows.Controls
                             Debug.Assert(!tempDefinitions[i].UserSize.IsAuto);
 
                             double newMinSize = Math.Min(sizeToDistribute / (count - i), tempDefinitions[i].PreferredSize);
-                            if (newMinSize > tempDefinitions[i].MinSize) { tempDefinitions[i].UpdateMinSize(newMinSize); }
+                            if (newMinSize > tempDefinitions[i].MinSize)
+                            { tempDefinitions[i].UpdateMinSize(newMinSize); }
                             sizeToDistribute -= newMinSize;
                         }
 
@@ -1565,8 +1581,8 @@ namespace System.Windows.Controls
                         //
                         double equalSize = requestedSize / count;
 
-                        if (    equalSize < maxMaxSize
-                            &&  !_AreClose(equalSize, maxMaxSize)   )
+                        if (equalSize < maxMaxSize
+                            && !_AreClose(equalSize, maxMaxSize))
                         {
                             //  equi-size is less than maximum of maxSizes.
                             //  in this case distribute so that smaller definitions grow faster than
@@ -1575,12 +1591,12 @@ namespace System.Windows.Controls
                             double sizeToDistribute = requestedSize - rangeMaxSize;
 
                             //  sanity check: totalRemainingSize and sizeToDistribute must be real positive numbers
-                            Debug.Assert(   !double.IsInfinity(totalRemainingSize)
-                                        &&  !double.IsNaN(totalRemainingSize)
-                                        &&  totalRemainingSize > 0
-                                        &&  !double.IsInfinity(sizeToDistribute)
-                                        &&  !double.IsNaN(sizeToDistribute)
-                                        &&  sizeToDistribute > 0    );
+                            Debug.Assert(!double.IsInfinity(totalRemainingSize)
+                                        && !double.IsNaN(totalRemainingSize)
+                                        && totalRemainingSize > 0
+                                        && !double.IsInfinity(sizeToDistribute)
+                                        && !double.IsNaN(sizeToDistribute)
+                                        && sizeToDistribute > 0);
 
                             for (int i = 0; i < count; ++i)
                             {
@@ -1664,9 +1680,9 @@ namespace System.Windows.Controls
 
                                 //  Note: normalized star value is temporary cached into MeasureSize
                                 definitions[i].MeasureSize = starValue;
-                                double maxSize             = Math.Max(definitions[i].MinSize, definitions[i].UserMaxSize);
-                                maxSize                    = Math.Min(maxSize, c_starClip);
-                                definitions[i].SizeCache   = maxSize / starValue;
+                                double maxSize = Math.Max(definitions[i].MinSize, definitions[i].UserMaxSize);
+                                maxSize = Math.Min(maxSize, c_starClip);
+                                definitions[i].SizeCache = maxSize / starValue;
                             }
                         }
                         break;
@@ -1704,12 +1720,12 @@ namespace System.Windows.Controls
                     else
                     {
                         double userSize = Math.Max(availableSize - takenSize, 0.0) * (starValue / tempDefinitions[i].SizeCache);
-                        resolvedSize    = Math.Min(userSize, tempDefinitions[i].UserMaxSize);
-                        resolvedSize    = Math.Max(tempDefinitions[i].MinSize, resolvedSize);
+                        resolvedSize = Math.Min(userSize, tempDefinitions[i].UserMaxSize);
+                        resolvedSize = Math.Max(tempDefinitions[i].MinSize, resolvedSize);
                     }
 
                     tempDefinitions[i].MeasureSize = resolvedSize;
-                    takenSize                     += resolvedSize;
+                    takenSize += resolvedSize;
                 } while (++i < starDefinitionsCount);
             }
         }
@@ -1741,7 +1757,7 @@ namespace System.Windows.Controls
 
             // Phase 1.  Determine the maximum *-weight and prepare to adjust *-weights
             double maxStar = 0.0;
-            for (int i=0; i<defCount; ++i)
+            for (int i = 0; i < defCount; ++i)
             {
                 DefinitionBase def = definitions[i];
 
@@ -1776,7 +1792,7 @@ namespace System.Windows.Controls
             // normally Phases 2 and 3 execute only once.  But certain unusual combinations of weights
             // and constraints can defeat the algorithm, in which case we repeat Phases 2 and 3.
             // More explanation below...
-            for (bool runPhase2and3=true; runPhase2and3; )
+            for (bool runPhase2and3 = true; runPhase2and3;)
             {
                 // Phase 2.   Compute total *-weight W and available space S.
                 // For *-items that have Min or Max constraints, compute the ratios used to decide
@@ -1788,7 +1804,7 @@ namespace System.Windows.Controls
                 takenSize = 0.0;
                 minCount = maxCount = 0;
 
-                for (int i=0; i<defCount; ++i)
+                for (int i = 0; i < defCount; ++i)
                 {
                     DefinitionBase def = definitions[i];
 
@@ -1969,7 +1985,7 @@ namespace System.Windows.Controls
 
             // Phase 4.  Resolve the remaining defs proportionally.
             starCount = 0;
-            for (int i=0; i<defCount; ++i)
+            for (int i = 0; i < defCount; ++i)
             {
                 DefinitionBase def = definitions[i];
 
@@ -2206,8 +2222,8 @@ namespace System.Windows.Controls
                 } while (++i < starDefinitionsCount);
             }
 
-            if (    allPreferredArrangeSize > finalSize
-                &&  !_AreClose(allPreferredArrangeSize, finalSize)  )
+            if (allPreferredArrangeSize > finalSize
+                && !_AreClose(allPreferredArrangeSize, finalSize))
             {
                 Array.Sort(definitionIndices, 0, definitions.Length, new DistributionOrderIndexComparer(definitions));
                 double sizeToDistribute = finalSize - allPreferredArrangeSize;
@@ -2320,7 +2336,7 @@ namespace System.Windows.Controls
 
             // Phase 1.  Determine the maximum *-weight and prepare to adjust *-weights
             double maxStar = 0.0;
-            for (int i=0; i<defCount; ++i)
+            for (int i = 0; i < defCount; ++i)
             {
                 DefinitionBase def = definitions[i];
 
@@ -2356,7 +2372,7 @@ namespace System.Windows.Controls
             // normally Phases 2 and 3 execute only once.  But certain unusual combinations of weights
             // and constraints can defeat the algorithm, in which case we repeat Phases 2 and 3.
             // More explanation below...
-            for (bool runPhase2and3=true; runPhase2and3; )
+            for (bool runPhase2and3 = true; runPhase2and3;)
             {
                 // Phase 2.   Compute total *-weight W and available space S.
                 // For *-items that have Min or Max constraints, compute the ratios used to decide
@@ -2368,7 +2384,7 @@ namespace System.Windows.Controls
                 takenSize = 0.0;
                 minCount = maxCount = 0;
 
-                for (int i=0; i<defCount; ++i)
+                for (int i = 0; i < defCount; ++i)
                 {
                     DefinitionBase def = definitions[i];
 
@@ -2546,9 +2562,9 @@ namespace System.Windows.Controls
                 // resolved.  This guarantees we don't run Phase2+3 infinitely often.
                 runPhase2and3 = false;
 
-                if(takenSize < finalSize)
+                if (takenSize < finalSize)
                 {
-                    if(DoubleUtil.AreClose(takenSize, finalSize) && minCountPhase2 > 0)
+                    if (DoubleUtil.AreClose(takenSize, finalSize) && minCountPhase2 > 0)
                     {
                         // if very small (~ 2.2204460492503131e-016) remaining size is available
                         // adding it to size of smallest width column resolved as 'min'.
@@ -2594,7 +2610,7 @@ namespace System.Windows.Controls
 
             // Phase 4.  Resolve the remaining defs proportionally.
             starCount = 0;
-            for (int i=0; i<defCount; ++i)
+            for (int i = 0; i < defCount; ++i)
             {
                 DefinitionBase def = definitions[i];
 
@@ -2718,7 +2734,7 @@ namespace System.Windows.Controls
                     // Sort rounding errors
                     Array.Sort(definitionIndices, 0, definitions.Length, new RoundingErrorIndexComparer(roundingErrors));
                     double adjustedSize = roundedTakenSize;
-                    double dpiIncrement = 1.0/dpi;
+                    double dpiIncrement = 1.0 / dpi;
 
                     if (roundedTakenSize > finalSize)
                     {
@@ -2860,8 +2876,8 @@ namespace System.Windows.Controls
             ExtendedData extData = ExtData;
             if (extData != null)
             {
-//                for (int i = 0; i < PrivateColumnCount; ++i) DefinitionsU[i].SetValid ();
-//                for (int i = 0; i < PrivateRowCount; ++i) DefinitionsV[i].SetValid ();
+                //                for (int i = 0; i < PrivateColumnCount; ++i) DefinitionsU[i].SetValid ();
+                //                for (int i = 0; i < PrivateRowCount; ++i) DefinitionsV[i].SetValid ();
 
                 if (extData.TempDefinitions != null)
                 {
@@ -2879,9 +2895,9 @@ namespace System.Windows.Controls
         public bool ShouldSerializeColumnDefinitions()
         {
             ExtendedData extData = ExtData;
-            return (    extData != null
-                    &&  extData.ColumnDefinitions != null
-                    &&  extData.ColumnDefinitions.Count > 0   );
+            return (extData != null
+                    && extData.ColumnDefinitions != null
+                    && extData.ColumnDefinitions.Count > 0);
         }
 
         /// <summary>
@@ -2891,9 +2907,9 @@ namespace System.Windows.Controls
         public bool ShouldSerializeRowDefinitions()
         {
             ExtendedData extData = ExtData;
-            return (    extData != null
-                    &&  extData.RowDefinitions != null
-                    &&  extData.RowDefinitions.Count > 0  );
+            return (extData != null
+                    && extData.RowDefinitions != null
+                    && extData.RowDefinitions.Count > 0);
         }
 
         /// <summary>
@@ -2959,13 +2975,13 @@ namespace System.Windows.Controls
         {
             Grid grid = (Grid)d;
 
-            if (    grid.ExtData != null    // trivial grid is 1 by 1. there is no grid lines anyway
-                &&  grid.ListenToNotifications)
+            if (grid.ExtData != null    // trivial grid is 1 by 1. there is no grid lines anyway
+                && grid.ListenToNotifications)
             {
                 grid.InvalidateVisual();
             }
 
-            grid.SetFlags((bool) e.NewValue, Flags.ShowGridLinesPropertyValue);
+            grid.SetFlags((bool)e.NewValue, Flags.ShowGridLinesPropertyValue);
         }
 
         /// <summary>
@@ -2978,9 +2994,9 @@ namespace System.Windows.Controls
             if (child != null)
             {
                 Grid grid = VisualTreeHelper.GetParent(child) as Grid;
-                if (    grid != null
-                    &&  grid.ExtData != null
-                    &&  grid.ListenToNotifications  )
+                if (grid != null
+                    && grid.ExtData != null
+                    && grid.ListenToNotifications)
                 {
                     grid.CellsStructureDirty = true;
                     grid.InvalidateMeasure();
@@ -3073,8 +3089,8 @@ namespace System.Windows.Controls
                 ExtendedData extData = ExtData;
                 int requiredLength = Math.Max(DefinitionsU.Length, DefinitionsV.Length) * 2;
 
-                if (    extData.TempDefinitions == null
-                    ||  extData.TempDefinitions.Length < requiredLength   )
+                if (extData.TempDefinitions == null
+                    || extData.TempDefinitions.Length < requiredLength)
                 {
                     WeakReference tempDefinitionsWeakRef = (WeakReference)Thread.GetData(s_tempDefinitionsDataSlot);
                     if (tempDefinitionsWeakRef == null)
@@ -3085,8 +3101,8 @@ namespace System.Windows.Controls
                     else
                     {
                         extData.TempDefinitions = (DefinitionBase[])tempDefinitionsWeakRef.Target;
-                        if (    extData.TempDefinitions == null
-                            ||  extData.TempDefinitions.Length < requiredLength   )
+                        if (extData.TempDefinitions == null
+                            || extData.TempDefinitions.Length < requiredLength)
                         {
                             extData.TempDefinitions = new DefinitionBase[requiredLength];
                             tempDefinitionsWeakRef.Target = extData.TempDefinitions;
@@ -3333,26 +3349,26 @@ namespace System.Windows.Controls
             //  * Valid???Layout flags indicate that layout time portion of the information
             //    stored on the objects should be updated.
             //
-            ValidDefinitionsUStructure              = 0x00000001,
-            ValidDefinitionsVStructure              = 0x00000002,
-            ValidCellsStructure                     = 0x00000004,
+            ValidDefinitionsUStructure = 0x00000001,
+            ValidDefinitionsVStructure = 0x00000002,
+            ValidCellsStructure = 0x00000004,
 
             //
             //  boolean properties state
             //
-            ShowGridLinesPropertyValue              = 0x00000100,   //  show grid lines ?
+            ShowGridLinesPropertyValue = 0x00000100,   //  show grid lines ?
 
             //
             //  boolean flags
             //
-            ListenToNotifications                   = 0x00001000,   //  "0" when all notifications are ignored
-            SizeToContentU                          = 0x00002000,   //  "1" if calculating to content in U direction
-            SizeToContentV                          = 0x00004000,   //  "1" if calculating to content in V direction
-            HasStarCellsU                           = 0x00008000,   //  "1" if at least one cell belongs to a Star column
-            HasStarCellsV                           = 0x00010000,   //  "1" if at least one cell belongs to a Star row
-            HasGroup3CellsInAutoRows                = 0x00020000,   //  "1" if at least one cell of group 3 belongs to an Auto row
-            MeasureOverrideInProgress               = 0x00040000,   //  "1" while in the context of Grid.MeasureOverride
-            ArrangeOverrideInProgress               = 0x00080000,   //  "1" while in the context of Grid.ArrangeOverride
+            ListenToNotifications = 0x00001000,   //  "0" when all notifications are ignored
+            SizeToContentU = 0x00002000,   //  "1" if calculating to content in U direction
+            SizeToContentV = 0x00004000,   //  "1" if calculating to content in V direction
+            HasStarCellsU = 0x00008000,   //  "1" if at least one cell belongs to a Star column
+            HasStarCellsV = 0x00010000,   //  "1" if at least one cell belongs to a Star row
+            HasGroup3CellsInAutoRows = 0x00020000,   //  "1" if at least one cell of group 3 belongs to an Auto row
+            MeasureOverrideInProgress = 0x00040000,   //  "1" while in the context of Grid.MeasureOverride
+            ArrangeOverrideInProgress = 0x00080000,   //  "1" while in the context of Grid.ArrangeOverride
         }
 
         #endregion Private Structures Classes
@@ -3470,7 +3486,7 @@ namespace System.Windows.Controls
         /// <summary>
         /// IsSharedSizeScope property marks scoping element for shared size.
         /// </summary>
-        public static readonly DependencyProperty IsSharedSizeScopeProperty  =
+        public static readonly DependencyProperty IsSharedSizeScopeProperty =
                 DependencyProperty.RegisterAttached(
                       "IsSharedSizeScope",
                       typeof(bool),
@@ -3495,10 +3511,10 @@ namespace System.Windows.Controls
         [System.Flags]
         internal enum LayoutTimeSizeType : byte
         {
-            None        = 0x00,
-            Pixel       = 0x01,
-            Auto        = 0x02,
-            Star        = 0x04,
+            None = 0x00,
+            Pixel = 0x01,
+            Auto = 0x02,
+            Star = 0x04,
         }
 
         #endregion Internal Structures Classes
@@ -3557,8 +3573,10 @@ namespace System.Windows.Controls
             {
                 int hash = (_start ^ (_count << 2));
 
-                if (_u) hash &= 0x7ffffff;
-                else    hash |= 0x8000000;
+                if (_u)
+                    hash &= 0x7ffffff;
+                else
+                    hash |= 0x8000000;
 
                 return (hash);
             }
@@ -3569,10 +3587,10 @@ namespace System.Windows.Controls
             public override bool Equals(object obj)
             {
                 SpanKey sk = obj as SpanKey;
-                return (    sk != null
-                        &&  sk._start == _start
-                        &&  sk._count == _count
-                        &&  sk._u == _u );
+                return (sk != null
+                        && sk._start == _start
+                        && sk._count == _count
+                        && sk._u == _u);
             }
 
             /// <summary>
@@ -3899,15 +3917,22 @@ namespace System.Windows.Controls
                     {
                         switch (_currentEnumerator)
                         {
-                            case (0): if (_enumerator0.MoveNext()) { _currentChild = _enumerator0.Current; return (true); } break;
-                            case (1): if (_enumerator1.MoveNext()) { _currentChild = _enumerator1.Current; return (true); } break;
-                            case (2): if (_enumerator2Index < _enumerator2Count)
-                                      {
-                                          _currentChild = _enumerator2Collection[_enumerator2Index];
-                                          _enumerator2Index++;
-                                          return (true);
-                                      }
-                                      break;
+                            case (0):
+                                if (_enumerator0.MoveNext())
+                                { _currentChild = _enumerator0.Current; return (true); }
+                                break;
+                            case (1):
+                                if (_enumerator1.MoveNext())
+                                { _currentChild = _enumerator1.Current; return (true); }
+                                break;
+                            case (2):
+                                if (_enumerator2Index < _enumerator2Count)
+                                {
+                                    _currentChild = _enumerator2Collection[_enumerator2Index];
+                                    _enumerator2Index++;
+                                    return (true);
+                                }
+                                break;
                         }
                     }
                     _currentEnumerator++;
@@ -3921,12 +3946,12 @@ namespace System.Windows.Controls
                 {
                     if (_currentEnumerator == -1)
                     {
-                        #pragma warning suppress 6503 // IEnumerator.Current is documented to throw this exception
+#pragma warning suppress 6503 // IEnumerator.Current is documented to throw this exception
                         throw new InvalidOperationException(SR.EnumeratorNotStarted);
                     }
                     if (_currentEnumerator >= 3)
                     {
-                        #pragma warning suppress 6503 // IEnumerator.Current is documented to throw this exception
+#pragma warning suppress 6503 // IEnumerator.Current is documented to throw this exception
                         throw new InvalidOperationException(SR.EnumeratorReachedEnd);
                     }
 
@@ -3990,8 +4015,8 @@ namespace System.Windows.Controls
                 using (DrawingContext drawingContext = RenderOpen())
                 {
                     Grid grid = VisualTreeHelper.GetParent(this) as Grid;
-                    if (    grid == null
-                        ||  grid.ShowGridLines == false )
+                    if (grid == null
+                        || grid.ShowGridLines == false)
                     {
                         return;
                     }
@@ -4097,7 +4122,7 @@ namespace System.Windows.Controls
         [Conditional("GRIDPARANOIA")]
         internal void EnterCounterScope(Counters scopeCounter)
         {
-            #if GRIDPARANOIA
+#if GRIDPARANOIA
             if (ID == "CountThis")
             {
                 if (_counters == null)
@@ -4111,13 +4136,13 @@ namespace System.Windows.Controls
             {
                 _counters = null;
             }
-            #endif // GRIDPARANOIA
+#endif // GRIDPARANOIA
         }
 
         [Conditional("GRIDPARANOIA")]
         internal void ExitCounterScope(Counters scopeCounter)
         {
-            #if GRIDPARANOIA
+#if GRIDPARANOIA
             if (_counters != null)
             {
                 if (scopeCounter != Counters.Default)
@@ -4158,13 +4183,13 @@ namespace System.Windows.Controls
                 }
                 _hasNewCounterInfo = false;
             }
-            #endif // GRIDPARANOIA
+#endif // GRIDPARANOIA
         }
 
         [Conditional("GRIDPARANOIA")]
         internal void EnterCounter(Counters counter)
         {
-            #if GRIDPARANOIA
+#if GRIDPARANOIA
             if (_counters != null)
             {
                 Debug.Assert((int)counter < _counters.Length);
@@ -4172,13 +4197,13 @@ namespace System.Windows.Controls
                 int i = (int)counter;
                 QueryPerformanceCounter(out _counters[i].Start);
             }
-            #endif // GRIDPARANOIA
+#endif // GRIDPARANOIA
         }
 
         [Conditional("GRIDPARANOIA")]
         internal void ExitCounter(Counters counter)
         {
-            #if GRIDPARANOIA
+#if GRIDPARANOIA
             if (_counters != null)
             {
                 Debug.Assert((int)counter < _counters.Length);
@@ -4191,7 +4216,7 @@ namespace System.Windows.Controls
                 _counters[i].Calls++;
                 _hasNewCounterInfo = true;
             }
-            #endif // GRIDPARANOIA
+#endif // GRIDPARANOIA
         }
 
         internal enum Counters : int
