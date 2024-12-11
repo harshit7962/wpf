@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -88,7 +88,8 @@ namespace MS.Internal.PtsHost
                 Pen pen = new Pen();
                 pen.Brush = _borderBrush;
                 pen.Thickness = _borderThickness.Left;
-                if (pen.CanFreeze) { pen.Freeze(); }
+                if (pen.CanFreeze)
+                { pen.Freeze(); }
 
                 if (_borderThickness.IsUniform)
                 {
@@ -110,7 +111,8 @@ namespace MS.Internal.PtsHost
                         pen = new Pen();
                         pen.Brush = _borderBrush;
                         pen.Thickness = _borderThickness.Right;
-                        if (pen.CanFreeze) { pen.Freeze(); }
+                        if (pen.CanFreeze)
+                        { pen.Freeze(); }
 
                         dc.DrawLine(pen,
                             new Point(_renderBounds.Right - pen.Thickness / 2, _renderBounds.Top),
@@ -121,7 +123,8 @@ namespace MS.Internal.PtsHost
                         pen = new Pen();
                         pen.Brush = _borderBrush;
                         pen.Thickness = _borderThickness.Top;
-                        if (pen.CanFreeze) { pen.Freeze(); }
+                        if (pen.CanFreeze)
+                        { pen.Freeze(); }
 
                         dc.DrawLine(pen,
                             new Point(_renderBounds.Left, _renderBounds.Top + pen.Thickness / 2),
@@ -132,7 +135,8 @@ namespace MS.Internal.PtsHost
                         pen = new Pen();
                         pen.Brush = _borderBrush;
                         pen.Thickness = _borderThickness.Bottom;
-                        if (pen.CanFreeze) { pen.Freeze(); }
+                        if (pen.CanFreeze)
+                        { pen.Freeze(); }
 
                         dc.DrawLine(pen,
                             new Point(_renderBounds.Left, _renderBounds.Bottom - pen.Thickness / 2),

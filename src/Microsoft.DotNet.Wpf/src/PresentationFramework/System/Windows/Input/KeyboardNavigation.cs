@@ -1,19 +1,18 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
 
 using System.Collections;
 using System.Collections.ObjectModel;
-using System.Windows.Threading;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Interop;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
+using System.Windows.Threading;
 using MS.Internal;
 using MS.Internal.KnownBoxes;
-
 using CommonDependencyProperty = MS.Internal.PresentationFramework.CommonDependencyPropertyAttribute;
 
 namespace System.Windows.Input
@@ -296,7 +295,7 @@ namespace System.Windows.Input
         internal void NotifyFocusChanged(object sender, KeyboardFocusChangedEventArgs e)
         {
             _weakFocusChangedHandlers.Process(
-                        delegate(object item)
+                        delegate (object item)
                         {
                             KeyboardFocusChangedEventHandler handler = item as KeyboardFocusChangedEventHandler;
                             if (handler != null)
@@ -304,7 +303,7 @@ namespace System.Windows.Input
                                 handler(sender, e);
                             }
                             return false;
-                        } );
+                        });
         }
 
         private WeakReferenceList _weakFocusChangedHandlers = new WeakReferenceList();
@@ -488,7 +487,7 @@ namespace System.Windows.Input
         // apply FrameworkElement.FocusVisualStyle directly to AdornerLayer
         // Note:- This class is sealed because it calls OnVisualChildrenChanged virtual in the
         //              constructor and it does not override it, but derived classes could.
-        private sealed class FocusVisualAdorner: Adorner
+        private sealed class FocusVisualAdorner : Adorner
         {
             public FocusVisualAdorner(UIElement adornedElement, Style focusVisualStyle) : base(adornedElement)
             {
@@ -546,7 +545,7 @@ namespace System.Windows.Input
                 ((UIElement)GetVisualChild(0)).Measure(constraint);
 
                 return desiredSize;
-           }
+            }
 
             /// <summary>
             ///     Default control arrangement is to only arrange
@@ -667,7 +666,7 @@ namespace System.Windows.Input
                 get
                 {
                     // Re-query IContentHost if the old one was disposed
-                    if (_adornedContentElement != null && (_contentHostParent==null || VisualTreeHelper.GetParent(_contentHostParent as Visual) == null))
+                    if (_adornedContentElement != null && (_contentHostParent == null || VisualTreeHelper.GetParent(_contentHostParent as Visual) == null))
                     {
                         _contentHostParent = MS.Internal.Documents.ContentHostHelper.FindContentHost(_adornedContentElement);
                     }
@@ -721,7 +720,7 @@ namespace System.Windows.Input
 
                     if (_contentRects != null && oldRects != null && _contentRects.Count == oldRects.Count)
                     {
-                        for (int i=0; i<oldRects.Count; i++)
+                        for (int i = 0; i < oldRects.Count; i++)
                         {
                             if (!DoubleUtil.AreClose(oldRects[i].Size, _contentRects[i].Size))
                             {
@@ -765,13 +764,13 @@ namespace System.Windows.Input
             if (ichParent == null)
                 ichParent = ich;
 
-            DependencyObject parent =  ich as DependencyObject;
-            if(parent != null)
+            DependencyObject parent = ich as DependencyObject;
+            if (parent != null)
             {
                 // Case 1: UIElement
                 // return the element
                 UIElement eParent = parent as UIElement;
-                if(eParent != null)
+                if (eParent != null)
                     return eParent;
 
                 // Case 2: Visual
@@ -787,7 +786,7 @@ namespace System.Windows.Input
 
                 // Case 3: ContentElement
                 ContentElement ceParent = parent as ContentElement;
-                if(ceParent != null)
+                if (ceParent != null)
                     return GetParentUIElementFromContentElement(ceParent, ref ichParent);
             }
 
@@ -1175,7 +1174,7 @@ namespace System.Windows.Input
             ProcessForUIState(inputEventArgs);
 
             // Process keyboard navigation for keydown event for Tab,Left,Right,Up,Down keys.
-            if(inputEventArgs.RoutedEvent != Keyboard.KeyDownEvent)
+            if (inputEventArgs.RoutedEvent != Keyboard.KeyDownEvent)
                 return;
 
             KeyEventArgs keyEventArgs = (KeyEventArgs)inputEventArgs;
@@ -1197,9 +1196,9 @@ namespace System.Windows.Input
             // except in this case.  And I added a check that the "forced" target
             // is an HwndHost for good measure.
             DependencyObject innerElement = keyEventArgs.KeyboardDevice.Target as DependencyObject;
-            if( innerElement != null && sourceElement != innerElement )
+            if (innerElement != null && sourceElement != innerElement)
             {
-                if(sourceElement is HwndHost)
+                if (sourceElement is HwndHost)
                     sourceElement = innerElement;
             }
 
@@ -1279,7 +1278,7 @@ namespace System.Windows.Input
 
         internal DependencyObject PredictFocusedElement(DependencyObject sourceElement, FocusNavigationDirection direction, bool treeViewNavigation)
         {
-            return PredictFocusedElement(sourceElement, direction, treeViewNavigation, considerDescendants:true);
+            return PredictFocusedElement(sourceElement, direction, treeViewNavigation, considerDescendants: true);
         }
 
         internal DependencyObject PredictFocusedElement(DependencyObject sourceElement,
@@ -1487,10 +1486,11 @@ namespace System.Windows.Input
                 {
                     int count = VisualTreeHelper.GetChildrenCount(parentAsUIElement);
                     DependencyObject prev = null;
-                    for(int i = 0; i < count; i++)
+                    for (int i = 0; i < count; i++)
                     {
                         DependencyObject vchild = VisualTreeHelper.GetChild(parentAsUIElement, i);
-                        if(vchild == elementAsVisual) break;
+                        if (vchild == elementAsVisual)
+                            break;
                         if (IsInNavigationTree(vchild))
                             prev = vchild;
                     }
@@ -1549,14 +1549,15 @@ namespace System.Windows.Input
                     int count = VisualTreeHelper.GetChildrenCount(parentAsUIElement);
                     int i = 0;
                     //go till itself
-                    for(; i < count; i++)
+                    for (; i < count; i++)
                     {
                         DependencyObject vchild = VisualTreeHelper.GetChild(parentAsUIElement, i);
-                        if(vchild == elementAsVisual) break;
+                        if (vchild == elementAsVisual)
+                            break;
                     }
                     i++;
                     //search ahead
-                    for(; i < count; i++)
+                    for (; i < count; i++)
                     {
                         DependencyObject visual = VisualTreeHelper.GetChild(parentAsUIElement, i);
                         if (IsInNavigationTree(visual))
@@ -2235,7 +2236,7 @@ namespace System.Windows.Input
                 return null;
 
             // Search the last index inside the group
-            if (e==null)
+            if (e == null)
             {
                 return GetLastTabInGroup(container);
             }
@@ -2295,7 +2296,7 @@ namespace System.Windows.Input
             {
                 if (tabbingType == KeyboardNavigationMode.Once || tabbingType == KeyboardNavigationMode.None)
                 {
-                    if (goDownOnly || container==e)
+                    if (goDownOnly || container == e)
                         return null;
 
                     // FocusedElement should not be e otherwise we will delegate focus to the same element
@@ -2532,19 +2533,19 @@ namespace System.Windows.Input
         {
             switch (direction)
             {
-                case FocusNavigationDirection.Right :
+                case FocusNavigationDirection.Right:
                     return targetRect.Left - sourceRect.Left;
 
-                case FocusNavigationDirection.Left :
+                case FocusNavigationDirection.Left:
                     return sourceRect.Right - targetRect.Right;
 
-                case FocusNavigationDirection.Up :
+                case FocusNavigationDirection.Up:
                     return sourceRect.Bottom - targetRect.Bottom;
 
-                case FocusNavigationDirection.Down :
+                case FocusNavigationDirection.Down:
                     return targetRect.Top - sourceRect.Top;
 
-                default :
+                default:
                     throw new System.ComponentModel.InvalidEnumArgumentException("direction", (int)direction, typeof(FocusNavigationDirection));
             }
         }
@@ -2558,35 +2559,35 @@ namespace System.Windows.Input
             Point endPoint;
             switch (direction)
             {
-                case FocusNavigationDirection.Right :
+                case FocusNavigationDirection.Right:
                     startPoint = sourceRect.TopLeft;
                     if (_horizontalBaseline != BASELINE_DEFAULT)
                         startPoint.Y = _horizontalBaseline;
                     endPoint = targetRect.TopLeft;
                     break;
 
-                case FocusNavigationDirection.Left :
+                case FocusNavigationDirection.Left:
                     startPoint = sourceRect.TopRight;
                     if (_horizontalBaseline != BASELINE_DEFAULT)
                         startPoint.Y = _horizontalBaseline;
                     endPoint = targetRect.TopRight;
                     break;
 
-                case FocusNavigationDirection.Up :
+                case FocusNavigationDirection.Up:
                     startPoint = sourceRect.BottomLeft;
                     if (_verticalBaseline != BASELINE_DEFAULT)
                         startPoint.X = _verticalBaseline;
                     endPoint = targetRect.BottomLeft;
                     break;
 
-                case FocusNavigationDirection.Down :
+                case FocusNavigationDirection.Down:
                     startPoint = sourceRect.TopLeft;
                     if (_verticalBaseline != BASELINE_DEFAULT)
                         startPoint.X = _verticalBaseline;
                     endPoint = targetRect.TopLeft;
                     break;
 
-                default :
+                default:
                     throw new System.ComponentModel.InvalidEnumArgumentException("direction", (int)direction, typeof(FocusNavigationDirection));
             }
             return GetDistance(startPoint, endPoint);
@@ -2602,9 +2603,9 @@ namespace System.Windows.Input
                     return DoubleUtil.LessThanOrClose(fromRect.Right, toRect.Left);
                 case FocusNavigationDirection.Left:
                     return DoubleUtil.GreaterThanOrClose(fromRect.Left, toRect.Right);
-                case FocusNavigationDirection.Up :
+                case FocusNavigationDirection.Up:
                     return DoubleUtil.GreaterThanOrClose(fromRect.Top, toRect.Bottom);
-                case FocusNavigationDirection.Down :
+                case FocusNavigationDirection.Down:
                     return DoubleUtil.LessThanOrClose(fromRect.Bottom, toRect.Top);
                 default:
                     throw new System.ComponentModel.InvalidEnumArgumentException("direction", (int)direction, typeof(FocusNavigationDirection));
@@ -2652,8 +2653,8 @@ namespace System.Windows.Input
         {
             switch (direction)
             {
-                case FocusNavigationDirection.Right :
-                case FocusNavigationDirection.Left :
+                case FocusNavigationDirection.Right:
+                case FocusNavigationDirection.Left:
                     if (_horizontalBaseline != BASELINE_DEFAULT)
                     {
                         startRange = Math.Min(startRange, _horizontalBaseline);
@@ -2673,8 +2674,8 @@ namespace System.Windows.Input
                     }
                     break;
 
-                case FocusNavigationDirection.Up :
-                case FocusNavigationDirection.Down :
+                case FocusNavigationDirection.Up:
+                case FocusNavigationDirection.Down:
                     if (_verticalBaseline != BASELINE_DEFAULT)
                     {
                         startRange = Math.Min(startRange, _verticalBaseline);
@@ -2688,13 +2689,13 @@ namespace System.Windows.Input
                             return true;
 
                         if (direction == FocusNavigationDirection.Down)
-                            return DoubleUtil.GreaterThan(targetRect.Top, sourceRect.Top) || (DoubleUtil.AreClose (targetRect.Top, sourceRect.Top) && IsAncestorOfEx(sourceElement, targetElement));
+                            return DoubleUtil.GreaterThan(targetRect.Top, sourceRect.Top) || (DoubleUtil.AreClose(targetRect.Top, sourceRect.Top) && IsAncestorOfEx(sourceElement, targetElement));
                         else
                             return DoubleUtil.LessThan(targetRect.Bottom, sourceRect.Bottom) || (DoubleUtil.AreClose(targetRect.Bottom, sourceRect.Bottom) && IsAncestorOfEx(sourceElement, targetElement));
                     }
                     break;
 
-                default :
+                default:
                     throw new System.ComponentModel.InvalidEnumArgumentException("direction", (int)direction, typeof(FocusNavigationDirection));
             }
 
@@ -2708,7 +2709,7 @@ namespace System.Windows.Input
 
         private DependencyObject GetNextInDirection(DependencyObject sourceElement, FocusNavigationDirection direction, bool treeViewNavigation)
         {
-            return GetNextInDirection(sourceElement, direction, treeViewNavigation, considerDescendants:true);
+            return GetNextInDirection(sourceElement, direction, treeViewNavigation, considerDescendants: true);
         }
 
         private DependencyObject GetNextInDirection(DependencyObject sourceElement,
@@ -2926,7 +2927,7 @@ namespace System.Windows.Input
 
             // Navigate outside the container
             if (mode == KeyboardNavigationMode.Once && !searchInsideContainer)
-                return MoveNext(container, null, direction, startRange, endRange, treeViewNavigation, considerDescendants:true);
+                return MoveNext(container, null, direction, startRange, endRange, treeViewNavigation, considerDescendants: true);
 
             DependencyObject result = FindNextInDirection(sourceElement, sourceRect, container, direction, startRange, endRange, treeViewNavigation, considerDescendants);
 
@@ -2936,13 +2937,13 @@ namespace System.Windows.Input
                 switch (mode)
                 {
                     case KeyboardNavigationMode.Cycle:
-                        return MoveNext(null, container, direction, startRange, endRange, treeViewNavigation, considerDescendants:true);
+                        return MoveNext(null, container, direction, startRange, endRange, treeViewNavigation, considerDescendants: true);
 
                     case KeyboardNavigationMode.Contained:
                         return null;
 
                     default: // Continue, Once, None, Local - search outside the container
-                        return MoveNext(container, null, direction, startRange, endRange, treeViewNavigation, considerDescendants:true);
+                        return MoveNext(container, null, direction, startRange, endRange, treeViewNavigation, considerDescendants: true);
                 }
             }
 
@@ -2956,11 +2957,11 @@ namespace System.Windows.Input
 
             // Try to find focus inside the element
             // result is not TabStop, which means it is a group
-            DependencyObject insideElement = MoveNext(null, result, direction, startRange, endRange, treeViewNavigation, considerDescendants:true);
+            DependencyObject insideElement = MoveNext(null, result, direction, startRange, endRange, treeViewNavigation, considerDescendants: true);
             if (insideElement != null)
                 return insideElement;
 
-            return MoveNext(result, null, direction, startRange, endRange, treeViewNavigation, considerDescendants:true);
+            return MoveNext(result, null, direction, startRange, endRange, treeViewNavigation, considerDescendants: true);
         }
 
         private DependencyObject GetActiveElementChain(DependencyObject element, bool treeViewNavigation)
@@ -3296,7 +3297,7 @@ namespace System.Windows.Input
                 bool handled = false;
 
                 _weakEnterMenuModeHandlers.Process(
-                            delegate(object obj)
+                            delegate (object obj)
                             {
                                 EnterMenuModeEventHandler currentHandler = obj as EnterMenuModeEventHandler;
 
@@ -3445,7 +3446,7 @@ namespace System.Windows.Input
         private void NotifyFocusEnterMainFocusScope(object sender, EventArgs e)
         {
             _weakFocusEnterMainFocusScopeHandlers.Process(
-                        delegate(object item)
+                        delegate (object item)
                         {
                             EventHandler handler = item as EventHandler;
                             if (handler != null)
@@ -3453,7 +3454,7 @@ namespace System.Windows.Input
                                 handler(sender, e);
                             }
                             return false;
-                        } );
+                        });
         }
 
         private WeakReferenceList _weakFocusEnterMainFocusScopeHandlers = new WeakReferenceList();
@@ -3494,7 +3495,7 @@ namespace System.Windows.Input
             public void Remove(object target)
             {
                 bool hasDeadEntries = false;
-                for (int i=0;  i<_list.Count;  ++i)
+                for (int i = 0; i < _list.Count; ++i)
                 {
                     object item = _list[i].Target;
                     if (item != null)
@@ -3521,7 +3522,7 @@ namespace System.Windows.Input
             public void Process(Func<object, bool> action)
             {
                 bool hasDeadEntries = false;
-                for (int i=0;  i<_list.Count;  ++i)
+                for (int i = 0; i < _list.Count; ++i)
                 {
                     object item = _list[i].Target;
                     if (item != null)
@@ -3553,7 +3554,7 @@ namespace System.Windows.Input
 
                 // move valid entries toward the beginning, into one
                 // contiguous block
-                for (int i=0; i<n; ++i)
+                for (int i = 0; i < n; ++i)
                 {
                     if (_list[i].IsAlive)
                     {
@@ -3584,9 +3585,9 @@ namespace System.Windows.Input
                 {
                     _isCleanupRequested = true;
                     Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle,
-                            (DispatcherOperationCallback)delegate(object unused)
+                            (DispatcherOperationCallback)delegate (object unused)
                             {
-                                lock(this)
+                                lock (this)
                                 {
                                     Purge();
 

@@ -1,17 +1,17 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
 #region Using directives
 
 using System.Collections;
+using System.IO;
+using System.IO.Packaging;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Windows.Markup;
 using System.Xml;
-using System.IO;
-using System.IO.Packaging;
-using System.Resources;
-using System.Reflection;
 using MS.Internal;
 
 #endregion
@@ -65,9 +65,9 @@ namespace System.Windows.Documents
         public
         XpsSchemaValidator(
             XpsValidatingLoader loader,
-            XpsSchema schema, 
+            XpsSchema schema,
             ContentType mimeType,
-            Stream  objectStream,
+            Stream objectStream,
             Uri packageUri,
             Uri baseUri
             )
@@ -79,8 +79,8 @@ namespace System.Windows.Documents
 
             XmlReader xmlReader = xmlTextReader;
 
-            string [] predefinedNamespaces = _predefinedNamespaces;
-            if ( !string.IsNullOrEmpty(schema.RootNamespaceUri) )
+            string[] predefinedNamespaces = _predefinedNamespaces;
+            if (!string.IsNullOrEmpty(schema.RootNamespaceUri))
             {
                 predefinedNamespaces = new string[_predefinedNamespaces.Length + 1];
                 predefinedNamespaces[0] = schema.RootNamespaceUri;
@@ -92,7 +92,7 @@ namespace System.Windows.Documents
 
             if (schema.HasUriAttributes(mimeType) && packageUri != null && baseUri != null)
             {
-                xmlReader = new RootXMLNSAndUriValidatingXmlReader(loader, schema, 
+                xmlReader = new RootXMLNSAndUriValidatingXmlReader(loader, schema,
                                                         xmlReader, packageUri, baseUri);
             }
             else
@@ -114,8 +114,8 @@ namespace System.Windows.Documents
         }
 
         private
-        XmlReader               _compatReader;
-        static private string [] _predefinedNamespaces = new string [1] { 
+        XmlReader _compatReader;
+        static private string[] _predefinedNamespaces = new string[1] {
             XamlReaderHelper.DefinitionMetroNamespaceURI
         };
 
@@ -138,7 +138,7 @@ namespace System.Windows.Documents
             public RootXMLNSAndUriValidatingXmlReader(
                         XpsValidatingLoader loader,
                         XpsSchema schema,
-                        XmlReader xmlReader )
+                        XmlReader xmlReader)
                 : base(xmlReader)
             {
                 _loader = loader;
@@ -155,7 +155,7 @@ namespace System.Windows.Documents
                 if (!object.ReferenceEquals(attr, _lastAttr))      // Check for same string object, not for equality!
                 {
                     _lastAttr = attr;
-                    string [] uris = _schema.ExtractUriFromAttr(localName, attr);
+                    string[] uris = _schema.ExtractUriFromAttr(localName, attr);
                     if (uris != null)
                     {
                         foreach (string uriAttr in uris)
@@ -164,50 +164,50 @@ namespace System.Windows.Documents
                             {
                                 Uri targetUri = PackUriHelper.ResolvePartUri(_baseUri, new Uri(uriAttr, UriKind.Relative));
                                 Uri absTargetUri = PackUriHelper.Create(_packageUri, targetUri);
-                                _loader.UriHitHandler(_node,absTargetUri);
+                                _loader.UriHitHandler(_node, absTargetUri);
                             }
                         }
                     }
                 }
             }
 
-            public override string Value                
-            { 
-                get 
+            public override string Value
+            {
+                get
                 {
                     CheckUri(Reader.Value);
                     return Reader.Value;
                 }
             }
 
-            public override string GetAttribute( string name ) 
+            public override string GetAttribute(string name)
             {
-                string attr= Reader.GetAttribute( name );
-                CheckUri(name,attr);
+                string attr = Reader.GetAttribute(name);
+                CheckUri(name, attr);
                 return attr;
             }
 
-            public override string GetAttribute( string name, string namespaceURI ) 
+            public override string GetAttribute(string name, string namespaceURI)
             {
                 string attr = Reader.GetAttribute(name, namespaceURI);
                 CheckUri(attr);
                 return attr;
             }
 
-            public override string GetAttribute( int i ) 
+            public override string GetAttribute(int i)
             {
-                string attr = Reader.GetAttribute( i );
+                string attr = Reader.GetAttribute(i);
                 CheckUri(attr);
                 return attr;
             }
 
-            public override bool Read() 
+            public override bool Read()
             {
                 bool result;
                 _node++;
                 result = Reader.Read();
 
-                if ( (Reader.NodeType == XmlNodeType.Element) && !_rootXMLNSChecked )
+                if ((Reader.NodeType == XmlNodeType.Element) && !_rootXMLNSChecked)
                 {
                     if (!_schema.IsValidRootNamespaceUri(Reader.NamespaceURI))
                     {
@@ -309,7 +309,7 @@ namespace System.Windows.Documents
             return false;
         }
 
-        public virtual string [] ExtractUriFromAttr(string attrName, string attrValue)
+        public virtual string[] ExtractUriFromAttr(string attrName, string attrValue)
         {
             return null;
         }
@@ -330,7 +330,7 @@ namespace System.Windows.Documents
         private Hashtable _requiredResourceMimeTypes = new Hashtable(11);
     }
 
-    internal class XpsS0Schema:XpsSchema
+    internal class XpsS0Schema : XpsSchema
     {
         // When creating a new schema, add a static member to XpsSchemaValidator to register it.
         protected
@@ -449,24 +449,24 @@ namespace System.Windows.Documents
 
         static
         private
-        byte[] 
+        byte[]
         S0SchemaBytes
         {
             get
             {
-                ResourceManager resourceManager = new ResourceManager( "Schemas_S0", Assembly.GetAssembly(typeof(XpsS0Schema)));
+                ResourceManager resourceManager = new ResourceManager("Schemas_S0", Assembly.GetAssembly(typeof(XpsS0Schema)));
                 return (byte[])resourceManager.GetObject("s0schema.xsd");
             }
         }
 
         static
         private
-        byte[] 
+        byte[]
         DictionarySchemaBytes
         {
             get
             {
-                ResourceManager resourceManager = new ResourceManager( "Schemas_S0", Assembly.GetAssembly(typeof(XpsS0Schema)));
+                ResourceManager resourceManager = new ResourceManager("Schemas_S0", Assembly.GetAssembly(typeof(XpsS0Schema)));
                 return (byte[])resourceManager.GetObject("rdkey.xsd");
             }
         }
@@ -546,7 +546,7 @@ namespace System.Windows.Documents
         XpsS0FixedPageSchema()
         {
             RegisterSchema(this,
-                new ContentType[] {  _fixedDocumentSequenceContentType, 
+                new ContentType[] {  _fixedDocumentSequenceContentType,
                                 _fixedDocumentContentType,
                                 _fixedPageContentType
                                 }
@@ -554,8 +554,8 @@ namespace System.Windows.Documents
             RegisterRequiredResourceMimeTypes(
                 new ContentType[] {
                                 _resourceDictionaryContentType,
-                                _fontContentType, 
-                                _colorContextContentType, 
+                                _fontContentType,
+                                _colorContextContentType,
                                 _obfuscatedContentType,
                                 _jpgContentType,
                                 _pngContentType,
@@ -719,7 +719,7 @@ namespace System.Windows.Documents
                     );
         }
 
-        public override string [] ExtractUriFromAttr(string attrName, string attrValue)
+        public override string[] ExtractUriFromAttr(string attrName, string attrValue)
         {
             if (attrName.Equals("Source", StringComparison.Ordinal))      // Cannot chain remote ResourceDictionary parts.
             {
@@ -737,7 +737,7 @@ namespace System.Windows.Documents
         XpsDocStructSchema()
         {
             RegisterSchema(this, new ContentType[] { _documentStructureContentType,
-                                            _storyFragmentsContentType } );
+                                            _storyFragmentsContentType });
         }
 
         public override XmlReaderSettings GetXmlReaderSettings()
@@ -793,8 +793,8 @@ namespace System.Windows.Documents
 
         static
         private
-        ContentType _storyFragmentsContentType    = new ContentType("application/vnd.ms-package.xps-storyfragments+xml");
-        
+        ContentType _storyFragmentsContentType = new ContentType("application/vnd.ms-package.xps-storyfragments+xml");
+
         private
         const
         String _xpsDocStructureSchemaNamespace = "http://schemas.microsoft.com/xps/2005/06/documentstructure";
@@ -805,4 +805,4 @@ namespace System.Windows.Documents
     }
 }
 
-    
+

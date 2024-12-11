@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -9,18 +9,18 @@
 //
 //
 
-using MS.Internal;                      // Helper
-using MS.Utility;                       // ChildValueLookupList
-using System.ComponentModel;            // DesignerSerializationVisibility, DefaultValueAttribute
 using System.Collections;               // Hashtable
 using System.Collections.Specialized;   // HybridDictionary
+using System.ComponentModel;            // DesignerSerializationVisibility, DefaultValueAttribute
 using System.Runtime.CompilerServices;  // ConditionalWeakTable
-using System.Windows.Markup;     // XamlTemplateSerializer, ContentPropertyAttribute
+using System.Windows.Data;
 using System.Windows.Diagnostics;
+using System.Windows.Markup;     // XamlTemplateSerializer, ContentPropertyAttribute
 using System.Windows.Threading; // DispatcherObject
 using System.Xaml;
-using System.Windows.Data;
+using MS.Internal;                      // Helper
 using MS.Internal.Xaml.Context;
+using MS.Utility;                       // ChildValueLookupList
 
 
 namespace System.Windows
@@ -215,7 +215,7 @@ namespace System.Windows
                 // Verify Context Access
                 VerifyAccess();
 
-                if ( _resources == null )
+                if (_resources == null)
                 {
                     _resources = new ResourceDictionary();
 
@@ -223,7 +223,7 @@ namespace System.Windows
                     _resources.CanBeAccessedAcrossThreads = true;
                 }
 
-                if ( IsSealed )
+                if (IsSealed)
                 {
                     _resources.IsReadOnly = true;
                 }
@@ -235,7 +235,7 @@ namespace System.Windows
                 // Verify Context Access
                 VerifyAccess();
 
-                if ( IsSealed )
+                if (IsSealed)
                 {
                     throw new InvalidOperationException(SR.Format(SR.CannotChangeAfterSealed, "Template"));
                 }
@@ -691,7 +691,7 @@ namespace System.Windows
             public XamlMember Property { get; set; }
             public bool InsideNameScope { get; set; }
             public object Instance { get; set; }
-            
+
             public override void Reset()
             {
                 Type = null;
@@ -914,7 +914,7 @@ namespace System.Windows
 
             // Delegate for AfterBeginInit event
             settings.AfterBeginInitHandler =
-                delegate(object sender, System.Xaml.XamlObjectEventArgs args)
+                delegate (object sender, System.Xaml.XamlObjectEventArgs args)
                 {
                     HandleAfterBeginInit(args.Instance, ref rootObject, container, feContainer, nameScope, nameEnumerator);
                     if (XamlSourceInfoHelper.IsXamlSourceInfoEnabled)
@@ -924,13 +924,13 @@ namespace System.Windows
                 };
             // Delegate for BeforeProperties event
             settings.BeforePropertiesHandler =
-                delegate(object sender, System.Xaml.XamlObjectEventArgs args)
+                delegate (object sender, System.Xaml.XamlObjectEventArgs args)
                 {
                     HandleBeforeProperties(args.Instance, ref rootObject, container, feContainer, nameScope);
                 };
             // Delegate for XamlSetValue event
             settings.XamlSetValueHandler =
-                delegate(object sender, System.Windows.Markup.XamlSetValueEventArgs setArgs)
+                delegate (object sender, System.Windows.Markup.XamlSetValueEventArgs setArgs)
             {
                 setArgs.Handled = ReceivePropertySet(sender, setArgs.Member, setArgs.Value, container);
             };
@@ -1583,7 +1583,7 @@ namespace System.Windows
         //  objects.)
         // The value of the dictionary is the trigger object and one of its action
         //  lists stored in the struct DeferredAction.
-        internal ConditionalWeakTable<DependencyObject,List<DeferredAction>> DeferredActions = null;
+        internal ConditionalWeakTable<DependencyObject, List<DeferredAction>> DeferredActions = null;
 
 
         // Keep track of the template children elements for which the template has a Loaded
@@ -1622,7 +1622,7 @@ namespace System.Windows
 #if DEBUG
         // Debug counter for intelligent breakpoints.
         static private int _globalDebugInstanceCounter = 0;
-        private int        _debugInstanceCounter;
+        private int _debugInstanceCounter;
 #endif
 
         [Flags]

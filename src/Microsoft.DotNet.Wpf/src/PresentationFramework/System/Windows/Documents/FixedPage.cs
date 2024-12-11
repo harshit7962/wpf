@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -175,7 +175,7 @@ namespace System.Windows.Documents
         /// The object to add as a child; it must be a UIElement.
         ///</param>
         /// <ExternalAPI/>
-        void IAddChild.AddChild (Object value)
+        void IAddChild.AddChild(Object value)
         {
             ArgumentNullException.ThrowIfNull(value);
 
@@ -198,7 +198,7 @@ namespace System.Windows.Documents
         ///<param name="text">
         /// Text to add as a child.
         ///</param>
-        void IAddChild.AddText (string text)
+        void IAddChild.AddText(string text)
         {
             XamlSerializerUtil.ThrowIfNonWhiteSpaceInAddText(text, this);
         }
@@ -346,7 +346,7 @@ namespace System.Windows.Documents
         /// </summary>
         Uri IUriContext.BaseUri
         {
-            get { return (Uri) GetValue(BaseUriHelper.BaseUriProperty); }
+            get { return (Uri)GetValue(BaseUriHelper.BaseUriProperty); }
             set { SetValue(BaseUriHelper.BaseUriProperty, value); }
         }
 
@@ -386,7 +386,7 @@ namespace System.Windows.Documents
         {
             get
             {
-                if(_uiElementCollection == null) //nobody used it yet
+                if (_uiElementCollection == null) //nobody used it yet
                 {
                     _uiElementCollection = CreateUIElementCollection(this);
                 }
@@ -411,7 +411,7 @@ namespace System.Windows.Documents
         public object PrintTicket
         {
             get { return GetValue(PrintTicketProperty); }
-            set { SetValue(PrintTicketProperty,value); }
+            set { SetValue(PrintTicketProperty, value); }
         }
 
         /// <summary>
@@ -419,7 +419,7 @@ namespace System.Windows.Documents
         /// </summary>
         public Brush Background
         {
-            get { return (Brush) GetValue(BackgroundProperty); }
+            get { return (Brush)GetValue(BackgroundProperty); }
             set { SetValue(BackgroundProperty, value); }
         }
 
@@ -505,7 +505,7 @@ namespace System.Windows.Documents
         /// </summary>
         public Rect ContentBox
         {
-            get { return (Rect) GetValue(ContentBoxProperty); }
+            get { return (Rect)GetValue(ContentBoxProperty); }
             set { SetValue(ContentBoxProperty, value); }
         }
 
@@ -524,7 +524,7 @@ namespace System.Windows.Documents
         /// </summary>
         public Rect BleedBox
         {
-            get { return (Rect) GetValue(BleedBoxProperty); }
+            get { return (Rect)GetValue(BleedBoxProperty); }
             set { SetValue(BleedBoxProperty, value); }
         }
 
@@ -547,7 +547,7 @@ namespace System.Windows.Documents
                         typeof(Uri),
                         typeof(FixedPage),
                         new FrameworkPropertyMetadata(
-                                (Uri) null,
+                                (Uri)null,
                                 new PropertyChangedCallback(Hyperlink.OnNavigateUriChanged),
                                 new CoerceValueCallback(Hyperlink.CoerceNavigateUri)));
 
@@ -578,7 +578,7 @@ namespace System.Windows.Documents
                                 //The Text Selection adorner must have predefined ZOrder MaxInt/2,
                                 //we assign the ZOrder to annotation adorners respectively
                                 int zOrder = System.Int32.MaxValue / 2;
-                                al.Add(new HighlightVisual(doc, this),zOrder);
+                                al.Add(new HighlightVisual(doc, this), zOrder);
                             }
                         }
                     }
@@ -772,7 +772,7 @@ namespace System.Windows.Documents
                 //If Left is not specified, then Right is used
                 //If both are not there, then 0
                 double left = GetLeft(child);
-                if(!double.IsNaN(left))
+                if (!double.IsNaN(left))
                 {
                     x = left;
                 }
@@ -780,14 +780,14 @@ namespace System.Windows.Documents
                 {
                     double right = GetRight(child);
 
-                    if(!double.IsNaN(right))
+                    if (!double.IsNaN(right))
                     {
                         x = arrangeSize.Width - child.DesiredSize.Width - right;
                     }
                 }
 
                 double top = GetTop(child);
-                if(!double.IsNaN(top))
+                if (!double.IsNaN(top))
                 {
                     y = top;
                 }
@@ -795,7 +795,7 @@ namespace System.Windows.Documents
                 {
                     double bottom = GetBottom(child);
 
-                    if(!double.IsNaN(bottom))
+                    if (!double.IsNaN(bottom))
                     {
                         y = arrangeSize.Height - child.DesiredSize.Height - bottom;
                     }
@@ -831,7 +831,7 @@ namespace System.Windows.Documents
             // We need iterate through the PageContentCollect first.
             UIElementCollection elementCollection = this.Children;
             UIElement uiElement;
-            DependencyObject  node ;
+            DependencyObject node;
 
             for (int i = 0, n = elementCollection.Count; i < n; i++)
             {
@@ -926,7 +926,7 @@ namespace System.Windows.Documents
             return element;
         }
 
-#endregion Internal Methods
+        #endregion Internal Methods
 
         #region Internal Properties
 
@@ -967,7 +967,7 @@ namespace System.Windows.Documents
 
 #endif
 
-#endregion Internal Properties
+        #endregion Internal Properties
 
         //--------------------------------------------------------------------
         //
@@ -1036,7 +1036,8 @@ namespace System.Windows.Documents
                 childPath.Insert(0, childIndex);
                 e = parent;
             }
-            while (e != this) ;
+            while (e != this)
+                ;
 
             return childPath.ToArray();
         }
@@ -1146,7 +1147,7 @@ namespace System.Windows.Documents
 
 #if DEBUG
 
-    internal sealed class DebugVisualAdorner: Adorner
+    internal sealed class DebugVisualAdorner : Adorner
     {
         internal DebugVisualAdorner(FixedPage page) : base(page)
         {
@@ -1155,7 +1156,7 @@ namespace System.Windows.Documents
 
         override protected void OnRender(DrawingContext dc)
         {
-            if (_fixedPage.DrawDebugVisualSelection == (int) DrawDebugVisual.None)
+            if (_fixedPage.DrawDebugVisualSelection == (int)DrawDebugVisual.None)
             {
                 return;
             }
@@ -1163,14 +1164,14 @@ namespace System.Windows.Documents
             FixedPageStructure pageStructure = _fixedPage.FixedPageStructure;
             Debug.Assert(pageStructure != null);
 
-            if (_fixedPage.DrawDebugVisualSelection == (int) DrawDebugVisual.Glyphs)
+            if (_fixedPage.DrawDebugVisualSelection == (int)DrawDebugVisual.Glyphs)
             {
                 if (pageStructure.FixedNodes != null)
                 {
                     _RenderMarkupOrder(dc, pageStructure.FixedNodes);
                 }
             }
-            else if (_fixedPage.DrawDebugVisualSelection == (int) DrawDebugVisual.Lines)
+            else if (_fixedPage.DrawDebugVisualSelection == (int)DrawDebugVisual.Lines)
             {
                 pageStructure.RenderLines(dc);
             }
@@ -1178,7 +1179,7 @@ namespace System.Windows.Documents
             {
                 if (pageStructure.FixedSOMPage != null)
                 {
-                    pageStructure.FixedSOMPage.Render(dc, null, (DrawDebugVisual) _fixedPage.DrawDebugVisualSelection);
+                    pageStructure.FixedSOMPage.Render(dc, null, (DrawDebugVisual)_fixedPage.DrawDebugVisualSelection);
                 }
                 else
                 {
@@ -1192,7 +1193,7 @@ namespace System.Windows.Documents
                         {
                             foreach (FixedSOMElement somElement in node.FixedSOMElements)
                             {
-                                somElement.Render(dc, flowOrder.ToString(), (DrawDebugVisual) _fixedPage.DrawDebugVisualSelection);
+                                somElement.Render(dc, flowOrder.ToString(), (DrawDebugVisual)_fixedPage.DrawDebugVisualSelection);
                                 flowOrder++;
                             }
                         }
@@ -1245,7 +1246,7 @@ namespace System.Windows.Documents
                     alignmentBox = transform.TransformBounds(alignmentBox);
 
                     Pen pen = new Pen(Brushes.Green, 1);
-                    dc.DrawRectangle(null, pen , alignmentBox);
+                    dc.DrawRectangle(null, pen, alignmentBox);
                     _RenderLabel(dc, order.ToString(), alignmentBox);
 
                     ++order;
@@ -1253,7 +1254,7 @@ namespace System.Windows.Documents
                 else if (path != null)
                 {
                     Geometry renderGeom = path.RenderedGeometry;
-                    Pen backgroundPen = new Pen(Brushes.Black,1);
+                    Pen backgroundPen = new Pen(Brushes.Black, 1);
                     dc.DrawGeometry(null, backgroundPen, renderGeom);
                     _RenderLabel(dc, order.ToString(), renderGeom.Bounds);
                     ++order;
@@ -1270,9 +1271,9 @@ namespace System.Windows.Documents
                                         10,
                                         Brushes.White,
                                         GetDpi().PixelsPerDip);
-            Point labelLocation = new Point(boundingRect.Left-25, (boundingRect.Bottom + boundingRect.Top)/2 - 10);
+            Point labelLocation = new Point(boundingRect.Left - 25, (boundingRect.Bottom + boundingRect.Top) / 2 - 10);
             Geometry geom = ft.BuildHighlightGeometry(labelLocation);
-            Pen backgroundPen = new Pen(Brushes.Black,1);
+            Pen backgroundPen = new Pen(Brushes.Black, 1);
             dc.DrawGeometry(Brushes.Black, backgroundPen, geom);
             dc.DrawText(ft, labelLocation);
 

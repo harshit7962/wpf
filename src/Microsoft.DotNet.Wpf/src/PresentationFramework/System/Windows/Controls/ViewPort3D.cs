@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -8,13 +8,13 @@
 // rectangle of the control.
 //
 
-using MS.Internal;
-using MS.Internal.KnownBoxes;
 using System.ComponentModel;
 using System.Windows.Automation.Peers;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
-using System.Windows.Markup;
+using MS.Internal;
+using MS.Internal.KnownBoxes;
 
 namespace System.Windows.Controls
 {
@@ -97,11 +97,11 @@ namespace System.Windows.Controls
 
         private static void OnCameraChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Viewport3D owner = (Viewport3D) d;
+            Viewport3D owner = (Viewport3D)d;
 
             if (!e.IsASubPropertyChange)
             {
-                owner._viewport3DVisual.Camera = (Camera) e.NewValue;
+                owner._viewport3DVisual.Camera = (Camera)e.NewValue;
             }
         }
 
@@ -110,7 +110,7 @@ namespace System.Windows.Controls
         /// </summary>
         public Camera Camera
         {
-            get { return (Camera) GetValue(CameraProperty); }
+            get { return (Camera)GetValue(CameraProperty); }
             set { SetValue(CameraProperty, value); }
         }
 
@@ -119,7 +119,7 @@ namespace System.Windows.Controls
                 "Children",
                 typeof(Visual3DCollection),
                 typeof(Viewport3D),
-                new FrameworkPropertyMetadata((object) null));
+                new FrameworkPropertyMetadata((object)null));
 
         /// <summary>
         /// The 3D children of the Viewport3D
@@ -132,7 +132,7 @@ namespace System.Windows.Controls
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public Visual3DCollection Children
         {
-            get { return (Visual3DCollection) GetValue(ChildrenProperty); }
+            get { return (Visual3DCollection)GetValue(ChildrenProperty); }
         }
 
         #endregion
@@ -177,7 +177,7 @@ namespace System.Windows.Controls
         protected override Visual GetVisualChild(int index)
         {
             //added in the constructor so 1 children always exist
-            switch(index)
+            switch (index)
             {
                 case 0:
                     return _viewport3DVisual;

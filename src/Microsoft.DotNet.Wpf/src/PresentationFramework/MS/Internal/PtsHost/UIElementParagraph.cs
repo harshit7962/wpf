@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -11,9 +11,9 @@
 
 using System.Windows;                           // UIElement
 using System.Windows.Documents;                 // BlockUIContainer
-using MS.Internal.Text;                         // TextDpi
 using MS.Internal.Documents;                    // UIElementIsland
 using MS.Internal.PtsHost.UnsafeNativeMethods;  // PTS
+using MS.Internal.Text;                         // TextDpi
 
 namespace MS.Internal.PtsHost
 {
@@ -118,7 +118,7 @@ namespace MS.Internal.PtsHost
             MarginCollapsingState mcsNew;
             int margin;
             MarginCollapsingState.CollapseTopMargin(PtsContext, mbp, mcs, out mcsNew, out margin);
-            
+
             if (suppressTopSpace)
             {
                 dvr = 0;
@@ -171,7 +171,7 @@ namespace MS.Internal.PtsHost
             int durAvailable,                   // IN:  width of available space
             int dvrAvailable,                   // IN:  height of available space
             PTS.FSKSUPPRESSHARDBREAKBEFOREFIRSTPARA fsksuppresshardbreakbeforefirstparaIn,
-                                                // IN: suppress breaks at track start?
+            // IN: suppress breaks at track start?
             out PTS.FSFMTR fsfmtr,              // OUT: result of formatting
             out IntPtr pfsFloatContent,         // OUT: opaque for PTS pointer pointer to formatted content
             out IntPtr pbrkrecOut,              // OUT: pointer to the floater content break record
@@ -396,14 +396,14 @@ namespace MS.Internal.PtsHost
                 }
                 else
                 {
-                    Figure figure = (Figure) ((BlockUIContainer)Element).Parent;
+                    Figure figure = (Figure)((BlockUIContainer)Element).Parent;
                     Invariant.Assert(figure.Height.IsAbsolute);
                     elementHeight = figure.Height.Value;
                 }
 
                 elementHeight = Math.Max(TextDpi.FromTextDpi(1), elementHeight - TextDpi.FromTextDpi(mbp.MBPTop + mbp.MBPBottom));
                 UIElementIsland.DoLayout(new Size(elementWidth, elementHeight), false, false);
-   
+
                 // Create fsbbox. Set width to available width since we want block ui container to occupy the full column
                 // and UIElement to be algined within it. Set dv to elementHeight. 
                 fsbbox.fsrc = new PTS.FSRECT();

@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -12,10 +12,10 @@
 // See specs at Specs/Validation.mht
 //
 
-using System.Windows.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace MS.Internal.Controls
 {
@@ -69,7 +69,7 @@ namespace MS.Internal.Controls
                 return transform;
 
             GeneralTransformGroup group = new GeneralTransformGroup();
-            if(transform != null)
+            if (transform != null)
             {
                 group.Children.Add(transform);
             }

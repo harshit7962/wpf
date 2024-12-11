@@ -1,21 +1,21 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System.Xaml;
-using System.Xaml.Schema;
-using System.Xaml.Permissions;
+using System.Collections;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Globalization;
+using System.Windows.Baml2006;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Diagnostics;
 using System.Windows.Markup;
-using System.Globalization;
-using MS.Utility;
-using System.ComponentModel;
-using System.Collections;
-using System.Collections.Specialized;
+using System.Xaml;
+using System.Xaml.Permissions;
+using System.Xaml.Schema;
 using MS.Internal.Xaml.Context;
-using System.Windows.Baml2006;
+using MS.Utility;
 
 namespace System.Windows
 {
@@ -108,7 +108,7 @@ namespace System.Windows
 
         internal class StackOfFrames : XamlContextStack<Frame>
         {
-            public StackOfFrames() : base(()=>new Frame()) { }
+            public StackOfFrames() : base(() => new Frame()) { }
 
             public void Push(System.Xaml.XamlType xamlType, string name)
             {
@@ -204,7 +204,7 @@ namespace System.Windows
         {
             XamlObjectWriterSettings settings = System.Windows.Markup.XamlReader.
                 CreateObjectWriterSettings(ObjectWriterParentSettings);
-            settings.AfterBeginInitHandler = delegate(object sender, System.Xaml.XamlObjectEventArgs args)
+            settings.AfterBeginInitHandler = delegate (object sender, System.Xaml.XamlObjectEventArgs args)
             {
                 //In several situations this even will happen with Stack == null.
                 //If this event was on the XOW, perhaps we could stop listening in some circumstances?

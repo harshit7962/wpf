@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -128,7 +128,7 @@ namespace System.Windows.Markup
 #if !PBTCOMPILER
                     if (probeType.Namespace == clrNamespace
                         &&
-                        probeType.Assembly.FullName == assemblyFullName )
+                        probeType.Assembly.FullName == assemblyFullName)
 #else
                     if (probeType.Namespace == clrNamespace)
 #endif
@@ -367,7 +367,7 @@ namespace System.Windows.Markup
                 {
                     // Loop through attributes. We only care about having CLR properties in
                     // the hash table.  DependencyProperties are already cached by the framework.
-                    for (int i=0; i<AttributeIdMap.Count; i++)
+                    for (int i = 0; i < AttributeIdMap.Count; i++)
                     {
                         BamlAttributeInfoRecord info = AttributeIdMap[i] as BamlAttributeInfoRecord;
                         if (info.PropInfo != null)
@@ -378,7 +378,7 @@ namespace System.Windows.Markup
                     }
 
                     // Loop through types and cache them.
-                    for (int j=0; j<TypeIdMap.Count; j++)
+                    for (int j = 0; j < TypeIdMap.Count; j++)
                     {
                         BamlTypeInfoRecord info = TypeIdMap[j] as BamlTypeInfoRecord;
                         if (info.Type != null)
@@ -408,7 +408,7 @@ namespace System.Windows.Markup
             }
             else
             {
-                BamlTypeInfoRecord typeInfo  = (BamlTypeInfoRecord)TypeIdMap[id];
+                BamlTypeInfoRecord typeInfo = (BamlTypeInfoRecord)TypeIdMap[id];
 
                 if (null != typeInfo)
                 {
@@ -446,7 +446,7 @@ namespace System.Windows.Markup
             }
 
             return false;
-       }
+        }
 
         // Return a type info record for a type identified by the passed ID.  If the
         // ID is negative, then this is a known type, so manufacture a BamlTypeInfoRecord
@@ -466,7 +466,7 @@ namespace System.Windows.Markup
                 {
                     info = new BamlTypeInfoWithSerializerRecord();
                     ((BamlTypeInfoWithSerializerRecord)info).SerializerTypeId =
-                                          -(int) KnownElements.XamlStyleSerializer;
+                                          -(int)KnownElements.XamlStyleSerializer;
                     ((BamlTypeInfoWithSerializerRecord)info).SerializerType =
                                           KnownTypes.Types[(int)KnownElements.XamlStyleSerializer];
                     info.AssemblyId = -1;
@@ -478,7 +478,7 @@ namespace System.Windows.Markup
                 {
                     info = new BamlTypeInfoWithSerializerRecord();
                     ((BamlTypeInfoWithSerializerRecord)info).SerializerTypeId =
-                                          -(int) KnownElements.XamlTemplateSerializer;
+                                          -(int)KnownElements.XamlTemplateSerializer;
                     ((BamlTypeInfoWithSerializerRecord)info).SerializerType =
                                           KnownTypes.Types[(int)KnownElements.XamlTemplateSerializer];
                     info.AssemblyId = -1;
@@ -500,7 +500,7 @@ namespace System.Windows.Markup
             }
             else
             {
-                return (BamlTypeInfoRecord) TypeIdMap[id];
+                return (BamlTypeInfoRecord)TypeIdMap[id];
             }
         }
 
@@ -511,7 +511,7 @@ namespace System.Windows.Markup
         private short GetAssemblyIdForType(Type t)
         {
             string assemblyName = t.Assembly.FullName;
-            for (int i=0; i<AssemblyIdMap.Count; i++)
+            for (int i = 0; i < AssemblyIdMap.Count; i++)
             {
                 string mapName = ((BamlAssemblyInfoRecord)AssemblyIdMap[i]).AssemblyFullName;
                 if (mapName == assemblyName)
@@ -526,9 +526,9 @@ namespace System.Windows.Markup
 
         // Return an instance of a TypeConverter object, given the type id of the object.
         // This may be a known element, or one that is stored in a type record
-        internal TypeConverter GetConverterFromId (
+        internal TypeConverter GetConverterFromId(
             short typeId,
-            Type  propType,
+            Type propType,
             ParserContext pc)
         {
             TypeConverter tc = null;
@@ -536,7 +536,7 @@ namespace System.Windows.Markup
             {
                 // The EnumConverter and NullableConverter need to be created specially, since
                 // they need the type of the Enum or Nullable in their constructor.
-                switch((KnownElements)(-typeId))
+                switch ((KnownElements)(-typeId))
                 {
                     case KnownElements.EnumConverter:
 
@@ -632,7 +632,7 @@ namespace System.Windows.Markup
                 GetAttributeOwnerType(record); // This will update the OwnerType property
                 record.Name = GetAttributeNameFromKnownId(knownId);
 
-                if(knownId < KnownProperties.MaxDependencyProperty)
+                if (knownId < KnownProperties.MaxDependencyProperty)
                 {
                     DependencyProperty dp = KnownTypes.GetKnownDependencyPropertyFromId(knownId);
                     record.DP = dp;
@@ -657,7 +657,7 @@ namespace System.Windows.Markup
 
         private string GetAttributeNameFromKnownId(KnownProperties knownId)
         {
-            if(knownId < KnownProperties.MaxDependencyProperty)
+            if (knownId < KnownProperties.MaxDependencyProperty)
             {
                 DependencyProperty dp = KnownTypes.GetKnownDependencyPropertyFromId(knownId);
                 return dp.Name;
@@ -692,7 +692,7 @@ namespace System.Windows.Markup
                 KnownProperties knownId = (KnownProperties)(-id);
                 string propertyName = GetAttributeNameFromKnownId(knownId);
                 KnownElements knownElement = KnownTypes.GetKnownElementFromKnownCommonProperty(knownId);
-                return  (ownerTypeId == -(short)knownElement && (string.Equals(propertyName, name, StringComparison.Ordinal)));
+                return (ownerTypeId == -(short)knownElement && (string.Equals(propertyName, name, StringComparison.Ordinal)));
             }
             else
             {
@@ -800,7 +800,7 @@ namespace System.Windows.Markup
                     BamlTypeInfoRecord typeInfo = (BamlTypeInfoRecord)TypeIdMap[bamlAttributeInfoRecord.OwnerTypeId];
                     if (null != typeInfo)
                     {
-                        bamlAttributeInfoRecord.OwnerType =  GetTypeFromTypeInfo(typeInfo);
+                        bamlAttributeInfoRecord.OwnerType = GetTypeFromTypeInfo(typeInfo);
                     }
                 }
             }
@@ -941,7 +941,7 @@ namespace System.Windows.Markup
 
                 if (null != ownerType)
                 {
-                    bamlAttributeInfoRecord.Event = XamlTypeMapper.RoutedEventFromName(bamlAttributeInfoRecord.Name,ownerType);
+                    bamlAttributeInfoRecord.Event = XamlTypeMapper.RoutedEventFromName(bamlAttributeInfoRecord.Name, ownerType);
                 }
             }
 
@@ -1762,7 +1762,7 @@ namespace System.Windows.Markup
             get { return _xamlTypeMapper; }
 
 #if !PBTCOMPILER
-            set { _xamlTypeMapper = value;  }
+            set { _xamlTypeMapper = value; }
 #endif
         }
 
@@ -1828,7 +1828,7 @@ namespace System.Windows.Markup
         // True if this instance of the BamlMapTable is being reused between
         // different parses.  This is done to maintain the ObjectHashTable so that
         // less reflection is done for types and properties.
-        bool   _reusingMapTable = false;
+        bool _reusingMapTable = false;
 #endif
 
         #endregion Data

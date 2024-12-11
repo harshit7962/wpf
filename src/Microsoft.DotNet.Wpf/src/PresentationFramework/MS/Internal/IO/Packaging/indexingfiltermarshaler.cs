@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -57,7 +57,7 @@ namespace MS.Internal.IO.Packaging
         /// <returns>managed array</returns>
         internal static ManagedFullPropSpec[] MarshalFullPropSpecArray(
             uint cAttributes,    // length of aAttributes
-            FULLPROPSPEC[] aAttributes) 
+            FULLPROPSPEC[] aAttributes)
         {
             // If there are attributes, these override the flags
             if (cAttributes > 0)
@@ -154,9 +154,9 @@ namespace MS.Internal.IO.Packaging
             native.idChunk = chunk.ID;
             Invariant.Assert(chunk.BreakType >= CHUNK_BREAKTYPE.CHUNK_NO_BREAK && chunk.BreakType <= CHUNK_BREAKTYPE.CHUNK_EOC);
             native.breakType = chunk.BreakType;
-            Invariant.Assert(    
-                chunk.Flags >= 0 
-                && 
+            Invariant.Assert(
+                chunk.Flags >= 0
+                &&
                 chunk.Flags <= (CHUNKSTATE.CHUNK_TEXT | CHUNKSTATE.CHUNK_VALUE | CHUNKSTATE.CHUNK_FILTER_OWNED_VALUE));
             native.flags = chunk.Flags;
             native.locale = chunk.Locale;
@@ -185,7 +185,7 @@ namespace MS.Internal.IO.Packaging
                 if (obj is string)
                 {
                     pszVal = Marshal.StringToCoTaskMemAnsi((string)obj);
-                    
+
                     v = new PROPVARIANT();
                     v.vt = VARTYPE.VT_LPSTR;
                     v.union.pszVal = pszVal;
@@ -275,7 +275,7 @@ namespace MS.Internal.IO.Packaging
                 STAT_CHUNK chunk = new STAT_CHUNK();
                 chunk.idChunk = 0;
                 return chunk;
-}
+            }
 
             // Valid chunk. Return corresponding STAT_CHUNK.
             return MarshalChunk(managedChunk);

@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -254,7 +254,8 @@ namespace System.Windows.Controls
                 for (int i = 0; i < columns.Count; ++i)
                 {
                     UIElement child = children[GetVisualIndex(i)];
-                    if (child == null) { continue; }
+                    if (child == null)
+                    { continue; }
 
                     double childConstraintWidth = Math.Max(0.0, constraint.Width - accumulatedWidth);
 
@@ -344,7 +345,8 @@ namespace System.Windows.Controls
                 for (int i = 0; i < columns.Count; ++i)
                 {
                     UIElement child = children[GetVisualIndex(i)];
-                    if (child == null) { continue; }
+                    if (child == null)
+                    { continue; }
 
                     GridViewColumn column = columns[i];
 
@@ -1715,7 +1717,8 @@ namespace System.Windows.Controls
 
             gvDP = columnDP = headerDP = null;
 
-        found: ;
+        found:
+            ;
         }
 
         private static readonly DependencyProperty[][] s_DPList = new DependencyProperty[][]

@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -10,7 +10,7 @@ namespace System.Windows.Baml2006
 {
     internal partial class Baml2006SchemaContext : XamlSchemaContext
     {
-        public Baml2006SchemaContext(Assembly localAssembly):
+        public Baml2006SchemaContext(Assembly localAssembly) :
             this(localAssembly, System.Windows.Markup.XamlReader.BamlSharedSchemaContext)
         {
         }
@@ -100,7 +100,7 @@ namespace System.Windows.Baml2006
         internal const Int16 TypeExtensionTypeId = 691;
         internal const string WpfNamespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
 
-#endregion
+        #endregion
 
         #region Internal Methods
         internal void Reset()
@@ -524,15 +524,15 @@ namespace System.Windows.Baml2006
 
         private Type ResolveBamlTypeToType(BamlType bamlType)
         {
-                BamlAssembly bamlAssembly;
-                if (TryGetBamlAssembly(bamlType.AssemblyId, out bamlAssembly))
+            BamlAssembly bamlAssembly;
+            if (TryGetBamlAssembly(bamlType.AssemblyId, out bamlAssembly))
+            {
+                Assembly assembly = ResolveAssembly(bamlAssembly);
+                if (assembly != null)
                 {
-                    Assembly assembly = ResolveAssembly(bamlAssembly);
-                    if (assembly != null)
-                    {
-                        return assembly.GetType(bamlType.Name, false);
-                    }
+                    return assembly.GetType(bamlType.Name, false);
                 }
+            }
 
             return null;
         }
@@ -760,9 +760,9 @@ namespace System.Windows.Baml2006
         [Flags]
         internal enum TypeInfoFlags : byte
         {
-            Internal             = 0x1,
-            UnusedTwo            = 0x2,
-            UnusedThree          = 0x4,
+            Internal = 0x1,
+            UnusedTwo = 0x2,
+            UnusedThree = 0x4,
         }
     }
 }
