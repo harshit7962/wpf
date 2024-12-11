@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -67,7 +67,7 @@ namespace MS.Internal.Ink
                     _nodes.Insert(index, _nodes[index - 1] + (XY(index) - XY(index - 1)).Length);
                 }
             }
- 
+
             SetLinks(rSpan);
         }
 
@@ -130,7 +130,7 @@ namespace MS.Internal.Ink
             }
         }
 
-        
+
 
 
         /// <summary>
@@ -435,22 +435,22 @@ namespace MS.Internal.Ink
                 iPoint = Count - 1;
             }
 
-			// Find a StylusPoint at distance-_span forward
+            // Find a StylusPoint at distance-_span forward
             for (iNext = checked(iPoint + 1); iNext < Count; ++iNext)
                 if (_nodes[iNext] - _nodes[iPoint] >= _span)
-					break;
+                    break;
 
-			if (iNext >= Count)
-			{
-				bHasMore = false;
-				iNext = Count - 1;
-			}
+            if (iNext >= Count)
+            {
+                bHasMore = false;
+                iNext = Count - 1;
+            }
 
             for (iPrev = checked(iPoint - 1); iPrevCusp <= iPrev; --iPrev)
                 if (_nodes[iPoint] - _nodes[iPrev] >= _span)
-					break;
+                    break;
 
-			if (iPrev < 0)
+            if (iPrev < 0)
                 iPrev = 0;
 
             return bHasMore;
@@ -523,21 +523,21 @@ namespace MS.Internal.Ink
         }
 
 
-        private List<CDataPoint>        _points;
-        private List<double>            _nodes;
-        private double                  _dist = 0;
-        private List<int>               _cusps = new List<int>();
+        private List<CDataPoint> _points;
+        private List<double> _nodes;
+        private double _dist = 0;
+        private List<int> _cusps = new List<int>();
 
         // Parameters governing the cusp detection algorithm
         // Distance between probes for curvature checking
         private double _span = 3; // Default span
-    
+
         struct CDataPoint
         {
-            public Point        Point;       // Point (coordinates are double)
-            public int          Index;       // Index into the original array
-            public int          TanPrev;    // Previous StylusPoint Index for tangent computation
-            public int          TanNext;    // Next StylusPoint Index for tangent computation
+            public Point Point;       // Point (coordinates are double)
+            public int Index;       // Index into the original array
+            public int TanPrev;    // Previous StylusPoint Index for tangent computation
+            public int TanNext;    // Next StylusPoint Index for tangent computation
         };
     }
 }

@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -8,8 +8,8 @@
 using System.Windows.Input.Manipulations;
 using System.Windows.Media;
 using System.Windows.Threading;
-using MS.Win32;
 using MS.Internal;
+using MS.Win32;
 
 namespace System.Windows.Input
 {
@@ -32,9 +32,9 @@ namespace System.Windows.Input
         private void OnManipulationStarted(object sender, Manipulation2DStartedEventArgs e)
         {
             PushEvent(new ManipulationStartedEventArgs(
-                _manipulationDevice, 
-                LastTimestamp, 
-                _currentContainer, 
+                _manipulationDevice,
+                LastTimestamp,
+                _currentContainer,
                 new Point(e.OriginX, e.OriginY)));
         }
 
@@ -357,7 +357,7 @@ namespace System.Windows.Input
             // InputEventArgs timestamps are Int32 while the processors take Int64
             // GetMessageTime() is used for all other InputEventArgs, such as mouse and keyboard input.
             // And it does not match QueryPerformanceCounter(), my experiments show GetMessageTime() is ~ 120ms ahead.
-            LastTimestamp = SafeNativeMethods.GetMessageTime(); 
+            LastTimestamp = SafeNativeMethods.GetMessageTime();
 
             int numManipulators = manipulators.Count;
             if (IsInertiaActive && (numManipulators > 0))
