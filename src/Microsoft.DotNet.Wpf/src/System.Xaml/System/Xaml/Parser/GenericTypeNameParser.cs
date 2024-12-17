@@ -37,7 +37,9 @@ namespace MS.Internal.Xaml.Parser
 
         public static XamlTypeName ParseIfTrivalName(string text, Func<string, string> prefixResolver, out string error)
         {
-            if (text.Contains('(') || text.Contains('['))
+            int parenIdx = text.IndexOf('(');
+            int bracketIdx = text.IndexOf('[');
+            if (parenIdx != -1 || bracketIdx != -1)
             {
                 error = string.Empty;
                 return null;

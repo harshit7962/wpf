@@ -12,11 +12,6 @@ using System.Globalization;
 using MS.Utility;
 using MS.Internal.Xaml.Parser;
 
-#if NET472
-#pragma warning disable CA1846
-#pragma warning disable CA1847
-#endif
-
 #if PBTCOMPILER
 namespace MS.Internal.Markup
 #else
@@ -1463,7 +1458,8 @@ namespace System.Windows.Markup
                 // if the prefix was "" then
                 // 1) normal properties resolve to the parent Tag namespace.
                 // 2) Attached properties resolve to the "" default namespace.
-                if (!name.Contains('.'))
+                int dotIndex = name.IndexOf('.');
+                if (-1 == dotIndex)
                     attribNamespaceURI = parentURI;
                 else
                     attribNamespaceURI = _parserHelper.LookupNamespace("");
@@ -1622,7 +1618,7 @@ namespace System.Windows.Markup
                     if (builder == null)
                     {
                         builder = new StringBuilder(value.Length);
-                        builder.Append(value.AsSpan(0,i));
+                        builder.Append(value.Substring(0,i));
                     }
                     noEscape = false;
                 }

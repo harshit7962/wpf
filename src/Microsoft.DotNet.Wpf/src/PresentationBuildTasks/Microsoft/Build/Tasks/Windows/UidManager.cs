@@ -32,10 +32,6 @@ using MS.Internal.Tasks;
 // Since we disable PreSharp warnings in this file, we first need to disable warnings about unknown message numbers and unknown pragmas.
 #pragma warning disable 1634, 1691
 
-#if NET472
-#pragma warning disable CA1847 
-#endif
-
 namespace Microsoft.Build.Tasks.Windows
 {
     /// <summary>
@@ -519,7 +515,7 @@ namespace Microsoft.Build.Tasks.Windows
                                 collector.RootElementLinePosition = reader.LinePosition;
                             }
 
-                            if (reader.Name.Contains('.'))
+                            if (reader.Name.IndexOf('.') >= 0)
                             {
                                 // the name has a dot, which suggests it is a property tag.
                                 // we will ignore adding uid

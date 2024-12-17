@@ -3671,11 +3671,11 @@ namespace System.Windows.Documents
             {
                 ulState = ULState.ULNone;
                 strikeState = StrikeState.StrikeNone;
-                if (decoration.Contains("Underline"))
+                if (decoration.IndexOf("Underline", StringComparison.OrdinalIgnoreCase) != -1)
                 {
                     ulState = ULState.ULNormal;
                 }
-                if (decoration.Contains("Strikethrough"))
+                if (decoration.IndexOf("Strikethrough", StringComparison.OrdinalIgnoreCase) != -1)
                 {
                     strikeState = StrikeState.StrikeNormal;
                 }

@@ -32,7 +32,7 @@ namespace MS.Internal.AutomationProxies
                 {
                     _sType = SR.LocalizedControlTypeDialog;
                 }
-                else if (className.Contains("AfxControlBar"))
+                else if (className.IndexOf("AfxControlBar", StringComparison.Ordinal) != -1)
                 {
                     _sType = SR.LocalizedControlTypeContainer;
                 }

@@ -196,7 +196,7 @@ namespace MS.Internal.Tasks
             while (e.InnerException != null)
             {
                 Exception eInner = e.InnerException;
-                if (!e.Message.Contains(eInner.Message))
+                if (e.Message.IndexOf(eInner.Message, StringComparison.Ordinal) == -1)
                 {
                     message += ", ";
                     message += eInner.Message;

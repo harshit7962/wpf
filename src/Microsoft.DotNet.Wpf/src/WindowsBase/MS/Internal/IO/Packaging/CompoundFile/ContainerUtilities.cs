@@ -453,7 +453,7 @@ namespace MS.Internal.IO.Packaging.CompoundFile
         {
             CheckStringAgainstNullAndEmpty(testString, testStringIdentifier);
 
-            if (testString.Contains(PathSeparator))
+            if (testString.IndexOf(PathSeparator) != -1)
                 throw new ArgumentException(
                     SR.Format(SR.NameCanNotHaveDelimiter,
                         testStringIdentifier,
