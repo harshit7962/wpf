@@ -677,9 +677,9 @@ namespace System.Xaml
                             {
                                 if (objectInfo.Properties[0] is MemberMarkupInfo itemsMemberInfo && itemsMemberInfo.Children.Count > 0)
                                 {
-                                    //Check if the first element of the collection/dictionary is a ME and replace the SO with GO only if it is not an ME.
-                                    //This is to handle cases where the first element is, say, null. If we remove the SO, then there is no way to
-                                    //know if the collection is null or the first element is null.
+                                    // Check if the first element of the collection/dictionary is a ME and replace the SO with GO only if it is not an ME.
+                                    // This is to handle cases where the first element is, say, null. If we remove the SO, then there is no way to
+                                    // know if the collection is null or the first element is null.
                                     if (itemsMemberInfo.Children[0] is not ObjectMarkupInfo itemInfo || itemInfo.XamlNode.XamlType == null || !itemInfo.XamlNode.XamlType.IsMarkupExtension)
                                     {
                                         // change the member to GetObject
@@ -1959,7 +1959,7 @@ namespace System.Xaml
                         context.ReserveDefaultPrefixForRootObject(value);
                     }
 
-                    //ValueSerializer is always preferred over TypeConverters
+                    // ValueSerializer is always preferred over TypeConverters
                     string stringValue = context.ConvertToString(valueSerializer, value);
                     context.Instance = null;
                     objectInfo = ForTypeConverted((string)stringValue, value, context);
@@ -2361,24 +2361,24 @@ namespace System.Xaml
                 return base.Decompose();
             }
 
-        //    public override bool IsAttributableMarkupExtension
-        //    {
-        //        get
-        //        {
-        //            // See comment in ReferenceSerializationInfo.Write()
-        //            //
-        //            // We are only attributable if we will not maybe be the one that is choosen to be
-        //            // written out as a 'reference', note that this means that for sibling properties
-        //            // which both refer to the same object one will be written as a reference in
-        //            // element form.
-        //            //
-        //            if (!Target.ShouldWriteAsReference.HasValue)
-        //            {
-        //                if (Target.Scope == Scope)
-        //                {
-        //                    return false;
-        //                }
-        //            }
+        // public override bool IsAttributableMarkupExtension
+        // {
+        //     get
+        //     {
+        //         // See comment in ReferenceSerializationInfo.Write()
+        //         //
+        //         // We are only attributable if we will not maybe be the one that is choosen to be
+        //         // written out as a 'reference', note that this means that for sibling properties
+        //         // which both refer to the same object one will be written as a reference in
+        //         // element form.
+        //         //
+        //         if (!Target.ShouldWriteAsReference.HasValue)
+        //         {
+        //             if (Target.Scope == Scope)
+        //             {
+        //                 return false;
+        //             }
+        //         }
 
         // return true;
         //        }

@@ -1217,7 +1217,7 @@ namespace System.Windows.Markup
                 Error(SR.XCRRequiresAttribNotFound);
             }
 
-            if (String.IsNullOrEmpty(requiresValue))
+            if (string.IsNullOrEmpty(requiresValue))
             {
                 // Requires attribute may not be empty
                 Error(SR.XCRInvalidRequiresAttribute);

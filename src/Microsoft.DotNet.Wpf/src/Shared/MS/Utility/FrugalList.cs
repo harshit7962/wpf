@@ -439,8 +439,8 @@ namespace MS.Utility
                 {
                     return 1;
                 }
-                if ((_count == 3) && EqualityComparer<T>.Default.Equals(_entry2, value))
 
+                if ((_count == 3) && EqualityComparer<T>.Default.Equals(_entry2, value))
                 {
                     return 2;
                 }
@@ -806,6 +806,7 @@ namespace MS.Utility
                             {
                                 return 4;
                             }
+
                             if ((_count == 6) && EqualityComparer<T>.Default.Equals(_entry5, value))
                             {
                                 return 5;

@@ -173,7 +173,7 @@ namespace System.Xaml
                     {
                         return result;
                     }
-	            }
+                }
 
                 //
                 // We use AssemblyName ctor here because GetName demands FileIOPermission
