@@ -212,8 +212,7 @@ namespace System.Xaml
             }
             else
             {
-                string s = value as string;
-                if (s == null)
+                if (value is not string s)
                 {
                     throw new ArgumentException(SR.XamlXmlWriterCannotWriteNonstringValue, nameof(value));
                 }

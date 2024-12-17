@@ -828,8 +828,7 @@ namespace System.Windows
         //
         internal bool ProvideSelfAsInheritanceContext( object value, DependencyProperty dp )
         {
-            DependencyObject doValue = value as DependencyObject;
-            if (doValue != null)
+            if (value is DependencyObject doValue)
             {
                 return ProvideSelfAsInheritanceContext(doValue, dp);
             }
@@ -873,8 +872,7 @@ namespace System.Windows
         //
         internal bool RemoveSelfAsInheritanceContext( object value, DependencyProperty dp )
         {
-            DependencyObject doValue = value as DependencyObject;
-            if (doValue != null)
+            if (value is DependencyObject doValue)
             {
                 return RemoveSelfAsInheritanceContext(doValue, dp);
             }
@@ -1142,8 +1140,7 @@ namespace System.Windows
 
             // if the target is a Freezable, call FireChanged to kick off
             // notifications to the Freezable's parent chain.
-            Freezable freezable = this as Freezable;
-            if (freezable != null)
+            if (this is Freezable freezable)
             {
                 freezable.FireChanged();
             }
@@ -2168,8 +2165,7 @@ namespace System.Windows
                 // localValue may still not be a DeferredReference, e.g.
                 // if it is an expression whose value is a DeferredReference.
                 // So a little more work is needed before converting the value.
-                DeferredReference dr = value as DeferredReference;
-                if (dr != null)
+                if (value is DeferredReference dr)
                 {
                     value = dr.GetValue(entry.BaseValueSourceInternal);
                 }
@@ -2634,8 +2630,7 @@ namespace System.Windows
                         object localValue = ReadLocalValueEntry(new EntryIndex(i), dp, true /* allowDeferredReferences */);
                         if (localValue != DependencyProperty.UnsetValue)
                         {
-                            DependencyObject inheritanceChild = localValue as DependencyObject;
-                            if (inheritanceChild!= null && inheritanceChild.InheritanceContext == this)
+                            if (localValue is DependencyObject inheritanceChild && inheritanceChild.InheritanceContext == this)
                             {
                                 inheritanceChild.OnInheritanceContextChanged(args);
                             }

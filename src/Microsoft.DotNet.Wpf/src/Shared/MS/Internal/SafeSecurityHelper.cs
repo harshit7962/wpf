@@ -68,7 +68,7 @@ namespace System.Xaml
         {
             AssemblyName name = new AssemblyName(assembly.FullName);
             string partialName = name.Name;
-            return (partialName != null) ? partialName : string.Empty;
+            return partialName ?? string.Empty;
         }
 #endif
 
@@ -203,8 +203,7 @@ namespace System.Xaml
             {
                 foreach (object key in _assemblies.Keys)
                 {
-                    WeakReference weakRef = key as WeakReference;
-                    if (weakRef == null)
+                    if (key is not WeakReference weakRef)
                     {
                         continue;
                     }
