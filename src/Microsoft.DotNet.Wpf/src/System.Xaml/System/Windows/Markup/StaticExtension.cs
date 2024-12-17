@@ -129,7 +129,8 @@ namespace System.Windows.Markup
                 }
 
                 currentType = currentType.BaseType;
-            } while(currentType != null);
+            }
+            while(currentType != null);
 
             currentType = type;
             do
@@ -137,12 +138,13 @@ namespace System.Windows.Markup
                 PropertyInfo prop = currentType.GetProperty(name, BindingFlags.Public | BindingFlags.Static);
                 if (prop != null)
                 {
-                    value = prop.GetValue(null,null);
+                    value = prop.GetValue(null, null);
                     return true;
                 }
 
                 currentType = currentType.BaseType;
-            } while(currentType != null);
+            }
+            while(currentType != null);
 
             value = null;
             return false;

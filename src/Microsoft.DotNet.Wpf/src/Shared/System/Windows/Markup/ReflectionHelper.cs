@@ -333,7 +333,7 @@ namespace System.Xaml
                 if (constructorArguments.Count == 1 && !noArgs)
                 {
                     CustomAttributeTypedArgument tca = constructorArguments[0];
-                    attrValue = tca.Value as String;
+                    attrValue = tca.Value as string;
 #if PBTCOMPILER
                     if (attrValue == null && allowTypeAlso && tca.ArgumentType == GetMscorlibType(typeof(Type)))
 #else
@@ -433,12 +433,12 @@ namespace System.Xaml
                 // Check if the current AppDomain has this assembly loaded for some other reason.
                 // If so, then just use that assembly and don't attempt to load another copy of it.
                 // Only do this if no path is provided.
-                if (String.IsNullOrEmpty(assemblyPath))
+                if (string.IsNullOrEmpty(assemblyPath))
                     retassem = SafeSecurityHelper.GetLoadedAssembly(assemblyName);
 
                 if (retassem == null)
                 {
-                    if (!String.IsNullOrEmpty(assemblyPath))
+                    if (!string.IsNullOrEmpty(assemblyPath))
                     {
                         // assemblyPath is set, Load the assembly from this specified place.
                         // the path must be full file path which contains directory, file name and extension.
@@ -447,6 +447,7 @@ namespace System.Xaml
                         // LoadFile will only override your request only if it is in the GAC
                         retassem = Assembly.LoadFile(assemblyPath);
                     }
+
                     //
                     // At compile time, the build task should always pass the full path of the referenced assembly, even if it
                     // comes from GAC. But below code snippet can run if parser wants to try loading an assembly w/o a path.
@@ -573,4 +574,3 @@ namespace System.Xaml
         #endregion Assembly Loading
     }
 }
-

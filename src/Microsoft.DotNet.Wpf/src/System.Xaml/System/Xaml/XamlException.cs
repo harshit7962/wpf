@@ -46,8 +46,10 @@ namespace System.Xaml
                     {
                         return SR.Format(SR.LineNumberAndPosition, base.Message, LineNumber, LinePosition);
                     }
+
                     return SR.Format(SR.LineNumberOnly, base.Message, LineNumber);
                 }
+
                 return base.Message;
             }
         }
@@ -111,10 +113,10 @@ namespace System.Xaml
             : base(info, context) { }
 
         // FxCop and [Serializable] required this.
-        //public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        //{
+        // public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        // {
         //    base.GetObjectData(info, context);
-        //}
+        // }
     }
 
     [Serializable]  // FxCop advised this be Serializable.
