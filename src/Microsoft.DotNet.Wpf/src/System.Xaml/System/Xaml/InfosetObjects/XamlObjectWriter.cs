@@ -1385,9 +1385,10 @@ namespace System.Xaml
                         {
                             var eventArgs = new XAML3.XamlSetTypeConverterEventArgs(property, typeConverter, value, ctx.ServiceProviderContext,
                                     TypeConverterHelper.InvariantEnglishUS,
-                                    ctx.ParentInstance);
-
-                            eventArgs.CurrentType = declaringType;
+                                    ctx.ParentInstance)
+                            {
+                                CurrentType = declaringType
+                            };
 
                             declaringType.SetTypeConverterHandler(ctx.ParentInstance, eventArgs);
                             if (eventArgs.Handled)
@@ -1711,8 +1712,10 @@ namespace System.Xaml
                 {
                     if (declaringType.SetMarkupExtensionHandler != null)
                     {
-                        var eventArgs = new XAML3.XamlSetMarkupExtensionEventArgs(parentProperty, me, ctx.ServiceProviderContext, parentInstance);
-                        eventArgs.CurrentType = declaringType;
+                        var eventArgs = new XAML3.XamlSetMarkupExtensionEventArgs(parentProperty, me, ctx.ServiceProviderContext, parentInstance)
+                        {
+                            CurrentType = declaringType
+                        };
                         declaringType.SetMarkupExtensionHandler(parentInstance, eventArgs);
                         if (eventArgs.Handled)
                         {
