@@ -29,6 +29,10 @@ using System.Collections.Specialized;
 // you need to disable warnings 1634 and 1691. (Presharp Documentation)
 #pragma warning disable 1634, 1691
 
+#if NET472
+#pragma warning disable CA1847 
+#endif
+
 #if !PBTCOMPILER
 
 using System.Windows;
@@ -2732,8 +2736,7 @@ namespace System.Windows.Markup
                 // if the prefix was "" then
                 // 1) normal properties resolve to the parent Tag namespace.
                 // 2) Attached properties resolve to the "" default namespace.
-                int dotIndex = name.IndexOf('.');
-                if (-1 == dotIndex)
+                if (!name.Contains('.'))
                     attribNamespaceURI = parentURI;
                 else
                     attribNamespaceURI = XmlReader.LookupNamespace("");
