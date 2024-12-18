@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -119,7 +119,7 @@ namespace System.Windows.Markup
             TypeAndSerializer typeAndSerializer =
                 GetTypeOnly(xmlNamespace,localName);
 
-            return typeAndSerializer != null ? typeAndSerializer.ObjectType : null;
+            return typeAndSerializer?.ObjectType;
         }
 
 #if !PBTCOMPILER
@@ -168,10 +168,7 @@ namespace System.Windows.Markup
             _piReverseTable[fullName] = xmlNamespace;
 
             // Add mapping to the SchemaContext
-            if (_schemaContext != null)
-            {
-                _schemaContext.SetMappingProcessingInstruction(xmlNamespace, pair);
-            }
+            _schemaContext?.SetMappingProcessingInstruction(xmlNamespace, pair);
         }
 #endif
         /// <summary>
@@ -1408,6 +1405,7 @@ namespace System.Windows.Markup
 
                             if (null != memberInfo)
                             {
+#pragma warning disable IDE0031
                                 if (infoRecord != null)
                                 {
 #if !PBTCOMPILER
@@ -1419,6 +1417,7 @@ namespace System.Windows.Markup
 #endif
                                     infoRecord.SetPropertyMember(memberInfo);
                                 }
+#pragma warning restore IDE0031
                             }
                         }
                     }
@@ -1550,6 +1549,7 @@ namespace System.Windows.Markup
                                 memberInfo = PropertyInfoFromName(localName, baseType, tryInternal, true, out isInternal);
                             }
 
+#pragma warning disable IDE0031
                             if (null != memberInfo)
                             {
                                 if (infoRecord != null)
@@ -1564,6 +1564,7 @@ namespace System.Windows.Markup
                                     infoRecord.SetPropertyMember(memberInfo);
                                 }
                             }
+#pragma warning restore IDE0031
                         }
                     }
                 }
@@ -2177,7 +2178,7 @@ namespace System.Windows.Markup
             XmlnsDictionary prefixDictionary = element.GetValue(XmlAttributeProperties.XmlnsDictionaryProperty)
                                                as XmlnsDictionary;
 
-            object xmlNamespaceObject = (prefixDictionary != null) ? prefixDictionary[prefix] : null;
+            object xmlNamespaceObject = prefixDictionary?[prefix];
 
             // Then get the list of NamespaceMapEntry objects that maps the xml namespace uri to one
             // or more clr namespace / assembly pairs.  This should be stored on the root element
