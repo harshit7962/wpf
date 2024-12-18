@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -844,7 +844,7 @@ namespace System.Windows.Documents
 
         internal static string ToString(DocumentSequenceTextPointer thisTp)
         {
-            return $"{(thisTp is DocumentSequenceTextPointer ? "DSTP" : "DSTN")} Id={thisTp.DebugId} B={thisTp.ChildBlock.DebugId} G={thisTp.ChildPointer.LogicalDirection}";
+            return $"{(thisTp is not null ? "DSTP" : "DSTN")} Id={thisTp.DebugId} B={thisTp.ChildBlock.DebugId} G={thisTp.ChildPointer.LogicalDirection}";
         }
 #endif
         #endregion Internal Methods
