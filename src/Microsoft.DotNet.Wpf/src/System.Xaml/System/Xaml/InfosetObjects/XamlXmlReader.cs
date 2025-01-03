@@ -163,7 +163,7 @@ namespace System.Xaml
             XmlReader myXmlReader;
 
             _mergedSettings = (settings is null) ? new XamlXmlReaderSettings() : new XamlXmlReaderSettings(settings);
-            //Wrap the xmlreader with a XmlCompatReader instance to apply MarkupCompat rules.
+            // Wrap the xmlreader with a XmlCompatReader instance to apply MarkupCompat rules.
             if (!_mergedSettings.SkipXmlCompatibilityProcessing)
             {
                 XmlCompatibilityReader mcReader =
@@ -174,27 +174,30 @@ namespace System.Xaml
                 myXmlReader = mcReader;
             }
             else
-            {   //Don't wrap the xmlreader with XmlCompatReader.
+            {   // Don't wrap the xmlreader with XmlCompatReader.
                 // Useful for uses where users want to keep mc: content in the XamlNode stream.
                 // Or have already processed the markup compat and want that extra perf.
                 myXmlReader = givenXmlReader;
             }
+
             // Pick up the XmlReader settings to override the "settings" defaults.
-            if (!String.IsNullOrEmpty(myXmlReader.BaseURI))
+            if (!string.IsNullOrEmpty(myXmlReader.BaseURI))
             {
                 _mergedSettings.BaseUri = new Uri(myXmlReader.BaseURI);
             }
+
             if (myXmlReader.XmlSpace == XmlSpace.Preserve)
             {
                 _mergedSettings.XmlSpacePreserve = true;
             }
-            if (!String.IsNullOrEmpty(myXmlReader.XmlLang))
+
+            if (!string.IsNullOrEmpty(myXmlReader.XmlLang))
             {
                 _mergedSettings.XmlLang = myXmlReader.XmlLang;
             }
-            IXmlNamespaceResolver myXmlReaderNS = myXmlReader as IXmlNamespaceResolver;
+
             Dictionary<string, string> xmlnsDictionary = null;
-            if (myXmlReaderNS is not null)
+            if (myXmlReader is IXmlNamespaceResolver myXmlReaderNS)
             {
                 IDictionary<string, string> rootNamespaces = myXmlReaderNS.GetNamespacesInScope(XmlNamespaceScope.Local);
                 if (rootNamespaces is not null)
@@ -205,6 +208,7 @@ namespace System.Xaml
                         {
                             xmlnsDictionary = new Dictionary<string, string>();
                         }
+
                         xmlnsDictionary[ns.Key] = ns.Value;
                     }
                 }
@@ -262,7 +266,8 @@ namespace System.Xaml
                     _current = _endOfStreamNode;
                     break;
                 }
-            } while (_current.NodeType == XamlNodeType.None);
+            }
+            while (_current.NodeType == XamlNodeType.None);
             return !IsEof;
         }
 
@@ -342,7 +347,7 @@ namespace System.Xaml
             {
                 string clrNs, assemblyName;
                 if (ClrNamespaceUriParser.TryParseUri(xmlNamespace, out clrNs, out assemblyName) &&
-                    String.IsNullOrEmpty(assemblyName))
+                    string.IsNullOrEmpty(assemblyName))
                 {
                     assemblyName = _mergedSettings.LocalAssembly.FullName;
                     newXmlNamespace = ClrNamespaceUriParser.GetUri(clrNs, assemblyName);
@@ -356,16 +361,15 @@ namespace System.Xaml
                 newXmlNamespace = string.Empty;
             }
 
-
             // we need to treat all namespaces inside of XmlDataIslands as Supported.
             // we need to tree Freeze as known, if it is around... don't hardcode.
-            //else if (xmlNamespace == XamlReaderHelper.PresentationOptionsNamespaceURI)
-            //{
+            // else if (xmlNamespace == XamlReaderHelper.PresentationOptionsNamespaceURI)
+            // {
             //    // PresentationOptions is expected to be marked as 'ignorable' in most Xaml
             //    // so that other Xaml parsers don't have to interpret it, but this parser
             //    // does handle it to support it's Freeze attribute.
             //    return true;
-            //}
+            // }
             return result;
         }
     }
