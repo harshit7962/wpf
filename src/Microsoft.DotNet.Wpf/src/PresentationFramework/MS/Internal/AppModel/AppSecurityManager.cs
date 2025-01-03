@@ -30,13 +30,13 @@ namespace MS.Internal.AppModel
 
     internal static class AppSecurityManager
     {
-        ///<summary> 
-        ///     Safely launch the browser if you can. 
-        ///     If you can't demand unmanaged code permisison. 
+        ///<summary>
+        ///     Safely launch the browser if you can.
+        ///     If you can't demand unmanaged code permisison.
         ///
         ///     originatingUri = the current uri
-        ///     destinationUri = the uri you are going to. 
-        ///</summary> 
+        ///     destinationUri = the uri you are going to.
+        ///</summary>
         internal static void SafeLaunchBrowserDemandWhenUnsafe(Uri originatingUri, Uri destinationUri, bool fIsTopLevel)
         {
             LaunchResult launched = LaunchResult.NotLaunched;
@@ -48,25 +48,25 @@ namespace MS.Internal.AppModel
             }
         }
 
-        ///<summary> 
+        ///<summary>
         /// Safely launch the browser if it's possible to do so in partial trust
-        /// Returns enum indicating whether we safely launched ( or at least think we did). 
+        /// Returns enum indicating whether we safely launched ( or at least think we did).
         ///
-        ///     This function is appropriate for use when we launch the browser from partial trust 
-        ///     ( as it doesn't perform demands for the "unsafe" cases ) 
-        ///</summary> 
+        ///     This function is appropriate for use when we launch the browser from partial trust
+        ///     ( as it doesn't perform demands for the "unsafe" cases )
+        ///</summary>
         internal static LaunchResult SafeLaunchBrowserOnlyIfPossible(Uri originatingUri, Uri destinationUri, bool fIsTopLevel)
         {
             return SafeLaunchBrowserOnlyIfPossible(originatingUri, destinationUri, null, fIsTopLevel);
         }
 
-        ///<summary> 
+        ///<summary>
         /// Safely launch the browser if it's possible to do so in partial trust
-        /// Returns enum indicating whether we safely launched ( or at least think we did). 
+        /// Returns enum indicating whether we safely launched ( or at least think we did).
         /// Html target names can be passed in with this.
-        ///     This function is appropriate for use when we launch the browser from partial trust 
-        ///     ( as it doesn't perform demands for the "unsafe" cases ) 
-        ///</summary> 
+        ///     This function is appropriate for use when we launch the browser from partial trust
+        ///     ( as it doesn't perform demands for the "unsafe" cases )
+        ///</summary>
         internal static LaunchResult SafeLaunchBrowserOnlyIfPossible(Uri originatingUri, Uri destinationUri, string targetName, bool fIsTopLevel)
         {
             LaunchResult launched = LaunchResult.NotLaunched;
@@ -75,22 +75,22 @@ namespace MS.Internal.AppModel
                                    (Object.ReferenceEquals(destinationUri.Scheme, Uri.UriSchemeHttps)) ||
                                    destinationUri.IsFile;
 
-            bool fIsMailTo = String.Compare(destinationUri.Scheme, Uri.UriSchemeMailto, StringComparison.OrdinalIgnoreCase) == 0;
+            bool fIsMailTo = string.Equals(destinationUri.Scheme, Uri.UriSchemeMailto, StringComparison.OrdinalIgnoreCase);
 
-            // We elevate to navigate the browser iff: 
+            // We elevate to navigate the browser iff:
             //  We are user initiated AND
             //      Scheme == http/https & topLevel OR scheme == mailto.
             //
-            // For all other cases ( evil protocols etc). 
-            // We will demand. 
+            // For all other cases ( evil protocols etc).
+            // We will demand.
             //
             if ((fIsTopLevel && isKnownScheme) || fIsMailTo)
             {
-                if (!isKnownScheme && fIsMailTo) // unnecessary if - but being paranoid. 
+                if (!isKnownScheme && fIsMailTo) // unnecessary if - but being paranoid.
                 {
-                    // Shell-Exec the browser to the mailto url. 
-                    // assumed safe - because we're only allowing this for mailto urls. 
-                    // 
+                    // Shell-Exec the browser to the mailto url.
+                    // assumed safe - because we're only allowing this for mailto urls.
+                    //
 
                     UnsafeNativeMethods.ShellExecute(new HandleRef(null, IntPtr.Zero), /*hwnd*/
                                                       null, /*operation*/
@@ -105,7 +105,7 @@ namespace MS.Internal.AppModel
             return launched;
         }
 
-        // This invokes the browser unsafely.  
+        // This invokes the browser unsafely.
         // Whoever is calling this function should do the right demands.
         internal static void UnsafeLaunchBrowser(Uri uri, string targetFrame = null)
         {
@@ -121,11 +121,11 @@ namespace MS.Internal.AppModel
             sei.cbSize = Marshal.SizeOf(sei);
             sei.fMask = UnsafeNativeMethods.ShellExecuteFlags.SEE_MASK_FLAG_DDEWAIT;
             /*
-            There is a bug on Windows Vista (with IE 7): ShellExecute via SEE_MASK_CLASSNAME fails for an 
+            There is a bug on Windows Vista (with IE 7): ShellExecute via SEE_MASK_CLASSNAME fails for an
             http[s]:// URL. It works fine for file://. The cause appears to be that the DDE command template
             defined in HKCR\IE.AssocFile.HTM\shell\opennew\ddeexec is used: [file://%1",-1,,,,,]. On XP, the
             the key used is (supposedly) HKCR\htmlfile\shell\opennew\ddeexec, and its value is ["%1",,-1,0,,,,].
-            The workaround here is to add the SEE_MASK_CLASSNAME flag only for non-HTTP URLs. For HTTP, 
+            The workaround here is to add the SEE_MASK_CLASSNAME flag only for non-HTTP URLs. For HTTP,
             "plain" ShellExecute just works, incl. with Firefox/Netscape as the default browser.
             */
             if (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps)

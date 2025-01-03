@@ -21,14 +21,9 @@
 //warnings 1634 and 1691. (From PreSharp Documentation)
 #pragma warning disable 1634, 1691
 
-using System;
-
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -38,21 +33,16 @@ using System.Threading;
 using System.IO.Packaging;
 using System.Windows.Threading;
 using System.Windows.Navigation;
-using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Resources;
 using System.Windows.Markup;
 using System.Net;
-using System.Text;
 
 using MS.Internal;
 using MS.Internal.AppModel;
 using MS.Internal.IO.Packaging;
 using MS.Internal.Interop;
-using MS.Internal.Navigation;
-using MS.Internal.Telemetry;
 using MS.Internal.Utility;
-using MS.Internal.Resources;
 using MS.Utility;
 using MS.Win32;
 using Microsoft.Win32;
@@ -950,7 +940,7 @@ namespace System.Windows
         /// Gets or sets the Fluent theme mode of the application.
         /// </summary>
         /// <remarks>
-        /// Setting this property controls if Fluent theme is loaded in Light, Dark or System mode. 
+        /// Setting this property controls if Fluent theme is loaded in Light, Dark or System mode.
         /// It also controls the application of backdrop and darkmode on window.
         /// The four values for the ThemeMode enum are :
         ///     <see cref="ThemeMode.None"/> - No Fluent theme is loaded.
@@ -962,14 +952,14 @@ namespace System.Windows
         ///
         /// The default value is <see cref="ThemeMode.None"/>.
         ///     <see cref="ThemeMode"/> and <see cref="Resources"/> are designed to be in sync with each other.
-        ///     Syncing is done in order to avoid UI inconsistencies, for example, if the application is in dark mode 
-        ///     but the windows are in light mode or vice versa. 
-        ///     
+        ///     Syncing is done in order to avoid UI inconsistencies, for example, if the application is in dark mode
+        ///     but the windows are in light mode or vice versa.
+        ///
         ///     Setting this property loads the Fluent theme dictionaries in the application resources.
         ///     So, if you set this property, it is preferrable to not include Fluent theme dictionaries
         ///     in the application resources manually. If you do, the Fluent theme dictionaries added in the application
         ///     resources will take precedence over the ones added by setting this property.
-        ///     
+        ///
         ///     This property is experimental and may be removed in future versions.
         /// </remarks>
         [Experimental("WPF0001")]
@@ -987,7 +977,7 @@ namespace System.Windows
                 {
                     throw new ArgumentException(string.Format("ThemeMode value {0} is invalid. Use None, System, Light or Dark", value));
                 }
-                
+
                 ThemeMode oldValue = _themeMode;
                 _themeMode = value;
 
@@ -1002,7 +992,7 @@ namespace System.Windows
                     _reloadFluentDictionary = true;
 
                     // OnApplicationThemeChanged will trigger InvalidateResourceReferences
-                    // which will mark _resourcesInitialized = true, however since 
+                    // which will mark _resourcesInitialized = true, however since
                     // the value earlier was false, it means that Resources may not have been
                     // parsed from BAML yet. Hence, we need to reset the value to false.
                     _resourcesInitialized = false;
@@ -1747,7 +1737,7 @@ namespace System.Windows
         internal void InvalidateResourceReferences(ResourcesChangeInfo info)
         {
             _resourcesInitialized = true;
-            
+
             // Sync needs to be performed only under the following conditions:
             //  - the resource change event raised is due to a collection change
             //      i.e. it is not a IsIndividualResourceAddOperation
@@ -1758,7 +1748,7 @@ namespace System.Windows
             {
                 ThemeManager.SyncApplicationThemeMode();
             }
-            
+
             // Invalidate ResourceReference properties on all the windows.
             // we Clone() the collection b/c if we don't then some other thread can be
             // modifying the collection while we iterate over it
@@ -2369,7 +2359,7 @@ namespace System.Windows
                     Invariant.Assert(fileInBamlConvert != null, "fileInBamlConvert should not be null");
                     Invariant.Assert(fileCurrent != null, "fileCurrent should not be null");
 
-                    if (String.Compare(fileInBamlConvert, fileCurrent, StringComparison.OrdinalIgnoreCase) == 0)
+                    if (string.Equals(fileInBamlConvert, fileCurrent, StringComparison.OrdinalIgnoreCase))
                     {
                         //
                         // This is the root element of the xaml page which is being loaded to creat a tree
@@ -2396,7 +2386,7 @@ namespace System.Windows
                         if (Math.Abs(diff) == 1)
                         {
                             // Check whether the file name is the same.
-                            if (String.Compare(bamlConvertUriSegments[l - 1], curUriSegments[m - 1], StringComparison.OrdinalIgnoreCase) == 0)
+                            if (string.Equals(bamlConvertUriSegments[l - 1], curUriSegments[m - 1], StringComparison.OrdinalIgnoreCase))
                             {
                                 string component = (diff == 1) ? bamlConvertUriSegments[1] : curUriSegments[1];
 
