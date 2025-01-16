@@ -1812,9 +1812,10 @@ namespace MS.Internal.Automation
         /// This will not return null, but may return an empty array.</returns>
         double[] ITextRangeProvider.GetBoundingRectangles()
         {
+            Rect[] rects = _textAdaptor.GetBoundingRectangles(_start, _end, true, true);
+
             Normalize();
 
-            Rect[] rects = _textAdaptor.GetBoundingRectangles(_start, _end, true, true);
             double[] asDoubles = new double[rects.Length * 4];
             for (int i = 0; i < rects.Length; i++)
             {
