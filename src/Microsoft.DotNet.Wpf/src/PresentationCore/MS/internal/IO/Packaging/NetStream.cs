@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -396,10 +396,8 @@ namespace MS.Internal.IO.Packaging
                             _disposed = true;
 
                             // release any blocked threads - Set() does not throw any exceptions
-                            if (_readEventHandles[(int)ReadEvent.FullDownloadReadEvent] != null)
-                                _readEventHandles[(int)ReadEvent.FullDownloadReadEvent].Set();
-                            if (_readEventHandles[(int)ReadEvent.ByteRangeReadEvent] != null)
-                                _readEventHandles[(int)ReadEvent.ByteRangeReadEvent].Set();
+                            _readEventHandles[(int)ReadEvent.FullDownloadReadEvent]?.Set();
+                            _readEventHandles[(int)ReadEvent.ByteRangeReadEvent]?.Set();
 
                             // Free ByteRangeDownloader
                             FreeByteRangeDownloader();
@@ -417,10 +415,7 @@ namespace MS.Internal.IO.Packaging
                             }
 
                             // Free Full Download
-                            if (_responseStream != null)
-                            {
-                                _responseStream.Close();
-                            }
+                            _responseStream?.Close();
 
                             FreeTempFile();
 #if DEBUG
@@ -591,12 +586,13 @@ namespace MS.Internal.IO.Packaging
                 _byteRangeDownloader = new ByteRangeDownloader(_uri,
                                                                _tempFileStream,
                                                                _readEventHandles[(int)ReadEvent.ByteRangeReadEvent].SafeWaitHandle,
-                                                               _tempFileMutex);
+                                                               _tempFileMutex)
+                {
+                    Proxy = _originalRequest.Proxy,
 
-                _byteRangeDownloader.Proxy = _originalRequest.Proxy;
-
-                _byteRangeDownloader.Credentials = _originalRequest.Credentials;
-                _byteRangeDownloader.CachePolicy = _originalRequest.CachePolicy;
+                    Credentials = _originalRequest.Credentials,
+                    CachePolicy = _originalRequest.CachePolicy
+                };
 
                 _byteRangesAvailable = new ArrayList(); // byte ranges that are downloaded
             }
@@ -1181,10 +1177,7 @@ namespace MS.Internal.IO.Packaging
                     finally
                     {
                         // FreeFullDownload
-                        if (_responseStream != null)
-                        {
-                            _responseStream.Close();
-                        }
+                        _responseStream?.Close();
                     }
                 }
                 finally

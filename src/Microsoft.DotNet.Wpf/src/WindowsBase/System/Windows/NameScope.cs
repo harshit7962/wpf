@@ -124,8 +124,7 @@ namespace System.Windows
             INameScope nameScope = obj as INameScope;
             if (nameScope == null)
             {
-                DependencyObject objAsDO = obj as DependencyObject;
-                if (objAsDO != null)
+                if (obj is DependencyObject objAsDO)
                 {
                     nameScope = GetNameScope(objAsDO);
                 }
@@ -421,10 +420,7 @@ namespace System.Windows
 
             void IEnumerator.Reset()
             {
-                if (_enumerator != null)
-                {
-                    _enumerator.Reset();
-                }
+                _enumerator?.Reset();
             }
         }
         #endregion

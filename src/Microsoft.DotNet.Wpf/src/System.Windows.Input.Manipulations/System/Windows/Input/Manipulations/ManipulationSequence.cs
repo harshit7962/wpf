@@ -150,10 +150,7 @@ namespace System.Windows.Input.Manipulations
             }
 
             OnCompleteManipulation(timestamp);
-            if (this.manipulatorStates != null)
-            {
-                this.manipulatorStates.Clear();
-            }
+            this.manipulatorStates?.Clear();
         }
 
         #endregion Public Methods
@@ -310,10 +307,7 @@ namespace System.Windows.Input.Manipulations
             {
                 foreach (Manipulator2D manipulator in manipulators)
                 {
-                    if (removedManipulatorIds != null)
-                    {
-                        removedManipulatorIds.Remove(manipulator.Id);
-                    }
+                    removedManipulatorIds?.Remove(manipulator.Id);
                     currentManipulatorCount++;
 
                     ManipulatorState state;
@@ -1188,8 +1182,10 @@ namespace System.Windows.Input.Manipulations
         /// <returns>the new ManipulatorState object</returns>
         private static ManipulatorState CreateManipulatorState(Manipulator2D manipulator)
         {
-            ManipulatorState state = new ManipulatorState(manipulator.Id);
-            state.InitialManipulatorSnapshot = manipulator;
+            ManipulatorState state = new ManipulatorState(manipulator.Id)
+            {
+                InitialManipulatorSnapshot = manipulator
+            };
             state.CurrentManipulatorSnapshot = state.InitialManipulatorSnapshot;
             return state;
         }

@@ -1,8 +1,6 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
-
-#pragma warning disable 1634, 1691
 
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -662,7 +660,7 @@ namespace System.Windows.Annotations
             {
                 host = StyleHelper.FindNameInTemplateContent(fdr, "PART_ContentHost", fdr.TemplateInternal) as Decorator;
             }
-            return host != null ? host.Child : null;
+            return host?.Child;
         }
 
         private static IList<IAttachedAnnotation> GetSpannedAnnotationsForFlow(AnnotationService service, ITextSelection selection)
