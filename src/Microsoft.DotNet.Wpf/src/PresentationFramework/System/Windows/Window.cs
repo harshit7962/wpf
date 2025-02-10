@@ -28,6 +28,25 @@ using Win32Error = MS.Internal.Interop.Win32Error;
 
 namespace System.Windows
 {
+    //Concerns, auto and none kaise set karenge
+
+    public abstract class WindowBackdrop
+    {
+        private protected WindowBackdrop()
+        {
+
+        }
+    }
+
+    public sealed class DesktopAcrylicBackdrop : WindowBackdrop { }
+
+    public sealed class MicaBackdrop : WindowBackdrop
+    {
+#nullable enable
+        public string? Kind { get; set; }
+#nullable disable
+    }
+
     [Localizability(LocalizationCategory.Ignore)]
     public class Window : ContentControl, IWindowService
     {
@@ -626,6 +645,50 @@ namespace System.Windows
         /// </summary>
         public static readonly RoutedEvent DpiChangedEvent;
 
+        public static readonly DependencyProperty BackdropProperty = DependencyProperty.Register(
+            nameof(Backdrop),
+            typeof(WindowBackdrop),
+            typeof(Window),
+            new PropertyMetadata(null, OnBackdropChanged, CoerceBackdrop));
+
+        public WindowBackdrop Backdrop
+        {
+            get => (WindowBackdrop)GetValue(BackdropProperty);
+            set => SetValue(BackdropProperty, value);
+        }
+
+        private static object CoerceBackdrop(DependencyObject d, object baseValue)
+        {
+            return baseValue is WindowBackdrop ? baseValue : null;
+        }
+
+        private static void OnBackdropChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Window window = (Window)d;
+
+            switch (window.Backdrop)
+            {
+                case null:
+                    WindowBackdropManager.SetBackdrop(window, WindowBackdropType.None);
+                    break;
+                case DesktopAcrylicBackdrop:
+                    WindowBackdropManager.SetBackdrop(window, WindowBackdropType.TransientWindow);
+                    break;
+                case MicaBackdrop micaBackdrop:
+                    if(micaBackdrop.Kind == "Alt")
+                    {
+                        WindowBackdropManager.SetBackdrop(window, WindowBackdropType.TabbedWindow);
+                    }
+                    else
+                    {
+                        WindowBackdropManager.SetBackdrop(window, WindowBackdropType.MainWindow);
+                    }
+                    break;
+                default:
+                    throw new InvalidOperationException("Invalid SystemBackdrop");
+            }
+        }
+
         /// <summary>
         /// Get or set the TaskbarItemInfo associated with this Window.
         /// </summary>
@@ -1037,6 +1100,7 @@ namespace System.Windows
                 // is not allowed
                 VerifyApiSupported();
 
+                // we don't do an if check here to see if the new value is the same
                 // we don't do an if check here to see if the new value is the same
                 // as the current Left value b/c the current value maybe as a result
                 // of user resizing which means the the local value of Left has not
