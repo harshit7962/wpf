@@ -32,6 +32,9 @@ namespace System.Windows
 
     public abstract class WindowBackdrop
     {
+        public static WindowBackdrop NoBackdrop { get; }
+        public static WindowBackdrop AutoBackdrop { get; }
+
         private protected WindowBackdrop()
         {
 
@@ -649,7 +652,7 @@ namespace System.Windows
             nameof(Backdrop),
             typeof(WindowBackdrop),
             typeof(Window),
-            new PropertyMetadata(null, OnBackdropChanged, CoerceBackdrop));
+            new PropertyMetadata(WindowBackdrop.NoBackdrop, OnBackdropChanged, CoerceBackdrop));
 
         public WindowBackdrop Backdrop
         {
@@ -664,28 +667,35 @@ namespace System.Windows
 
         private static void OnBackdropChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Window window = (Window)d;
+            if (d is not Window window)
+                return; // throw error here
 
-            switch (window.Backdrop)
+            if(window.Backdrop == WindowBackdrop.NoBackdrop)
             {
-                case null:
-                    WindowBackdropManager.SetBackdrop(window, WindowBackdropType.None);
-                    break;
-                case DesktopAcrylicBackdrop:
-                    WindowBackdropManager.SetBackdrop(window, WindowBackdropType.TransientWindow);
-                    break;
-                case MicaBackdrop micaBackdrop:
-                    if(micaBackdrop.Kind == "Alt")
-                    {
-                        WindowBackdropManager.SetBackdrop(window, WindowBackdropType.TabbedWindow);
-                    }
-                    else
-                    {
-                        WindowBackdropManager.SetBackdrop(window, WindowBackdropType.MainWindow);
-                    }
-                    break;
-                default:
-                    throw new InvalidOperationException("Invalid SystemBackdrop");
+                WindowBackdropManager.SetBackdrop(window, WindowBackdropType.None);
+            }
+            else if(window.Backdrop == WindowBackdrop.AutoBackdrop)
+            {
+                WindowBackdropManager.SetBackdrop(window, WindowBackdropType.Auto);
+            }
+            else if (window.Backdrop is DesktopAcrylicBackdrop)
+            {
+                WindowBackdropManager.SetBackdrop(window, WindowBackdropType.TransientWindow);
+            }
+            else if(window.Backdrop is MicaBackdrop micaBackdrop)
+            {
+                if(micaBackdrop.Kind == "Alt")
+                {
+                    WindowBackdropManager.SetBackdrop(window, WindowBackdropType.TabbedWindow);
+                }
+                else
+                {
+                    WindowBackdropManager.SetBackdrop(window, WindowBackdropType.MainWindow);
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("Invalid SystemBackdrop"); // change error type?
             }
         }
 
