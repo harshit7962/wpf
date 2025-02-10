@@ -28,8 +28,6 @@ using Win32Error = MS.Internal.Interop.Win32Error;
 
 namespace System.Windows
 {
-    //Concerns, auto and none kaise set karenge
-
     public abstract class WindowBackdrop
     {
         public static WindowBackdrop NoBackdrop { get; }
@@ -45,9 +43,19 @@ namespace System.Windows
 
     public sealed class MicaBackdrop : WindowBackdrop
     {
-#nullable enable
-        public string? Kind { get; set; }
-#nullable disable
+        private MicaKind _kind = MicaKind.Base;
+
+        public MicaKind Kind
+        {
+            get => _kind;
+            set
+            {
+                _kind = value;
+                // TODO: Implement the backdrop change logic for just the change in kind value
+                // if(window.Backdrop is MicaBackdrop mica) {
+                // mica.Kind = micakind.alt or mica.kind = micakind.base;
+            }
+        }
     }
 
     [Localizability(LocalizationCategory.Ignore)]
@@ -668,7 +676,7 @@ namespace System.Windows
         private static void OnBackdropChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is not Window window)
-                return; // throw error here
+                return; // TODO: throw error here
 
             if(window.Backdrop == WindowBackdrop.NoBackdrop)
             {
@@ -684,18 +692,22 @@ namespace System.Windows
             }
             else if(window.Backdrop is MicaBackdrop micaBackdrop)
             {
-                if(micaBackdrop.Kind == "Alt")
+                if(micaBackdrop.Kind == MicaKind.Alt)
                 {
                     WindowBackdropManager.SetBackdrop(window, WindowBackdropType.TabbedWindow);
                 }
-                else
+                else if(micaBackdrop.Kind == MicaKind.Base)
                 {
                     WindowBackdropManager.SetBackdrop(window, WindowBackdropType.MainWindow);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Invalid kind of mica backdrop"); // TODO: change error type
                 }
             }
             else
             {
-                throw new InvalidOperationException("Invalid SystemBackdrop"); // change error type?
+                throw new InvalidOperationException("Invalid SystemBackdrop"); // TODO: change error type?
             }
         }
 
@@ -8078,6 +8090,15 @@ namespace System.Windows
         // NOTE: if you add or remove any values in this enum, be sure to update Window.IsValidWindowStyle()
     }
 
+
+    /// <summary>
+    /// MicaKind
+    /// </summary>
+    public enum MicaKind
+    {
+        Alt,
+        Base
+    }
 
     /// <summary>
     /// WindowState
