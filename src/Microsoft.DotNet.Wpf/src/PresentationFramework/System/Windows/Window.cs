@@ -25,18 +25,22 @@ using BuildInfo = MS.Internal.PresentationFramework.BuildInfo;
 using SNM = Standard.NativeMethods;
 using HRESULT = MS.Internal.Interop.HRESULT;
 using Win32Error = MS.Internal.Interop.Win32Error;
+using System.Printing;
 
 namespace System.Windows
 {
     public abstract class WindowBackdrop
     {
-        public static WindowBackdrop NoBackdrop { get; }
-        public static WindowBackdrop AutoBackdrop { get; }
+        private protected WindowBackdrop() { }
+    }
 
-        private protected WindowBackdrop()
-        {
+    public static class BackdropTypes
+    {
+        public static WindowBackdrop None { get; } = new NoneBackdrop();
+        public static WindowBackdrop Auto { get; } = new AutoBackdrop();
 
-        }
+        private sealed class NoneBackdrop : WindowBackdrop { }
+        private sealed class AutoBackdrop : WindowBackdrop { }
     }
 
     public sealed class DesktopAcrylicBackdrop : WindowBackdrop { }
@@ -51,9 +55,7 @@ namespace System.Windows
             set
             {
                 _kind = value;
-                // TODO: Implement the backdrop change logic for just the change in kind value
-                // if(window.Backdrop is MicaBackdrop mica) {
-                // mica.Kind = micakind.alt or mica.kind = micakind.base;
+                // TODO: Implement change in kind code logic
             }
         }
     }
@@ -660,12 +662,20 @@ namespace System.Windows
             nameof(Backdrop),
             typeof(WindowBackdrop),
             typeof(Window),
-            new PropertyMetadata(WindowBackdrop.NoBackdrop, OnBackdropChanged, CoerceBackdrop));
+            new PropertyMetadata(BackdropTypes.None, OnBackdropChanged, CoerceBackdrop));
 
         public WindowBackdrop Backdrop
         {
             get => (WindowBackdrop)GetValue(BackdropProperty);
-            set => SetValue(BackdropProperty, value);
+            set
+            {
+                if(value == null)
+                {
+                    throw new ArgumentNullException(nameof(value), "Can't set null Backdrop");
+                }
+
+                SetValue(BackdropProperty, value);
+            }
         }
 
         private static object CoerceBackdrop(DependencyObject d, object baseValue)
@@ -673,16 +683,16 @@ namespace System.Windows
             return baseValue is WindowBackdrop ? baseValue : null;
         }
 
-        private static void OnBackdropChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        internal static void OnBackdropChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is not Window window)
                 return; // TODO: throw error here
 
-            if(window.Backdrop == WindowBackdrop.NoBackdrop)
+            if(window.Backdrop == BackdropTypes.None)
             {
                 WindowBackdropManager.SetBackdrop(window, WindowBackdropType.None);
             }
-            else if(window.Backdrop == WindowBackdrop.AutoBackdrop)
+            else if(window.Backdrop == BackdropTypes.Auto)
             {
                 WindowBackdropManager.SetBackdrop(window, WindowBackdropType.Auto);
             }
@@ -690,7 +700,7 @@ namespace System.Windows
             {
                 WindowBackdropManager.SetBackdrop(window, WindowBackdropType.TransientWindow);
             }
-            else if(window.Backdrop is MicaBackdrop micaBackdrop)
+            else if (window.Backdrop is MicaBackdrop micaBackdrop)
             {
                 if(micaBackdrop.Kind == MicaKind.Alt)
                 {
