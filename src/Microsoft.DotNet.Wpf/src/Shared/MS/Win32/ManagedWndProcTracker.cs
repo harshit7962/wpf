@@ -121,7 +121,7 @@ namespace MS.Win32
                 try
                 {
                     result = UnsafeNativeMethods.SetWindowLong(new HandleRef(null,hwnd), NativeMethods.GWL_WNDPROC, defWindowProc);
-}
+                }
                 catch(System.ComponentModel.Win32Exception e)
                 {
                     // We failed to change the window proc.  Now what?
@@ -134,9 +134,21 @@ namespace MS.Win32
                         throw;
                     }
                 }
-                if (result != IntPtr.Zero )
+
+                try
                 {
-                    UnsafeNativeMethods.PostMessage(new HandleRef(null,hwnd), WindowMessage.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                    if(result != IntPtr.Zero)
+                    {
+                        UnsafeNativeMethods.PostMessage(new HandleRef(null,hwnd), WindowMessage.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                    }
+                }
+                catch(System.ComponentModel.Win32Exception e)
+                {
+                    // Similar to above, we throw an exception for debugging purposes.
+                    if (e.NativeErrorCode != 1400) // ERROR_INVALID_WINDOW_HANDLE
+                    {
+                        throw;
+                    }
                 }
             }
         }
