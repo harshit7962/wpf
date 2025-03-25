@@ -196,4 +196,49 @@ public class DataObjectTests
         data.GetData(key1.FullName!).Should().Be(data1);
         data.GetData(key2.FullName!).Should().Be(data2);
     }
+
+    [WpfFact]
+    public void SetData_StringObjectBool_Invoke_GetReturnsExpected()
+    {
+        string key = "key";
+        string testData = "test data";
+
+        DataObject data = new();
+
+        data.SetData(key, testData, true);
+        data.GetData(key).Should().Be(testData);
+    }
+
+    [WpfFact]
+    public void SetData_StringObjectBool_NullData_ThrowsArgumentNullException()
+    {
+        string key = "key";
+
+        DataObject data = new();
+
+        Action act = () => data.SetData(key, null, true);
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [WpfFact]
+    public void SetData_StringObjectBool_NullKey_ThrowsArgumentNullException()
+    {
+        string testData = "test data";
+
+        DataObject data = new();
+
+        Action act = () => data.SetData(null, testData, true);
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [WpfFact]
+    public void SetData_StringObjectBool_EmptyKey_ThrowsArgumentException()
+    {
+        string testData = "test data";
+
+        DataObject data = new();
+
+        Action act = () => data.SetData(string.Empty, testData, true);
+        act.Should().Throw<ArgumentException>();
+    }
 }
