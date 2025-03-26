@@ -34,6 +34,7 @@ namespace System.Windows
         private protected WindowBackdrop() { }
     }
 
+    // Add TabbedWindow, MainWindow, TransientWindow?
     public static class BackdropTypes
     {
         public static WindowBackdrop None { get; } = new NoneBackdrop();
@@ -45,8 +46,12 @@ namespace System.Windows
 
     public sealed class DesktopAcrylicBackdrop : WindowBackdrop { }
 
-    public sealed class MicaBackdrop : WindowBackdrop
+    public sealed class MicaBackdrop : WindowBackdrop, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        internal void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
         private MicaKind _kind = MicaKind.Base;
 
         public MicaKind Kind
@@ -54,8 +59,13 @@ namespace System.Windows
             get => _kind;
             set
             {
+                if(value != MicaKind.Alt && value != MicaKind.Base) 
+                {
+                    throw new ArgumentException(nameof(MicaKind));
+                }
+
                 _kind = value;
-                // TODO: Implement change in kind code logic
+                OnPropertyChanged(nameof(Kind));
             }
         }
     }
@@ -675,6 +685,22 @@ namespace System.Windows
                 }
 
                 SetValue(BackdropProperty, value);
+
+                if(value is MicaBackdrop micaBackdrop)
+                {
+                    micaBackdrop.PropertyChanged += OnMicaBackdropPropertyChanged;
+                }
+            }
+        }
+
+        private void OnMicaBackdropPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is MicaBackdrop micaBackdrop && e.PropertyName == nameof(MicaBackdrop.Kind))
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    UpdateBackdrop(this, micaBackdrop);
+                });
             }
         }
 
@@ -685,28 +711,38 @@ namespace System.Windows
 
         internal static void OnBackdropChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is not Window window)
-                return; // TODO: throw error here
+            if(e.NewValue is not WindowBackdrop newBackdrop || d is not Window window)
+            {
+                throw new InvalidOperationException();
+            }
 
-            if(window.Backdrop == BackdropTypes.None)
+            window.Dispatcher.Invoke(() =>
+            {
+                UpdateBackdrop(window, newBackdrop);
+            });            
+        }
+
+        private static void UpdateBackdrop(Window window, WindowBackdrop newBackdrop)
+        {
+            if (newBackdrop == BackdropTypes.None)
             {
                 WindowBackdropManager.SetBackdrop(window, WindowBackdropType.None);
             }
-            else if(window.Backdrop == BackdropTypes.Auto)
+            else if (newBackdrop == BackdropTypes.Auto)
             {
                 WindowBackdropManager.SetBackdrop(window, WindowBackdropType.Auto);
             }
-            else if (window.Backdrop is DesktopAcrylicBackdrop)
+            else if (newBackdrop is DesktopAcrylicBackdrop)
             {
                 WindowBackdropManager.SetBackdrop(window, WindowBackdropType.TransientWindow);
             }
-            else if (window.Backdrop is MicaBackdrop micaBackdrop)
+            else if (newBackdrop is MicaBackdrop micaBackdrop)
             {
-                if(micaBackdrop.Kind == MicaKind.Alt)
+                if (micaBackdrop.Kind == MicaKind.Alt)
                 {
                     WindowBackdropManager.SetBackdrop(window, WindowBackdropType.TabbedWindow);
                 }
-                else if(micaBackdrop.Kind == MicaKind.Base)
+                else if (micaBackdrop.Kind == MicaKind.Base)
                 {
                     WindowBackdropManager.SetBackdrop(window, WindowBackdropType.MainWindow);
                 }
