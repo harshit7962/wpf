@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="RedColor">#FFFF0000</Color>
+    <Color x:Key="GreenColor">#FF00FF00</Color>
+    <Color x:Key="BlueColor">#FF0000FF</Color>
+
+    <SolidColorBrush x:Key="RedBrush" Color="{DynamicResource RedColor}" />
+    <SolidColorBrush x:Key="GreenBrush" Color="{DynamicResource GreenColor}" />
+    <SolidColorBrush x:Key="BlueBrush" Color="{DynamicResource BlueColor}" />
+
+</ResourceDictionary>
