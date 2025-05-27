@@ -1,9 +1,10 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using Microsoft.Win32;
 using System.Windows.Appearance;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 
 namespace System.Windows;
 
@@ -28,18 +29,21 @@ internal static class ThemeManager
                 {
                     AddOrUpdateThemeResources(Application.Current.Resources, GetThemeDictionary(Application.Current.ThemeMode));
                 }
-                
-                foreach (Window window in Application.Current.Windows)
+
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    if (window.ThemeMode == ThemeMode.None)
+                    foreach (Window window in Application.Current.Windows)
                     {
-                        ApplyStyleOnWindow(window, useLightColors);
+                        if (window.ThemeMode == ThemeMode.None)
+                        {
+                            window.Dispatcher.Invoke(() => { ApplyStyleOnWindow(window, useLightColors); });
+                        }
+                        else
+                        {
+                            window.Dispatcher.Invoke(() => { ApplyFluentOnWindow(window); });
+                        }
                     }
-                    else
-                    {
-                        ApplyFluentOnWindow(window);
-                    }
-                }
+                });
 
                 s_currentFluentThemeState = newFluentThemeState;
             }
