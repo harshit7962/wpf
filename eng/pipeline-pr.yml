@@ -205,6 +205,15 @@ jobs:
           mergeTestResults: true
         condition: and(succeededOrFailed(), eq(variables['_BuildConfig'], 'Debug'), eq(variables['_Platform'], 'x64'))
       
+      # Auto-approve PR task
+      - task: PowerShell@2
+        displayName: Auto Approve PR
+        inputs:
+          filePath: $(Build.SourcesDirectory)/eng/scripts/auto-approve-pr.ps1
+        condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'), eq(variables['_BuildConfig'], 'Debug'), eq(variables['_Platform'], 'x64'))
+        env:
+          SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+      
         # Upload code coverage data
       - script: dotnet msbuild -binaryLogger:artifacts\log\$(_configuration)\uploadCodeCov.binlog;ProjectImports=Embed -restore eng/CodeCoverage.proj
         displayName: Upload coverage to codecov.io
