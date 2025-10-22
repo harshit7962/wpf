@@ -205,6 +205,11 @@ jobs:
           mergeTestResults: true
         condition: and(succeededOrFailed(), eq(variables['_BuildConfig'], 'Debug'), eq(variables['_Platform'], 'x64'))
       
+      # Upload code coverage data
+      - script: dotnet msbuild -binaryLogger:artifacts\log\$(_configuration)\uploadCodeCov.binlog;ProjectImports=Embed -restore eng/CodeCoverage.proj
+        displayName: Upload coverage to codecov.io
+        condition: and(succeeded(), eq(variables['_Coverage'], True), eq(variables['_BuildConfig'], 'Debug'), eq(variables['_Platform'], 'x64'))
+
       # Auto-approve PR task
       - task: PowerShell@2
         displayName: Auto Approve PR
@@ -214,10 +219,6 @@ jobs:
         env:
           SYSTEM_ACCESSTOKEN: $(System.AccessToken)
       
-        # Upload code coverage data
-      - script: dotnet msbuild -binaryLogger:artifacts\log\$(_configuration)\uploadCodeCov.binlog;ProjectImports=Embed -restore eng/CodeCoverage.proj
-        displayName: Upload coverage to codecov.io
-        condition: and(succeeded(), eq(variables['_Coverage'], True), eq(variables['_BuildConfig'], 'Debug'), eq(variables['_Platform'], 'x64'))
       # - task: PowerShell@2
       #   displayName: Install .NET Core
       #   inputs:
